@@ -4,10 +4,6 @@ export interface ILocationOnEarthSurface {
 }
 
 export interface IDanceEvent {
-
-}
-
-export interface IEvent {
     id: string
     title: string
     imageName: string
@@ -22,3 +18,4 @@ export interface IEvent {
     lat: number
     lon: number
 }
+

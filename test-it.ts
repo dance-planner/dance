@@ -1,16 +1,17 @@
 // import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
-// import { DancesProvider } from "https://raw.githubusercontent.com/dance-planner/dance/master/dancesprovider.ts"
-import { DancesProvider } from "./dancesprovider.ts"
+import { DancesProvider } from "https://raw.githubusercontent.com/dance-planner/dance/master/dancesprovider.ts"
+
 
 const result = DancesProvider.getAllDances()
-console.log(`Feel free to extend this list via pull requests ${result}`)
+console.log(`\nFeel free to extend this list via pull requests: \n${result}\n`)
 
 const heidelbergGeo = {
     latitude: 49.40768,
     longitude: 8.69079
 }
 
-const events = DancesProvider.getDanceEvents(heidelbergGeo, 20)
-console.log(`Dance Events ${JSON.stringify(events)}`)
+const radius = 18
+const events = DancesProvider.getDanceEvents(heidelbergGeo, radius)
+console.log(`\nDance Events in the radius of ${radius} kilometers: \n${JSON.stringify(events)}\n`)
 
 
