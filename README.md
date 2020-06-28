@@ -4,8 +4,7 @@
 
 ```
 
-// import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
-import { DancesProvider } from "https://raw.githubusercontent.com/dance-planner/dance/master/dancesprovider.ts"
+import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
 
 
 const result = DancesProvider.getAllDances()
@@ -25,8 +24,9 @@ console.log(`\nDance Events in the radius of ${radius} kilometers: \n${JSON.stri
 
 ## Test it via command line
 ```
-<!-- deno run --allow-net https://deno.land/x/dance/test-it.ts -->
-deno run --allow-net https://raw.githubusercontent.com/dance-planner/dance/master/test-it.ts
+
+deno run --allow-net https://deno.land/x/dance/test-it.ts
+
 ```
 
 ## Contributions are welcome

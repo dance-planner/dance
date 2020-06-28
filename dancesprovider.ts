@@ -1,10 +1,6 @@
-import { allDances } from 'https://raw.githubusercontent.com/dance-planner/dance/master/dances.ts'
-import { ILocationOnEarthSurface, IDanceEvent } from 'https://raw.githubusercontent.com/dance-planner/dance/master/interfaces.ts'
-import { danceEvents } from 'https://raw.githubusercontent.com/dance-planner/dance/master/danceevents.ts'
-
-// import { allDances } from 'https://deno.land/x/dance/dances.ts'
-// import { ILocationOnEarthSurface, IDanceEvent } from 'https://deno.land/x/dance/interfaces.ts'
-// import { danceEvents } from 'https://deno.land/x/dance/danceevents.ts'
+import { allDances } from 'https://deno.land/x/dance/dances.ts'
+import { ILocationOnEarthSurface, IDanceEvent } from 'https://deno.land/x/dance/interfaces.ts'
+import { danceEvents } from 'https://deno.land/x/dance/danceevents.ts'
 
 import { DistanceCalculator } from "https://deno.land/x/distancecalculator/distance-calculator.ts"
 

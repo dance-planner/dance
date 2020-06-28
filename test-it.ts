@@ -1,5 +1,4 @@
-// import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
-import { DancesProvider } from "https://raw.githubusercontent.com/dance-planner/dance/master/dancesprovider.ts"
+import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
 
 
 const result = DancesProvider.getAllDances()
