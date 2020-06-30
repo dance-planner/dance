@@ -1,4 +1,4 @@
-import { allDances } from 'https://deno.land/x/dance/dances.ts'
+import { allDances, danceInManyLanguages } from 'https://deno.land/x/dance/dances.ts'
 import { ILocationOnEarthSurface, IDanceEvent } from 'https://deno.land/x/dance/interfaces.ts'
 import { danceEvents } from 'https://deno.land/x/dance/danceevents.ts'
 
@@ -16,6 +16,14 @@ export class DancesProvider {
             return this.filterByRadius(danceEvents, location, radiusInKm)
         }
         return []
+    }
+
+    public static getAllDanceEvents(): IDanceEvent[] {
+        return danceEvents
+    }
+
+    public static getDanceInLanguage(countryCode: string): string {
+        return danceInManyLanguages.filter((entry) => entry.countryCode === countryCode.toLowerCase()).dancing
     }
 
     private static filterByRadius(danceEvents: IDanceEvent[], location: ILocationOnEarthSurface, radiusInKm: number) {

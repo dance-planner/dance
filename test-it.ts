@@ -14,3 +14,6 @@ const events = DancesProvider.getDanceEvents(heidelbergGeo, radius)
 console.log(`\nDance Events in the radius of ${radius} kilometers: \n${JSON.stringify(events)}\n`)
 
 
+const danceInLanguage = DancesProvider.getDanceInLanguage('DE')
+console.log(`\nThe country specific word for dance is ${danceInLanguage}.\n`)
+

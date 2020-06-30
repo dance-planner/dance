@@ -19,3 +19,7 @@ export interface IDanceEvent {
     lon: number
 }
 
+export interface IDancing {
+    countryCode: string
+    dancing: string
+}
