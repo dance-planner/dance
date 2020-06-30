@@ -23,7 +23,7 @@ export class DancesProvider {
     }
 
     public static getDanceInLanguage(countryCode: string): string {
-        return danceInManyLanguages.filter((entry) => entry.countryCode === countryCode.toLowerCase()).dancing
+        return danceInManyLanguages.filter((entry) => entry.countryCode === countryCode.toLowerCase())[0].dancing
     }
 
     private static filterByRadius(danceEvents: IDanceEvent[], location: ILocationOnEarthSurface, radiusInKm: number) {
