@@ -34,3 +34,6 @@ Feel free to create a pull request if you would like to improve things.
 
 ## Background to this module
 I developed the Dance Planner - https://dance-planner.org/ and I want to prepare its way into the deno.land :) 
+
+## Link to this third party module at deno
+https://deno.land/x/dance

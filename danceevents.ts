@@ -2,7 +2,7 @@ export const danceEvents = [
     {
         id: '18568455555555',
         title: 'Bachata & Salsa Party',
-        imageName: '',
+        imageName: 'the-event.jpg',
         dances: 'Bachata, Salsa',
         countryCode: 'de',
         city: 'Heidelberg',
