@@ -1,4 +1,5 @@
 import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
+// import { DancesProvider } from "./dancesprovider.ts"
 
 
 const result = DancesProvider.getAllDances()
@@ -10,7 +11,7 @@ const heidelbergGeo = {
 }
 
 const radius = 18
-const events = DancesProvider.getDanceEvents(heidelbergGeo, radius)
+const events = await DancesProvider.getDanceEvents(heidelbergGeo, radius)
 console.log(`\nDance Events in the radius of ${radius} kilometers: \n${JSON.stringify(events)}\n`)
 
 
