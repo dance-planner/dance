@@ -16,7 +16,7 @@ export class DancesProvider {
             const danceEvents: IDanceEvent[] =
                 JSON.parse(DancesProvider.decoder.decode(await Deno.readFile(`${Deno.cwd()}/events/events-created-via-bot.json`)))
             const filteredEvents = this.filterByRadius(danceEvents, location, radiusInKm)
-            console.log(filteredEvents.length)
+            // console.log(filteredEvents.length)
 
             return filteredEvents
         }
@@ -38,7 +38,7 @@ export class DancesProvider {
         return danceEvents.filter((danceEvent: IDanceEvent) => {
             const distanceInKilometers =
                 DistanceCalculator.getDistanceInKilometers(location.latitude, location.longitude, danceEvent.lat, danceEvent.lon)
-            console.log(distanceInKilometers)
+            // console.log(distanceInKilometers)
             if (distanceInKilometers <= radiusInKm) {
                 return true
             }

@@ -25,7 +25,7 @@ console.log(`\nDance Events in the radius of ${radius} kilometers: \n${JSON.stri
 ## Test it via command line
 ```
 
-deno run --allow-net --allow-read https://deno.land/x/dance/test-it.ts
+deno run --allow-net --allow-read --reload https://deno.land/x/dance/test-it.ts
 
 ```
 
