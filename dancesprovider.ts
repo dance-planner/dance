@@ -5,7 +5,8 @@ import axiod from "https://deno.land/x/axiod/mod.ts"
 
 export class DancesProvider {
 
-    private static readonly decoder = new TextDecoder('utf-8')
+    private static readonly url = "https://raw.githubusercontent.com/dance-planner/dance/master/events/events-created-via-bot.json"
+
     public static getAllDances(): any[] {
         return allDances
     }
@@ -13,8 +14,7 @@ export class DancesProvider {
     public static async getDanceEvents(location: ILocationOnEarthSurface, radiusInKm: number, sourceURL?: string): Promise<IDanceEvent[]> {
 
         if (sourceURL === undefined) {
-            const url = "https://raw.githubusercontent.com/dance-planner/dance/master/events/events-created-via-bot.json"
-            const danceEvents = (await axiod.get(url)).data
+            const danceEvents = (await axiod.get(DancesProvider.url)).data
             const filteredEvents = this.filterByRadius(danceEvents, location, radiusInKm)
 
             return filteredEvents
@@ -23,9 +23,8 @@ export class DancesProvider {
     }
 
     public static async getAllDanceEvents(): Promise<IDanceEvent[]> {
-        const decoder = new TextDecoder('utf-8')
-        const danceEvents: IDanceEvent[] = JSON.parse(decoder.decode(await Deno.readFile(`${Deno.cwd()}/events/events-created-via-bot.json`)))
-
+        const danceEvents = (await axiod.get(DancesProvider.url)).data
+        
         return danceEvents
     }
 
