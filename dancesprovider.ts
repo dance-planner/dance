@@ -1,7 +1,7 @@
 import { allDances, danceInManyLanguages } from 'https://deno.land/x/dance/dances.ts'
 import { ILocationOnEarthSurface, IDanceEvent } from 'https://deno.land/x/dance/interfaces.ts'
 import { DistanceCalculator } from "https://deno.land/x/distancecalculator/distance-calculator.ts"
-
+import axiod from "https://deno.land/x/axiod/mod.ts"
 
 export class DancesProvider {
 
@@ -13,10 +13,9 @@ export class DancesProvider {
     public static async getDanceEvents(location: ILocationOnEarthSurface, radiusInKm: number, sourceURL?: string): Promise<IDanceEvent[]> {
 
         if (sourceURL === undefined) {
-            const danceEvents: IDanceEvent[] =
-                JSON.parse(DancesProvider.decoder.decode(await Deno.readFile(`${Deno.cwd()}/events/events-created-via-bot.json`)))
+            const url = "https://raw.githubusercontent.com/dance-planner/dance/master/events/events-created-via-bot.json"
+            const danceEvents = (await axiod.get(url)).data
             const filteredEvents = this.filterByRadius(danceEvents, location, radiusInKm)
-            // console.log(filteredEvents.length)
 
             return filteredEvents
         }

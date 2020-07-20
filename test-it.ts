@@ -1,4 +1,5 @@
 import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
+// import { DancesProvider } from "./dancesprovider.ts"
 
 
 const result = DancesProvider.getAllDances()
