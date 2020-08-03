@@ -1,5 +1,8 @@
 # Dance Module
 
+<img src="https://github.com/dance-planner/dance/blob/master/dance-planner-images/logo.png?raw=true" alt="drawing" width="100"/>
+
+
 ## Usage example for your code
 
 ```
