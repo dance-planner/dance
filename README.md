@@ -4,7 +4,7 @@
 
 ```
 
-import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
+import { DancesProvider } from "https://deno.land/x/dance@1.1.0/dancesprovider.ts"
 
 
 const result = DancesProvider.getAllDances()
@@ -25,7 +25,7 @@ console.log(`\nDance Events in the radius of ${radius} kilometers: \n${JSON.stri
 ## Test it via command line
 ```
 
-deno run --allow-net --allow-read --reload https://deno.land/x/dance/test-it.ts
+deno run --allow-net --allow-read --reload https://deno.land/x/dance@1.1.0/test-it.ts
 
 ```
 

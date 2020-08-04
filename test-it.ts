@@ -1,4 +1,4 @@
-import { DancesProvider } from "https://deno.land/x/dance/dancesprovider.ts"
+import { DancesProvider } from "https://deno.land/x/dance@1.1.0/dancesprovider.ts"
 // import { DancesProvider } from "./dancesprovider.ts"
 
 

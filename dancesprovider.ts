@@ -1,7 +1,7 @@
-import { allDances, danceInManyLanguages } from 'https://deno.land/x/dance/dances.ts'
-import { ILocationOnEarthSurface, IDanceEvent } from 'https://deno.land/x/dance/interfaces.ts'
+import { allDances, danceInManyLanguages } from 'https://deno.land/x/dance@1.1.0/dances.ts'
+import { ILocationOnEarthSurface, IDanceEvent } from 'https://deno.land/x/dance@1.1.0/interfaces.ts'
 import { DistanceCalculator } from "https://deno.land/x/distancecalculator/distance-calculator.ts"
-import axiod from "https://deno.land/x/axiod/mod.ts"
+import { Request } from "https://deno.land/x/request@1.1.0/request.ts"
 
 export class DancesProvider {
 
@@ -14,7 +14,7 @@ export class DancesProvider {
     public static async getDanceEvents(location: ILocationOnEarthSurface, radiusInKm: number, sourceURL?: string): Promise<IDanceEvent[]> {
 
         if (sourceURL === undefined) {
-            const danceEvents = (await axiod.get(DancesProvider.url)).data
+            const danceEvents = await Request.get(DancesProvider.url)
             const filteredEvents = this.filterByRadius(danceEvents, location, radiusInKm)
 
             return filteredEvents
@@ -23,7 +23,7 @@ export class DancesProvider {
     }
 
     public static async getAllDanceEvents(): Promise<IDanceEvent[]> {
-        const danceEvents = (await axiod.get(DancesProvider.url)).data
+        const danceEvents = await Request.get(DancesProvider.url)
         
         return danceEvents
     }
