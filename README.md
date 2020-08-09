@@ -1,6 +1,8 @@
-# Dance Module
 
-<img src="https://github.com/dance-planner/dance/blob/master/dance-planner-images/logo.png?raw=true" alt="drawing" width="100"/>
+# Dance
+
+![](https://github.com/dance-planner/dance/blob/master/dance-planner-images/logo.png?raw=true)
+<!-- <img src="https://github.com/dance-planner/dance/blob/master/dance-planner-images/logo.png?raw=true" alt="drawing" width="100"/> -->
 
 
 ## Usage example for your code
@@ -40,3 +42,9 @@ I developed the Dance Planner - https://dance-planner.org/ and I want to prepare
 
 ## Link to this third party module at deno
 https://deno.land/x/dance
+
+## Support my Open Source Contributions  
+
+If you like my work please consider downloading the brave browser via my promotion link: [https://brave.com/fan464](https://brave.com/fan464).  
+
+![![](https://brave.com/)](https://brave.com/wp-content/uploads/2019/01/logotype-full-color.svg)
