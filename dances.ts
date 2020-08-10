@@ -95,6 +95,7 @@ export const allDances = [
     'Quickstep',
     'Waltz',
     'Wiener Walzer',
+    'Western',
     'Workshop Latino',
     'Yogadance',
     'Zumba',
