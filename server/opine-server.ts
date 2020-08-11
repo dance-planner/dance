@@ -1,5 +1,5 @@
 import { opine, serveStatic } from "https://deno.land/x/opine@0.20.2/mod.ts";
-import { httpPort, httpsPort } from '../topsecret/.env.ts'
+import { httpPort, httpsPort } from './topsecret/.env.ts'
 import * as log from "https://deno.land/std/log/mod.ts";
 import { CommandLineProcessor } from "https://deno.land/x/commandline_processor/commandline-processor.ts"
 import { green } from 'https://deno.land/std@0.53.0/fmt/colors.ts'
