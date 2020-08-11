@@ -1,0 +1,90 @@
+<div class="cardDivStyle">
+
+  <div (click)="clickCard()">
+
+    <h3 class="title myRed">
+      {{card.title}}
+    </h3>
+    <br>
+    <p class="myBlue">{{getTimeInfo()}} {{card.date}} </p>
+    in {{card.city}}
+    <p></p>
+
+    <img [attr.src]="getImagePath()" alt="No Image Uploaded">
+  </div>
+
+  <div *ngIf="detailLevel>0 || shareMode" class="cardDetailsStyling">
+    <p>
+      {{card.details}}
+    </p>
+
+    <div class="buttonDivNew">
+      <table style="width: 96%; margin-left: auto; margin-right: auto;">
+        <tr>
+          <td>
+            <button class="myRed" (click)="copyText(card.eventID)" style="width: 100%;">
+              <i class="fa fa-copy" aria-hidden="true" style="padding-right: 0.1vw;"></i>
+              Invite Friends
+              <i class="fa fa-copy" aria-hidden="true" style="padding-left: 0.1vw;"></i>
+            </button>
+            <div *ngIf="card.linkToThisItem.length>5" id="{{card.eventID}}" style="display: none">
+              {{card.linkToThisItem}}
+            </div>
+          </td>
+
+          <td>
+            <button class="myBlue" (click)="clickDetails()" style="width: 100%;">
+              <i class="fa fa-wpexplorer" aria-hidden="true" style="padding-right: 0.1vw;"></i>
+              Details
+              <i class="fa fa-wpexplorer" aria-hidden="true" style="padding-left: 0.1vw;"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngIf="detailLevel>1" style="margin-top: 4vh;">
+        <a target="_blank" href="{{getLinkToPartners()}}">
+          <button class="myRed" style="width: 96%;">
+            <i class="fa fa-heart" aria-hidden="true" style="padding-right: 1vw;"></i>
+            Find Dance Partners
+            <i class="fa fa-heart" aria-hidden="true" style="padding-left: 1vw;"></i>
+          </button>
+        </a>
+        <p></p>
+        <a target="_blank" href="{{getLinkToTutorials()}}">
+          <button class="myBlue" style="width: 96%;">
+            <i class="fa fa-star" aria-hidden="true" style="padding-right: 1vw;"></i>
+            Find Tutorials
+            <i class="fa fa-star" aria-hidden="true" style="padding-left: 1vw;"></i>
+          </button>
+        </a>
+        <p></p>
+        <a target="_blank" href="{{getLinkToDrivers()}}">
+          <button class="myRed" style="width: 96%;">
+            <i class="fa fa-taxi" aria-hidden="true" style="padding-right: 1vw;"></i>
+            Find a Driver
+            <i class="fa fa-taxi" aria-hidden="true" style="padding-left: 1vw;"></i>
+          </button>
+        </a>
+        <p></p>
+        <a target="_blank" href="{{ card.linkToFurtherInfo }}">
+          <button class="myBlue" style="width: 96%;">
+            <i class="fa fa-facebook-official" aria-hidden="true" style="padding-right: 1vw;"></i>
+            Check it on Facebook
+            <i class="fa fa-facebook-official" aria-hidden="true" style="padding-left: 1vw;"></i>
+          </button>
+        </a>
+        <p></p>
+        <a target="_blank" href="https://t.me/DancePlanner">
+          <button class="myRed" style="width: 96%;">
+            <i class="fa fa-trash" aria-hidden="true" style="padding-right: 1vw;"></i>
+            Report This Event
+            <i class="fa fa-trash" aria-hidden="true" style="padding-left: 1vw;"></i>
+          </button>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,35 @@
+
+
+.cardDivStyle {
+  margin-top: 4vh;
+  padding-top: 6vh;
+  padding-bottom: 2vh;
+  margin-bottom: 20vh;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 97%;
+  border: solid #000;
+  text-align: center;
+  background-color: inherit;
+  color: rgb(213,54,84)
+}
+
+img {
+  max-width: 98%;
+}
+
+.title {
+  font-size: 20px;
+  max-width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+textarea  {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3vh;
+  border: solid black;
+}

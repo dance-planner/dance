@@ -1,0 +1,204 @@
+.myStyleLink {
+  text-decoration: none;
+  color: rgb(93, 188, 210);
+}
+
+
+.intro {
+  /* padding-top: 40vh; */
+  position: relative;
+  /* animation: mymove 2s infinite; */
+  padding-top: 22vh;
+  animation: heartbeat 2s infinite;
+}
+
+@keyframes mymove {
+  from {
+    top: 0px;
+  }
+  to {
+    top: 350px;
+  }
+}
+
+@keyframes heartbeat
+{
+  0%
+  {
+    transform: scale( .75 );
+  }
+  7%
+  {
+    transform: scale( 1 );
+  }
+  14%
+  {
+    transform: scale( .75 );
+  }
+  21%
+  {
+    transform: scale( 1 );
+  }
+  30%
+  {
+    transform: scale( .75 );
+  }
+  100%
+  {
+    transform: scale( .75 );
+  }
+}
+
+.myBlue {
+  color: rgb(93, 188, 210);
+}
+
+.myRed {
+  color: rgb(213, 54, 84);
+}
+
+.adPad2 {
+  padding-top: 2vh;
+}
+
+.adPad {
+  padding-top: 6vh;
+}
+
+.biggerFont{
+  font-size: 19px;
+}
+
+a.nostyle:link {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+
+a.nostyle:hover {
+  cursor: pointer;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+
+button {
+  /* width: 90%; */
+  height: 2em;
+  /* color: rgb(93,188, 210); */
+  /* background-color: rgb(213,54,84); */
+  background-color: black;
+  /* background-color: #5DBCD2; */
+  /* background-color: rgb(213,54,84); */
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 18px;
+  min-height: 3em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  text-align: center;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+  font-size: 18px;
+  min-height: 3em;
+  background-color: #000;
+  text-align: center;
+  /* color: rgb(213,54,84) */
+  color: rgb(93, 188, 210);
+}
+.buttonDiv {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.typeaheadDiv {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+    margin-left: auto;
+  margin-right: auto;
+  z-index: 99;
+}
+
+.sliderDiv {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cardsDiv {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contentContainer{
+margin-bottom: 5vh;
+padding-bottom: 5vh;
+}
+
+.contentScreen {
+  text-align: center;
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 92%;
+}
+
+.introImage {
+  width: 50%
+}
+
+@media screen and (min-width: 600px) {
+  .contentScreen {
+    width: 60%;
+  }
+
+  .cardsDiv  {
+    width: 60%;
+  }
+
+}
+
+@media screen and (min-width: 1100px) {
+  .contentScreen  {
+    width: 40%;
+  }
+
+  .cardsDiv  {
+    width: 40%;
+  }
+
+  .introImage {
+    width: 20%
+  }
+
+}
+
+@media screen and (min-width: 1400px) {
+  .contentScreen {
+    width: 30%;
+  }
+
+  .cardsDiv  {
+    width: 30%;
+  }
+
+  .introImage {
+    width: 10%
+  }
+}

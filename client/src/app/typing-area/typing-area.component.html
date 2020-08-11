@@ -1,0 +1,20 @@
+
+<div *ngFor="let message of messagesAfterTyping" [ngClass]="{'left': (message.fromChatBot), 'right': (!message.fromChatBot)}">
+  <span *ngIf='(message.text.indexOf("https://") === -1 && message.text.indexOf("http://") === -1)'>
+    {{message.text}}
+  </span>
+  <span *ngIf='!(message.text.indexOf("https://") === -1)'>
+    {{message.text.substring(0, message.text.indexOf("https://"))}}
+    <br>
+    <a href='{{message.text.substring(message.text.indexOf("https://"), message.text.length)}}' target="_blank">
+      {{message.text.substring(message.text.indexOf("https://"), message.text.length)}}</a>
+  </span>
+  <span *ngIf='!(message.text.indexOf("http://") === -1)'>
+    {{message.text.substring(0, message.text.indexOf("http://"))}}
+    <br>
+    <a href='{{message.text.substring(message.text.indexOf("http://"), message.text.length)}}' target="_blank">
+      {{message.text.substring(message.text.indexOf("http://"), message.text.length)}}</a>
+  </span>
+
+</div>
+<p id="typeWriter" [ngClass]="'left'"></p>

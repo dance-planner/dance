@@ -1,0 +1,14 @@
+
+
+
+<div class="myRed" style="font-size: 20px;">
+  {{ cityName }} and nearby until
+  <!-- <span class="myBlue"> -->
+    {{ currentRange }}
+    km
+  <!-- </span> -->
+</div>
+<p></p>
+
+<input type="range" min="{{minimumRange}}" max="{{ maximumRange }}" class="slider" [(ngModel)]="currentRange"
+(change)="handleChange()" style="min-height: 2em; background-color: black;" />

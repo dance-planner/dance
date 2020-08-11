@@ -1,0 +1,59 @@
+{
+  "extends": "tslint:all",
+  "rules": {
+      "semicolon": [
+          true,
+          "never"
+      ],
+      "no-parameter-properties": false,
+      "member-ordering": [
+          true,
+          {
+              "order": [
+                  "public-static-field",
+                  "private-static-field",
+                  "public-instance-field",
+                  "private-instance-field",
+                  "public-constructor",
+                  "private-constructor",
+                  "public-instance-method",
+                  "protected-instance-method",
+                  "private-instance-method"
+              ]
+          }
+      ],
+      "comment-format": false,
+      "typeof-compare": false,
+      "object-literal-sort-keys": false,
+      "max-line-length": [
+          true,
+          500
+      ],
+      "strict-comparison": false,
+      "prefer-function-over-method": false,
+      "no-unsafe-any": false,
+      "no-var-requires": false,
+      "no-require-imports": false,
+      "quotemark": [
+          true,
+          "single"
+      ],
+      "no-any": false,
+      "no-magic-numbers": false,
+      "file-name-casing": [
+          true,
+          "kebab-case"
+      ],
+      "completed-docs": false,
+      "typedef": false,
+      "no-submodule-imports": false,
+      "no-console": false,
+      "prefer-switch": false,
+      "newline-per-chained-call": false,
+      "ordered-imports":false,
+      "no-import-side-effect": false,
+      "strict-comparisons": false,
+      "only-arrow-functions": false,
+      "no-null-keyword": false
+  }
+}

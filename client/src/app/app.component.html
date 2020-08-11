@@ -1,0 +1,77 @@
+<div class="contentContainer">
+  <div *ngIf="!loaded" style="text-align: center; margin-left: auto; margin-right: auto">
+    <div style="text-align: center; margin-left: auto; margin-right: auto;background-color: black; height:100vh">
+
+      <div style="min-height: 100%;">
+
+        <div class="intro">
+          <img src="https://github.com/dance-planner/dance/raw/master/dance-planner-images/logo.png?raw=true" alt="" class="introImage">
+          <!-- <h1 class="myRed">Dance</h1>
+          <h2 class="myBlue">Planner</h2 > -->
+        </div>
+      </div>
+    </div>
+    <p><br></p>
+  </div>
+
+  <div *ngIf="loaded">
+
+    <app-navbar [navBarData]="md.navBarData" (clickMenuEntry)="onClickMenuEntry($event)"></app-navbar>
+    <!-- <cdk-virtual-scroll-viewport itemSize="1000" [ngStyle]="{'height.px': 10000}" style="scrollbar-width: 0px; "> -->
+
+    <div class="contentScreen">
+      <span id="findEvents" *ngIf="view==='find'">
+        <div class="typeaheadDiv">
+          <app-typeahead id="dances" [placeHolder]="md.placeHolder" [items]="md.danceStyles"
+                         [selectedItem]="md.selectedDanceStyle" (itemSelected)="onDanceStyleSelected($event)"
+                         [domain]="'dances'">
+          </app-typeahead>
+        </div>
+
+        <div class="typeaheadDiv">
+          <app-typeahead id="cities" [placeHolder]="md.placeHolder" [items]="md.formattedCities"
+                         [selectedItem]="md.selectedCity" [useCustomTemplate]="'true'"
+                         (itemSelected)="onCitySelected($event)" [domain]="'cities'">
+          </app-typeahead>
+        </div>
+
+        <div class="sliderDiv">
+          <app-range (setValue)="handleRangeSetting($event)" [cityName]=city.name [currentRange]="currentRange"
+                     [maximumRange]="maximumRange" [minimumRange]="minimumRange"></app-range>
+        </div>
+
+
+        <div *ngIf="md.cards.length===0" class="cardsDiv">
+          No events found in this range. <p></p>
+          <img src="../assets/gifs/sad.gif" alt="" style="max-width: 90%;">
+          <p></p>
+          You can encourage dance teachers and hosts to publish their events here.
+        </div>
+      </span>
+
+      <section id="contact" *ngIf="view==='contact'">
+        <app-contact></app-contact>
+      </section>
+
+    </div>
+
+    <div class="cardsDiv" *ngIf="md.cards.length>0 && view==='find'">
+      <!-- <div *cdkVirtualFor="let card of md.cards"> -->
+      <div *ngFor="let card of md.cards.slice(0, 7)">
+        <app-card [card]="card" [jwt]="apiKey"></app-card>
+      </div>
+
+
+      <span *ngIf="scrollPosition>1700">
+        <div *ngFor="let card of md.cards.slice(7, md.cards.length)">
+
+          <app-card [card]="card"></app-card>
+        </div>
+      </span>
+
+    </div>
+
+
+    <!-- </cdk-virtual-scroll-viewport> -->
+  </div>
+</div>
