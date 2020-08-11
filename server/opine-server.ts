@@ -11,6 +11,7 @@ import { CityService } from 'https://deno.land/x/cities/cityservice.ts'
 regularlyGetTheLatestFancyShit()
 const app = opine();
 const mainStaticAssetsPath = useStaticAssets(app)
+log.warning(mainStaticAssetsPath)
 const html = await readPageToMainMemory(mainStaticAssetsPath)
 defineMiddleWare(app)
 defineRoutes(app, html)
