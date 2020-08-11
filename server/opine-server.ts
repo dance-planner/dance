@@ -20,6 +20,8 @@ startListening()
 // Details
 function startListening() {
 
+  console.log(httpPort)
+  console.log(httpsPort)
   if (httpPort > 0) {
     console.log(`${green(`listening on http port ${httpPort}`)}`)
     app.listen(httpPort)
