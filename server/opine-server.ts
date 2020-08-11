@@ -32,7 +32,7 @@ function startListening() {
     log.error('ok')
     console.log(`${green(`listening on https port ${httpsPort}`)}`)
     const httpsOptions = {
-      hostname: "localhost",
+      hostname: "https://danceplanner.org",
       port: 443,
       certFile: '/etc/letsencrypt/live/danceplanner.org/cert.pem',
       keyFile: '/etc/letsencrypt/live/danceplanner.org/privkey.pem',
