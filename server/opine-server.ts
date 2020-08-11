@@ -1,5 +1,5 @@
 import { opine, serveStatic } from "https://deno.land/x/opine@0.20.2/mod.ts";
-import { httpPort, httpsPort } from '../.env.ts'
+import { httpPort, httpsPort } from '../topsecret/.env.ts'
 import * as log from "https://deno.land/std/log/mod.ts";
 import { CommandLineProcessor } from "https://deno.land/x/commandline_processor/commandline-processor.ts"
 import { green } from 'https://deno.land/std@0.53.0/fmt/colors.ts'
@@ -8,7 +8,7 @@ import { CityService } from 'https://deno.land/x/cities/cityservice.ts'
 
 
 // Masterplan
-regularlyGetTheLatestFancyShit() 
+regularlyGetTheLatestFancyShit()
 const app = opine();
 const mainStaticAssetsPath = useStaticAssets(app)
 const html = await readPageToMainMemory(mainStaticAssetsPath)
@@ -25,16 +25,18 @@ function startListening() {
     app.listen(httpPort)
   }
 
-  // if (httpsPort > 0) {
-  //   console.log('starting https')
-  //   console.log(`${green(`listening on port ${httpsPort}`)}`)
-  //   app.listen({
-  //     port: httpsPort,
-  //     secure: true,
-  //     certFile: '/etc/letsencrypt/live/danceplanner.org/cert.pem',
-  //     keyFile: '/etc/letsencrypt/live/danceplanner.org/privkey.pem',
-  //   })
-  // }
+  if (httpsPort > 0) {
+    log.error('ok')
+    // console.log('starting https')
+    // console.log(`${green(`listening on port ${httpsPort}`)}`)
+    // const httpsOptions = {
+    //   hostname: "localhost",
+    //   port: 443,
+    //   certFile: '/etc/letsencrypt/live/danceplanner.org/cert.pem',
+    //   keyFile: '/etc/letsencrypt/live/danceplanner.org/privkey.pem',
+    // }
+    // app.listen(httpsPort, httpsOptions)
+  }
 }
 
 let forwarded = false

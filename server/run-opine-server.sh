@@ -1,1 +1,1 @@
-deno run --allow-run --allow-read --allow-net src/the-opine-server.ts
+deno run --allow-run --allow-read --allow-net server/opine-server.ts
