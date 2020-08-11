@@ -30,15 +30,14 @@ function startListening() {
 
   if (httpsPort > 0) {
     log.error('ok')
-    // console.log('starting https')
-    // console.log(`${green(`listening on port ${httpsPort}`)}`)
-    // const httpsOptions = {
-    //   hostname: "localhost",
-    //   port: 443,
-    //   certFile: '/etc/letsencrypt/live/danceplanner.org/cert.pem',
-    //   keyFile: '/etc/letsencrypt/live/danceplanner.org/privkey.pem',
-    // }
-    // app.listen(httpsPort, httpsOptions)
+    console.log(`${green(`listening on https port ${httpsPort}`)}`)
+    const httpsOptions = {
+      hostname: "localhost",
+      port: 443,
+      certFile: '/etc/letsencrypt/live/danceplanner.org/cert.pem',
+      keyFile: '/etc/letsencrypt/live/danceplanner.org/privkey.pem',
+    }
+    app.listen(httpsPort, httpsOptions)
   }
 }
 
