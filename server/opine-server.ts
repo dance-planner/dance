@@ -63,7 +63,7 @@ function defineRoutes(app: any, html: string) {
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {
-    res.send(JSON.parse(await Persistence.readFromLocalFile(`${`${Deno.cwd()}/dance`}/events/events.json`)));
+    res.send(JSON.parse(await Persistence.readFromLocalFile(`${Deno.cwd()}/events/events.json`)));
   });
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
@@ -81,7 +81,7 @@ function defineRoutes(app: any, html: string) {
   });
 
   app.get('/community/getTelegramGroups/key/:key', async (req: any, res: any) => {
-    res.send(JSON.parse(await Persistence.readFromLocalFile(`${`${Deno.cwd()}/dance`}/groups/telegram.json`)));
+    res.send(JSON.parse(await Persistence.readFromLocalFile(`${Deno.cwd()}/groups/telegram.json`)));
   });
 
 }
