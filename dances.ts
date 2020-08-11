@@ -52,6 +52,7 @@ export const allDances = [
     'Indie',
     'Inner Dance',
     'Irish Dance',
+    'Jaw',
     'Jazz Dance',
     'Jive',
     'Kizomba',
