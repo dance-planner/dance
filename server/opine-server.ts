@@ -37,7 +37,7 @@ function startListening() {
       certFile: '/etc/letsencrypt/live/danceplanner.org/cert.pem',
       keyFile: '/etc/letsencrypt/live/danceplanner.org/privkey.pem',
     }
-    app.listen(httpsPort, httpsOptions)
+    app.listen(httpsOptions)
   }
 }
 
