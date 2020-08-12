@@ -1,5 +1,6 @@
 import { Persistence } from "https://deno.land/x/persistence@1.1.0/persistence.ts"
 import * as log from "https://deno.land/std/log/mod.ts";
+import { Utilities } from "../utilities.ts";
 
 await correctEventLists()
 
@@ -14,13 +15,19 @@ async function correctEventLists(){
     const events = JSON.parse(await Persistence.readFromLocalFile(fileIdEvents))
     log.info(`number of events before: ${events.length}`)
     
+    const nextDates = Utilities.getNextXDates(100000)
+    log.warning(nextDates.length)
     let correctedEvents: any = []
     for (const event of events) {
-        // space for potential corrections
-        correctedEvents.push(event)
+        if (nextDates.includes(event.startDate)){
+            // space for potential corrections
+            correctedEvents.push(event)
+        } else {
+            console.log(event.startDate)
+        }
     }
     
-    log.info(`number of events after: ${events.length}`)
+    log.info(`number of events after: ${correctedEvents.length}`)
     await Persistence.saveToLocalFile(fileIdEvents, JSON.stringify(correctedEvents))
 }
 
