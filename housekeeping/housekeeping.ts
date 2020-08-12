@@ -18,7 +18,7 @@ async function correctEventLists(){
     
     let yesterday = new Date();
     yesterday.setDate(new Date().getDate() - 1);
-    const yesterdayString = Utilities.getId(yesterday)
+    const yesterdayString = Utilities.getIt(yesterday)
     const validDates = [yesterdayString].concat(Utilities.getNextXDates(100000))
 
     log.warning(validDates.length)
@@ -30,18 +30,20 @@ async function correctEventLists(){
     for (const event of events) {
         if (reports.includes(event.id)) {
             let reportedEvents = JSON.parse(await Persistence.readFromLocalFile(fileIdReportedEvents))
-            log.warning(`number of reportedEvents: ${reports.length}`)
+            log.warning(`number of reportedEvents before: ${reportedEvents.length}`)
             reportedEvents.push(event)
             await Persistence.saveToLocalFile(fileIdReportedEvents, JSON.stringify(reportedEvents))
-        }
-        if (validDates.includes(event.startDate)){
+            log.info(`number of reported events after: ${reportedEvents.length}`)
+        } else if (validDates.includes(event.startDate)){
             // space for potential corrections
             correctedEvents.push(event)
         } else {
             const archivedEvents = JSON.parse(await Persistence.readFromLocalFile(fileIdArchivedEvents))
+            log.info(`number of archived events before: ${archivedEvents.length}`)
             archivedEvents.push(event)
             log.warning(`archiving event with startDate: ${event.startDate}`)
             await Persistence.saveToLocalFile(fileIdArchivedEvents, JSON.stringify(archivedEvents))
+            log.info(`number of archived events after: ${archivedEvents.length}`)
         }
     }
     
