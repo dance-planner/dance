@@ -1,5 +1,5 @@
 import { opine, serveStatic } from "https://deno.land/x/opine@0.20.2/mod.ts";
-import { httpPort, httpsPort } from './../topsecret/.env.ts'
+import { httpPort, httpsPort, pathToCert, pathToCertKey } from './../topsecret/.env.ts'
 import * as log from "https://deno.land/std/log/mod.ts";
 import { CommandLineProcessor } from "https://deno.land/x/commandline_processor/commandline-processor.ts"
 import { green } from 'https://deno.land/std@0.53.0/fmt/colors.ts'
@@ -33,8 +33,8 @@ function startListening() {
     console.log(`${green(`listening on https port ${httpsPort}`)}`)
     const httpsOptions = {
       port: 443,
-      certFile: '/etc/letsencrypt/live/danceplanner.org/cert.pem',
-      keyFile: '/etc/letsencrypt/live/danceplanner.org/privkey.pem',
+      certFile: pathToCert,
+      keyFile: pathToCertKey,
     }
     app.listen(httpsOptions)
   }
@@ -118,7 +118,7 @@ function useStaticAssets(app: any): string {
 
 function regularlyGetTheLatestFancyShit() {
   setInterval(async () => {
-    const commandToBeExecuted = `./pull-dance.sh`
+    const commandToBeExecuted = `./../topsecret/pull.sh`
     // const commandToBeExecuted = `ls`
     try {
       log.error(await CommandLineProcessor.process(commandToBeExecuted))
