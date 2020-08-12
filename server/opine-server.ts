@@ -8,30 +8,29 @@ import { CityService } from 'https://deno.land/x/cities/cityservice.ts'
 import { simpleCors } from "https://deno.land/x/simplecors/simple-cors.ts";
 
 
+
 // Masterplan
 regularlyGetTheLatestFancyShit()
 const app = opine();
+app.use(simpleCors)
 const mainStaticAssetsPath = useStaticAssets(app)
 const html = await readPageToMainMemory(mainStaticAssetsPath)
+defineMiddleWare(app)
 defineRoutes(app, html)
-app.use(simpleCors)
-startListening()
 let forwarded = false
 ensureRedirectingFromUnsafeHostToSaveHost()
 
+startListening()
 
 // Details
 function startListening() {
 
-  console.log(httpPort)
-  console.log(httpsPort)
   if (httpPort > 0) {
     console.log(`${green(`listening on http port ${httpPort}`)}`)
     app.listen(httpPort)
   }
 
   if (httpsPort > 0) {
-    log.error('ok')
     console.log(`${green(`listening on https port ${httpsPort}`)}`)
     const httpsOptions = {
       port: 443,
@@ -40,6 +39,16 @@ function startListening() {
     }
     app.listen(httpsOptions)
   }
+}
+
+function defineMiddleWare(app: any) {
+  const myFancyMiddleware = function (req: any, res: any, next: any) {
+    log.info(req.url)
+    next();
+  };
+
+  
+  app.use(myFancyMiddleware)
 }
 
 function defineRoutes(app: any, html: string) {
@@ -53,7 +62,7 @@ function defineRoutes(app: any, html: string) {
   });
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
-    log.error(req.params.minNumberOfInhabitants)
+    log.warning(req.headers)
     const cities = CityService.getCitiesByPopulation(Number(req.params.minNumberOfInhabitants))
     res.send(cities);
   });
@@ -75,7 +84,6 @@ function defineRoutes(app: any, html: string) {
 
 async function readPageToMainMemory(mainStaticAssetsPath: string): Promise<string> {
 
-  log.error(mainStaticAssetsPath)
   const decoder = new TextDecoder('utf-8')
   let html = decoder.decode(await Deno.readFile(`${mainStaticAssetsPath}/i-want-compression-via-route.html`))
   if (httpsPort > 0) {
