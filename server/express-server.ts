@@ -35,7 +35,7 @@ async function readPageToMainMemory(pathToStaticAssets: string): Promise<string>
 
 function regularlyGetTheLatestFancyShit() {
   setInterval(async () => {
-    const commandToBeExecuted = `./topsecret/pull.sh`
+    const commandToBeExecuted = `./../topsecret/pull.sh`
     // const commandToBeExecuted = `ls`
     try {
       shell.exec(commandToBeExecuted)
@@ -47,7 +47,7 @@ function regularlyGetTheLatestFancyShit() {
 }
 
 function useStaticAssets(app): string {
-  const pathToStaticAssets = path.join(path.resolve(''), './../server/docs')
+  const pathToStaticAssets = path.join(path.resolve(''), './docs')
   app.use(express.static(pathToStaticAssets))
   return pathToStaticAssets
 }
@@ -55,17 +55,17 @@ function useStaticAssets(app): string {
 
 function defineRoutes(app, html) {
 
-  let pathToEvents = path.join(path.resolve(''), './../server/docs')
+  let pathToEvents = path.join(path.resolve(''), './../events')
   app.get('/', (req, res) => {
     res.send(html)
   })
 
   app.get('/images/getEventImage/name/:name', (req: any, res: any) => {
-    res.sendFile(`${pathToEvents}/events/${req.params.name}`);
+    res.sendFile(`${pathToEvents}/${req.params.name}`);
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {
-    res.send(fs.readJSON(`${pathToEvents}/events/events.json`));
+    res.send(fs.readJSON(`${pathToEvents}/events.json`));
   });
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
@@ -84,7 +84,7 @@ function defineRoutes(app, html) {
   });
 
   app.get('/community/getTelegramGroups/key/:key', async (req: any, res: any) => {
-    res.send(fs.readJSON(`${pathToEvents}/groups/telegram.json`));
+    res.send(fs.readJSON(`${pathToEvents}/../groups/telegram.json`));
   });
 }
 
