@@ -5,17 +5,19 @@ import { CommandLineProcessor } from "https://deno.land/x/commandline_processor/
 import { green } from 'https://deno.land/std@0.53.0/fmt/colors.ts'
 import { Persistence } from "https://deno.land/x/persistence/persistence.ts"
 import { CityService } from 'https://deno.land/x/cities/cityservice.ts'
+import { simpleCors } from "https://deno.land/x/simplecors/simple-cors.ts";
 
 
 // Masterplan
 regularlyGetTheLatestFancyShit()
 const app = opine();
 const mainStaticAssetsPath = useStaticAssets(app)
-log.warning(mainStaticAssetsPath)
 const html = await readPageToMainMemory(mainStaticAssetsPath)
-defineMiddleWare(app)
 defineRoutes(app, html)
+app.use(simpleCors)
 startListening()
+let forwarded = false
+ensureRedirectingFromUnsafeHostToSaveHost()
 
 
 // Details
@@ -39,23 +41,6 @@ function startListening() {
     app.listen(httpsOptions)
   }
 }
-
-let forwarded = false
-ensureRedirectingFromUnsafeHostToSaveHost()
-
-function defineMiddleWare(app: any) {
-  const myFancyMiddleware = function (req: any, res: any, next: any) {
-    log.info(req.url)
-    next();
-  };
-
-  app.use(myFancyMiddleware)
-}
-
-// ensureForwardingFromUnsafePort(target)
-// function ensureForwardingFromUnsafePort(target) {
-
-// }
 
 function defineRoutes(app: any, html: string) {
 
