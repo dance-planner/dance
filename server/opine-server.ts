@@ -111,7 +111,7 @@ function useStaticAssets(app: any): string {
 
 function regularlyGetTheLatestFancyShit() {
   setInterval(async () => {
-    const commandToBeExecuted = `./../topsecret/pull.sh`
+    const commandToBeExecuted = `./topsecret/pull.sh`
     // const commandToBeExecuted = `ls`
     try {
       log.error(await CommandLineProcessor.process(commandToBeExecuted))
