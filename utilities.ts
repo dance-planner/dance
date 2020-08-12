@@ -21,7 +21,7 @@ export class Utilities {
 
     }
 
-    private static getIt(date: any) {
+    public static getIt(date: any) {
         let day = date.getUTCDate().toString()
         let month = (date.getMonth() + 1).toString()
         let year = date.getUTCFullYear()
