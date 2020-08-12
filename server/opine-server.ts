@@ -57,6 +57,10 @@ function defineRoutes(app: any, html: string) {
     res.send(html);
   });
 
+  app.get('/images/getEventImage/name/:name', (req: any, res: any) => {
+    res.sendFile(`${Deno.cwd()}/events/${req.params.name}`);
+  });
+
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {
     res.send(JSON.parse(await Persistence.readFromLocalFile(`${Deno.cwd()}/events/events.json`)));
   });
