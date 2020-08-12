@@ -48,6 +48,7 @@ export const allDances = [
     'Hip Hop',
     'Hoop Dance',
     'House',
+    'Igbo',
     'Indian',
     'Indie',
     'Inner Dance',
