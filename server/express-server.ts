@@ -5,7 +5,7 @@ import * as express from 'express'
 import * as compression from 'compression'
 const http = require('http')
 const https = require('https')
-// const cors = require('cors')
+const cors = require('cors')
 const shell = require('shelljs');
 
 export const config = fs.readJSON(path.join(path.resolve(''), './topsecret/.env.json'))
@@ -20,7 +20,7 @@ async function executeMasterplan() {
   // Masterplan
   regularlyGetTheLatestFancyShit()
   const app = express();
-  // app.use(cors())
+  app.use(cors())
   app.use(compression())
   const mainStaticAssetsPath = useStaticAssets(app)
   const html = await readPageToMainMemory(mainStaticAssetsPath)
