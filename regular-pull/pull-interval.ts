@@ -5,5 +5,6 @@ import { CommandLineProcessor } from "https://deno.land/x/commandline_processor/
 
 cron('0 * * * * *', async () => {
     log.info('pulling the latest fancy shit from github')
-    console.log(await CommandLineProcessor.process('git stash && git pull'))
+    console.log(await CommandLineProcessor.process('git stash'))
+    console.log(await CommandLineProcessor.process('git pull'))
 });
