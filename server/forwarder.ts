@@ -7,28 +7,8 @@ const https = require('https')
 const cors = require('cors')
 const shell = require('shelljs');
 
-export const config = fs.readJSON(path.join(path.resolve(''), './../topsecret/.env.json'))
-
-executeMasterplan()
-  .then((result: any) => {
-
-  })
-  .catch((error) => console.log(error.message))
-
-async function executeMasterplan() {
-  // Masterplan
-  regularlyGetTheLatestFancyShit()
-  const app = express();
-  app.use(cors())
-  app.use(compression())
-  const mainStaticAssetsPath = useStaticAssets(app)
-  const html = await readPageToMainMemory(mainStaticAssetsPath)
-  defineRoutes(app, html)
   ensureRedirectingFromUnsafeHostToSaveHost()
 
-  startListening(app)
-
-}
 
 
 
@@ -113,7 +93,7 @@ function startListening(app) {
 function ensureRedirectingFromUnsafeHostToSaveHost() {
   const unsafePort = 80
   const httpForwarderAPPListeningOnUnsafePort = express()
-
+  
   let forwarded = false
   httpForwarderAPPListeningOnUnsafePort.get('*', (req, res) => {
     if (!forwarded) {
