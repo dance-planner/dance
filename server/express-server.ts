@@ -1,3 +1,4 @@
+import {cities} from './cities'
 import * as fs from 'fs-sync'
 import * as path from 'path'
 import * as express from 'express'
@@ -7,7 +8,7 @@ const https = require('https')
 const cors = require('cors')
 const shell = require('shelljs');
 
-export const config = fs.readJSON(path.join(path.resolve(''), './../topsecret/.env.json'))
+export const config = fs.readJSON(path.join(path.resolve(''), './topsecret/.env.json'))
 
 executeMasterplan()
   .then((result: any) => {
@@ -51,7 +52,7 @@ function regularlyGetTheLatestFancyShit() {
 }
 
 function useStaticAssets(app): string {
-  const pathToStaticAssets = path.join(path.resolve(''), './docs')
+  const pathToStaticAssets = path.join(path.resolve(''), './server/docs')
   app.use(express.static(pathToStaticAssets))
   return pathToStaticAssets
 }
@@ -59,7 +60,7 @@ function useStaticAssets(app): string {
 
 function defineRoutes(app, html) {
 
-  let pathToEvents = path.join(path.resolve(''), './../events')
+  let pathToEvents = path.join(path.resolve(''), './events')
   app.get('/', (req, res) => {
     res.send(html)
   })
@@ -75,7 +76,6 @@ function defineRoutes(app, html) {
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
     console.log(req.headers)
     // const cities = CityService.getCitiesByPopulation(Number(req.params.minNumberOfInhabitants))
-    const cities = []
     res.send(cities);
   });
 
