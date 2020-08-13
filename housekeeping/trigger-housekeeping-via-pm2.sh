@@ -1,1 +1,1 @@
-pm2 start housekeeping/trigger-housekeeping.ts --interpreter="deno" --interpreter-args="run --allow-net --allow-read --allow-write --allow-run --unstable"
+pm2 start housekeeping/housekeeping-interval.ts --interpreter="deno" --interpreter-args="run --allow-net --allow-read --allow-write --allow-run --unstable"
