@@ -54,6 +54,7 @@ function regularlyGetTheLatestFancyShit() {
 function useStaticAssets(app): string {
   const pathToStaticAssets = path.join(path.resolve(''), './server/docs')
   app.use(express.static(pathToStaticAssets))
+  console.log(`serving static assets from ${pathToStaticAssets}`)
   return pathToStaticAssets
 }
 
