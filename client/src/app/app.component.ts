@@ -68,8 +68,8 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() {
     this.jwt = document.getElementById('jwt').innerHTML.trim()
-    // BackendService.backendURL = 'https://danceplanner.org'
-    BackendService.backendURL = 'http://localhost:3001'
+    BackendService.backendURL = 'https://danceplanner.org'
+    // BackendService.backendURL = 'http://localhost:3001'
     // }
     this.route
       .queryParamMap
