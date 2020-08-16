@@ -72,7 +72,9 @@ function defineRoutes(app, html) {
   })
 
   app.get('/images/getEventImage/name/:name', (req: any, res: any) => {
-    res.sendFile(`${pathToEvents}/${req.params.name}`);
+    const imageFileId = `${pathToEvents}/${req.params.name}`
+    console.log(`using imageFileId: ${imageFileId}`)
+    res.sendFile(imageFileId);
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {
