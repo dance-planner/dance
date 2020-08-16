@@ -26,7 +26,7 @@
     "@angular/router": "~8.2.7",
     "@angular/service-worker": "^8.2.14",
     "array-move": "^2.2.1",
-    "bootstrap": "4.1.1",
+    "bootstrap": "4.3.1",
     "country-flag-provider": "^0.1.1",
     "dance-planner-typeahead": "^1.0.0",
     "distance-calculator-lat-lon": "0.0.1",
