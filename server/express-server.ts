@@ -1,4 +1,4 @@
-// import { httpPort, httpsPort, pathToCert, pathToCertKey } from './../topsecret/.env.ts'
+
 import {cities} from './cities'
 import * as fs from 'fs-sync'
 import * as path from 'path'
@@ -14,16 +14,15 @@ const configFileId = path.join(path.resolve(''), './../topsecret/.env.json')
 console.log(`working with config path: ${configFileId}`)
 const groupsFileId = path.join(path.resolve(''), './../groups/telegram.json')
 console.log(`working with groupsPath path: ${groupsFileId}`)
-export const config = fs.readJSON(groupsFileId)
+export const config = fs.readJSON(configFileId)
 
 executeMasterplan()
   .then((result: any) => {
-
+    console.log('hä')
   })
   .catch((error) => console.log(error.message))
 
 async function executeMasterplan() {
-  // Masterplan
   regularlyGetTheLatestFancyShit()
   const app = express();
   app.use(cors())
@@ -37,16 +36,13 @@ async function executeMasterplan() {
 
 
 
-// Details
 async function readPageToMainMemory(pathToStaticAssets: string): Promise<string> {
-  // let html = decoder.decode(await Deno.readFile(`${mainStaticAssetsPath}/i-want-compression-via-route.html`))
   return fs.read(`${pathToStaticAssets}/i-want-compression-via-route.html`)
 }
 
 function regularlyGetTheLatestFancyShit() {
   setInterval(async () => {
     const commandToBeExecuted = `./../topsecret/pull.sh`
-    // const commandToBeExecuted = `ls`
     try {
       shell.exec(commandToBeExecuted)
     } catch (error) {
@@ -100,7 +96,6 @@ function defineRoutes(app, html) {
 }
 
 function startListening(app) {
-
   if (config.httpsPort > 0) {
     const certificate = fs.read(config.pathToCert)
     const privateKey = fs.read(config.pathToCertKey)
@@ -109,7 +104,8 @@ function startListening(app) {
     httpsServer.listen(config.httpsPort)
     console.log(`listening on : https://danceplanner.org`)
   }
-
+  
+  console.log(config.httpPort)
   if (config.httpPort > 0) {
     const httpServer = http.createServer(app)
     httpServer.listen(config.httpPort)
