@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
-// import { NgRangeModule } from 'ng-range'
+import { NavbarModule } from 'ng-responsive-navbar'
+import { NgRangeModule } from 'ng-range'
 import { HttpClientModule } from '@angular/common/http'
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -13,8 +14,9 @@ import { TypingAreaComponent } from './typing-area/typing-area.component'
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { environment } from '../environments/environment'
 import { RouterModule } from '@angular/router'
-import { RangeComponent } from './range/range.component'
 import { NavbarComponent } from './navbar/navbar.component'
+import { FurtherOptionsComponent } from './further-options/further-options.component'
+import { RangeComponent } from './range/range.component'
 
 @NgModule({
   declarations: [
@@ -24,15 +26,17 @@ import { NavbarComponent } from './navbar/navbar.component'
     CardComponent,
     TypingAreaComponent,
     NavbarComponent,
+    FurtherOptionsComponent,
     RangeComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
-    TypeaheadModule.forRoot(),
     FormsModule,
-    // NgRangeModule,
+    NgRangeModule,
+    NavbarModule,
     HttpClientModule,
     BrowserModule,
+    TypeaheadModule.forRoot(),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],

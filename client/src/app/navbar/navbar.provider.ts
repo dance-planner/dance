@@ -1,4 +1,4 @@
-import { INavbarData } from './navbar.interfaces'
+import { INavbarData } from 'ng-responsive-navbar'
 
 // tslint:disable-next-line: no-unnecessary-class
 export class NavBarProvider {
@@ -6,7 +6,8 @@ export class NavBarProvider {
     const domain = document.location.toString().split('/')[2]
 
     return {
-      appTitle: (domain === 'localhost:4200') ? 'dance-planner.org' : domain,
+      logoURL: '../assets/logo.png',
+      appTitle: (domain === 'localhost:4200') ? 'dancep-lanner.org' : domain,
       menuEntries: [{
         isActive: true,
         text: 'Find Events',
@@ -22,6 +23,16 @@ export class NavBarProvider {
         text: 'The App',
         href: 'app',
       },
+                    {
+        isActive: false,
+        text: 'Find Dance Partners',
+        href: 'findDancePartners',
+      },
+      //               {
+      //   isActive: false,
+      //   text: 'Tutorials',
+      //   href: 'tutorials',
+      // },
                     {
         isActive: false,
         text: 'Contact',

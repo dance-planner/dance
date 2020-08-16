@@ -21,6 +21,16 @@ export interface IEvent {
   link: string
   lat: number
   lon: number
+  // id: string
+  // dance: string
+  // countryCode: string
+  // location: string
+  // date: string
+  // imageName: string
+  // link: string
+  // title: string
+  // lat: number
+  // lon: number
 }
 
 export interface ICityGroup {

@@ -1,14 +1,16 @@
+// import { httpPort, httpsPort, pathToCert, pathToCertKey } from './../topsecret/.env.ts'
 import {cities} from './cities'
 import * as fs from 'fs-sync'
 import * as path from 'path'
 import * as express from 'express'
 import * as compression from 'compression'
+
 const http = require('http')
 const https = require('https')
 const cors = require('cors')
 const shell = require('shelljs');
 
-export const config = fs.readJSON(path.join(path.resolve(''), './topsecret/.env.json'))
+export const config = fs.readJSON(path.join(path.resolve(''), './../topsecret/.env.json'))
 
 executeMasterplan()
   .then((result: any) => {
@@ -35,6 +37,7 @@ async function executeMasterplan() {
 
 // Details
 async function readPageToMainMemory(pathToStaticAssets: string): Promise<string> {
+  // let html = decoder.decode(await Deno.readFile(`${mainStaticAssetsPath}/i-want-compression-via-route.html`))
   return fs.read(`${pathToStaticAssets}/i-want-compression-via-route.html`)
 }
 
@@ -52,7 +55,7 @@ function regularlyGetTheLatestFancyShit() {
 }
 
 function useStaticAssets(app): string {
-  const pathToStaticAssets = path.join(path.resolve(''), './server/docs')
+  const pathToStaticAssets = path.join(path.resolve(''), './docs')
   app.use(express.static(pathToStaticAssets))
   console.log(`serving static assets from ${pathToStaticAssets}`)
   return pathToStaticAssets
@@ -96,8 +99,8 @@ function defineRoutes(app, html) {
 function startListening(app) {
 
   if (config.httpsPort > 0) {
-    const privateKey = fs.read(config.certificatePrivateKeyFile)
-    const certificate = fs.read(config.certificateFile)
+    const certificate = fs.read(config.pathToCert)
+    const privateKey = fs.read(config.pathToCertKey)
     const credentials = { key: privateKey, cert: certificate }
     const httpsServer = https.createServer(credentials, app)
     httpsServer.listen(config.httpsPort)

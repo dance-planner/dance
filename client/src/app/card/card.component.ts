@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { ICardData } from './card.interfaces'
 import * as moment from 'moment'
+import { DomSanitizer } from '@angular/platform-browser'
 import { BackendService } from '../backend.service'
 import { ICityGroup } from '../shared-interfaces-and-constants'
-
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -16,10 +16,14 @@ export class CardComponent {
   @Input() public card: ICardData
   @Input() public jwt: string
 
+  @Output() public reportEvent = new EventEmitter<string>()
   public detailLevel = 1
+  // public showDetails = false
+  // public showMoreDetails = false
   public shareMode = false
   public reportingMode = false
   public reportedBecause = ''
+  public furtherInfo = 'Further Info'
   public ready = false
   public weekDays = [
     'Sunday',
@@ -30,9 +34,20 @@ export class CardComponent {
     'Friday',
     'Saturday',
   ]
+  public constructor(private readonly sanitizer: DomSanitizer, private readonly backendService: BackendService) {
+
+    setTimeout(() => {
+      if (!CardComponent.userKnowsHeCanClickAnEventImage) {
+        CardComponent.userKnowsHeCanClickAnEventImage = true
+        // alert('You can check details of an event by tipping on it.')
+      }
+    },         20000)
+
+  }
 
   public getImagePath(): any {
-    return this.card.imageURL
+
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.card.imageURL)
   }
 
   public clickShare() {
@@ -44,23 +59,36 @@ export class CardComponent {
     if (this.detailLevel === 3) {
       this.detailLevel = 0
     }
+    // this.showMoreDetails = !this.showMoreDetails
+  }
+
+  public findADriver() {
+    if (confirm(`Until now no private driver registered for this event. Shall I foward you to a taxi company in ${this.card.city}?`)) {
+      location.assign(`https://www.google.com/search?q=taxi+${this.card.city}`)
+    }
+  }
+
+  public report() {
+    this.reportEvent.emit(this.card.eventID)
   }
 
   public getLinkToTutorials() {
-    return `https://www.youtube.com/results?search_query=${this.card.dance}+dance+tutorial`
+    const link = `https://www.youtube.com/results?search_query=${this.card.dance}+dance+tutorial`
+
+    return link
   }
 
   public getLinkToPartners() {
     const cityGroupForEvent = BackendService.cityGroups.filter((e: ICityGroup) => e.countryCode.toLowerCase() === this.card.countryCode.toLowerCase() && e.cityName.toLowerCase() === this.card.city.toLowerCase())[0]
     if (cityGroupForEvent === undefined || cityGroupForEvent.telegramInvitationLink === '') {
-      return 'https://www.google.com/search?q=https://www.facebook.com groups bachata hamburg'
+      console.log(`no telegram group found for ${this.card.countryCode}, ${this.card.city}`)
+
+      return 'https://perfect-matches.org'
     }
 
-    return `https://t.me/joinchat/${cityGroupForEvent.telegramInvitationLink}`
-  }
+    const link = `https://t.me/joinchat/${cityGroupForEvent.telegramInvitationLink}`
 
-  public getLinkToDrivers() {
-    return `https://www.google.com/search?q=taxi+${this.card.city} ${this.card.countryCode}`
+    return link
   }
 
   public copyText(eventID: string) {
@@ -78,6 +106,7 @@ export class CardComponent {
     document.execCommand('copy')
     document.body.removeChild(selBox)
 
+    // alert(NavbarComponent.operatingSystem);
     alert('Invitationlink copied to clipboard. Ready to share it with your friends.')
   }
 

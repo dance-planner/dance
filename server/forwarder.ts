@@ -101,7 +101,7 @@ function ensureRedirectingFromUnsafeHostToSaveHost() {
       setTimeout(() => {
         forwarded = false
       }, 100)
-      res.send(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='https://dance-planner.org'" /></head><body><p>Redirecting to https: <a href="https://dance-planner.org">https://dance-planner.org/</a></p></body></html>`)
+      res.send(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='https://danceplanner.org'" /></head><body><p>Redirecting to https: <a href="https://danceplanner.org">https://danceplanner.org/</a></p></body></html>`)
     }
   })
 

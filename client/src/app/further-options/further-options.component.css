@@ -1,0 +1,9 @@
+tr {
+  border: solid thin black;
+}
+
+td {
+  border-bottom: solid thin black;
+  color: rgb(93, 188, 210);
+}
+

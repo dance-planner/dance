@@ -10,6 +10,7 @@
     in {{card.city}}
     <p></p>
 
+    <!-- <img src="{{card.imageURL}}" alt="No Image Uploaded"> -->
     <img [attr.src]="getImagePath()" alt="No Image Uploaded">
   </div>
 
@@ -52,6 +53,7 @@
         </a>
         <p></p>
         <a target="_blank" href="{{getLinkToTutorials()}}">
+        <!-- <a target="_blank" href="https://tutorial-finder.org"> -->
           <button class="myBlue" style="width: 96%;">
             <i class="fa fa-star" aria-hidden="true" style="padding-right: 1vw;"></i>
             Find Tutorials
@@ -59,13 +61,11 @@
           </button>
         </a>
         <p></p>
-        <a target="_blank" href="{{getLinkToDrivers()}}">
-          <button class="myRed" style="width: 96%;">
-            <i class="fa fa-taxi" aria-hidden="true" style="padding-right: 1vw;"></i>
-            Find a Driver
-            <i class="fa fa-taxi" aria-hidden="true" style="padding-left: 1vw;"></i>
-          </button>
-        </a>
+        <button class="myRed" (click)="findADriver()" style="width: 96%;">
+          <i class="fa fa-taxi" aria-hidden="true" style="padding-right: 1vw;"></i>
+          Find a Driver
+          <i class="fa fa-taxi" aria-hidden="true" style="padding-left: 1vw;"></i>
+        </button>
         <p></p>
         <a target="_blank" href="{{ card.linkToFurtherInfo }}">
           <button class="myBlue" style="width: 96%;">
@@ -75,13 +75,12 @@
           </button>
         </a>
         <p></p>
-        <a target="_blank" href="https://t.me/DancePlanner">
-          <button class="myRed" style="width: 96%;">
-            <i class="fa fa-trash" aria-hidden="true" style="padding-right: 1vw;"></i>
-            Report This Event
-            <i class="fa fa-trash" aria-hidden="true" style="padding-left: 1vw;"></i>
-          </button>
-        </a>
+        <button class="myRed" (click)="report()" style="width: 96%;">
+          <i class="fa fa-trash" aria-hidden="true" style="padding-right: 1vw;"></i>
+          Report This Event
+          <i class="fa fa-trash" aria-hidden="true" style="padding-left: 1vw;"></i>
+        </button>
+
       </div>
 
     </div>

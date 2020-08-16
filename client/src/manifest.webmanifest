@@ -23,12 +23,12 @@
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-144x144.png",
+      "src": "assets/icons/apple-touch-icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-152x152.png",
+      "src": "assets/icons/apple-touch-icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png"
     },

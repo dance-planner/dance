@@ -1,6 +1,9 @@
-# DancePlannerLightClient
+## Learnings along the way
+https://apple.stackexchange.com/questions/174084/how-to-remove-chrome-app-icons-from-launchpad
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.0-rc.8.
+# DpPage
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
 ## Development server
 

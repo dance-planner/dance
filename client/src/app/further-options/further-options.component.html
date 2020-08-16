@@ -1,0 +1,101 @@
+<div *ngIf="readyForDisplay">
+
+  <h2 class="myRed">
+    Dance Partners
+  </h2>
+  <p><br></p>
+
+    <p></p>
+    <div class="myBlue biggerFont">
+      This feature is pretty new in some cities. Please invite your friends to the Telegram Groups below. <p><br></p>
+      You can add <a target="_blank" href="https://t.me/danceplanner_bot">The Dance Planner</a> to your Telegram Group. If your Telegram group contains a city name like e.g. Heidelberg, the Dance Planner will automatically send you infos about new events.
+
+      <!-- The Dance Planner Chatbot will automatically send a message to this group as soon as a new event was created in the Dance Planner. -->
+    </div>
+    <p><br></p>
+
+    <div *ngFor="let cityGroup of cityGroups">
+      <p></p>
+      <a target="_blank" href="{{cityGroup.completeLink}}">
+        <button id="showTelegramGroups" class="myBlue" style="width: 100%;">
+          {{cityGroup.groupName}}
+        </button>
+      </a>
+
+    </div>
+
+  <p><br></p>
+
+
+  <p><br></p>
+  <button id="insights" (click)="clickInsights()" class="myBlue" style="width: 100%;">
+    <i class="fa fa-info" aria-hidden="true" style="padding-right: 2vw;"></i>
+    Dance Planner Insights
+    <i class="fa fa-info" aria-hidden="true" style="padding-left: 2vw;"></i>
+  </button>
+
+  <span *ngIf="showInsights">
+
+    <p></p>
+    <h2 class="myRed adPad">
+      Recommendation
+    </h2>
+
+    <p class="myBlue adPad2 biggerFont">
+      To use all features of the Dance Planner download the Brave Browser and Telegram
+    </p>
+    <p><br></p>
+
+    <a target="_blank" class="nostyle" href="https://brave.com/ryb262">
+      <button id="downloadBrave" class="myRed" style="width: 100%;">
+        <i class="fa fa-download" aria-hidden="true" style="padding-right: 1vw;"></i>
+        Download Brave
+        <i class="fa fa-download" aria-hidden="true" style="padding-left: 1vw;"></i>
+      </button>
+    </a>
+    <p><br></p>
+
+    <a target="_blank" class="nostyle" href="https://telegram.org">
+      <button id="downloadBrave" class="myRed" style="width: 100%;">
+        <i class="fa fa-telegram" aria-hidden="true" style="padding-right: 1vw;"></i>
+        Download Telegram
+        <i class="fa fa-telegram" aria-hidden="true" style="padding-left: 1vw;"></i>
+      </button>
+    </a>
+
+    <p><br></p>
+    <p><br></p>
+    <h2 class="myRed">
+      Insights
+    </h2>
+
+    <p class="myBlue adPad2 biggerFont">
+      Future Features and Usage Statistics
+    </p>
+
+    <p><br></p>
+    <table class="table table-striped">
+      <thead class="myRed" style="background-color: black">
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody class="myBlue">
+        <tr>
+          <td>Future Feature</td>
+          <td>Leverage Brave Browser</td>
+        </tr>
+        <tr>
+          <td>Future Events</td>
+          <td>{{allEvents.length}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><br></p>
+
+  </span>
+
+  <p><br></p>
+</div>

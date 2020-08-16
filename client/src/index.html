@@ -7,19 +7,21 @@
   <meta name="description"
         content="Find the perfect dance event using the dance-planner.org. You can find Salsa-, Bachata-, Merengue-, Tango-, Zouk-, Fance- and many more dance events here." />
 
-  <meta property="og:url" content="https://www.dance-planner.org" />
+  <meta property="og:url" content="https://www.danceplanner.org" />
   <meta property="og:title" content="Dance Planner" />
   <meta property="og:description" content="Find the perfect dance event celebrating the Fancy Dance Planner." />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://github.com/dance-planner/dance/blob/master/dance-planner-images/logo.png?raw=true" />
+  <meta property="og:image" content="https://danceplanner.org/asset/id/logo.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="300" />
   <meta property="og:image:height" content="300" />
 
+  <meta property="fb:app_id" content="1933051260171595" />
+
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/_icons/favicon.ico">
-  <link rel="manifest" href="assets/manifest.webmanifest">
+  <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
 
   <link rel="apple-touch-icon" href="assets/_icons/apple-touch-icon.png">
@@ -55,17 +57,17 @@
 
 </head>
 
-<body style="background-color: whitesmoke; margin: 0">
-  <!-- <div id="jwt" style="display: none;">
+<body style="background-color: whitesmoke;">
+  <div id="jwt" style="display: none;">
     jwtContent
-  </div> -->
+  </div>
+
+  <div id="dataURL" style="display: none;">
+    dataURLContent
+  </div>
 
   <div id="backendURL" style="display: none;">
     backendURLContent
-  </div>
-
-  <div id="apiKey" style="display: none;">
-    apiKeyContent
   </div>
 
   <app-root [sessionWithoutCookieId]='toBeReplacedBeforeDeliveringTheIndex.html'></app-root>

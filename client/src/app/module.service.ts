@@ -8,7 +8,7 @@ import { GeoService } from './geo.service'
 import { IEvent, initialRange } from './shared-interfaces-and-constants'
 import { dances } from '../dances'
 import { BackendService } from './backend.service'
-import { INavbarData } from './navbar/navbar.interfaces'
+import { INavbarData } from 'ng-responsive-navbar'
 
 export interface IModuleData {
   danceStyles: string[]
@@ -87,14 +87,12 @@ export class ModuleService {
   public async prepareCardsFromEvents(events: IEvent[], pointOfInterest: any, jwt: string): Promise<void> {
     const cards: ICardData[] = []
     let counter = 0
-    let imageURL = ''
     // alert(JSON.stringify(events[0]))
 
     for (const event of events) {
       counter += 1
-      const originalImageURL = `${BackendService.backendURL}/event-images/getImage/key/${BackendService.apiKey}/name/${event.imageName}`
       // if (counter < 7) {
-      //   const objectURL = await this.backendService.fetchImage((originalImageURL), {
+      //   const objectURL = await this.backendService.fetchImage((`${BackendService.dataURL}/getImage/name/${event.imageName}`), {
       //     method: 'GET',
       //     headers: {
       //       jwt,
@@ -105,22 +103,23 @@ export class ModuleService {
       //   imageURL = `${BackendService.dataURL}/getImage/name/${event.imageName}` // will be replaced on demand after scrolling ...
       // }
 
-      imageURL = originalImageURL
       const formattedDances = event.dances.replace(/, /g, '-')
-      const imageName =
-      `dancing-${formattedDances}-in-${event.city}-${event.countryCode}-on-${event.startDate}-${event.id}.jpg`
+      const imageName = `dancing-${formattedDances}-in-${event.city}-${event.countryCode}-on-${event.startDate}-${event.id}.jpg`
+      // const imageURL = `https://github.com/dance-planner/dance/blob/master/events/${imageName}?raw=true`
+      const imageURL = `https://danceplanner.org/images/getEventImage/name/${imageName}`
+
       const card: ICardData = {
         eventID: event.id,
         title: event.title,
         dance: event.dances,
-        info: event.dances,
+        info: event.title,
         details: '',
         date: event.startDate,
         countryCode: event.countryCode,
         city: event.city,
         linkToThisItem: (window.location.toString().indexOf('?id=') === -1) ? `${window.location}?id=${event.id}` : window.location.toString(),
         linkToFurtherInfo: event.link,
-        imageURL: `https://github.com/dance-planner/dance/blob/master/events/${imageName}?raw=true`,
+        imageURL,
         distance: this.geoService.getDistance(event.lat, event.lon, pointOfInterest.lat, pointOfInterest.lon),
       }
 
@@ -133,9 +132,8 @@ export class ModuleService {
   public prepareCityTypeAhead(cities) {
     for (const city of cities) {
       const cityWithFlagUrl =
-        `${city.name}${ModuleService.delimiter}https://raw.githubusercontent.com/michael-spengler/countries/master/flags/${city.country.toLowerCase()}.svg`
+          `${city.name}${ModuleService.delimiter}../../assets/flags/${city.country.toLowerCase()}.svg`
       this.formattedCities.push(cityWithFlagUrl)
-
     }
 
     return this.formattedCities
