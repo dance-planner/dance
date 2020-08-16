@@ -51,7 +51,7 @@ export class BackendService {
   }
 
   public getLandingPageData(token: string): any {
-    const events = this.get(`${BackendService.dataURL}/events/getAllEvents/key/123`, token)
+    const events = this.get(`${BackendService.backendURL}/events/getAllEvents/key/123`, token)
     const ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocation/key/123`, token)
     const cityGroups = this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)
 

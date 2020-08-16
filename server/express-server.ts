@@ -1,5 +1,5 @@
 
-import {cities} from './cities'
+import { cities } from './cities'
 import * as fs from 'fs-sync'
 import * as path from 'path'
 import * as express from 'express'
@@ -14,6 +14,8 @@ const configFileId = path.join(path.resolve(''), './../topsecret/.env.json')
 console.log(`working with config path: ${configFileId}`)
 const groupsFileId = path.join(path.resolve(''), './../groups/telegram.json')
 console.log(`working with groupsPath path: ${groupsFileId}`)
+const eventsFileId = path.join(path.resolve(''), './../events/events.json')
+console.log(`working with eventsPath path: ${eventsFileId}`)
 export const config = fs.readJSON(configFileId)
 
 executeMasterplan()
@@ -74,7 +76,7 @@ function defineRoutes(app, html) {
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {
-    res.send(fs.readJSON(`${pathToEvents}/events.json`));
+    res.send(fs.readJSON(eventsFileId))
   });
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
@@ -104,7 +106,7 @@ function startListening(app) {
     httpsServer.listen(config.httpsPort)
     console.log(`listening on : https://danceplanner.org`)
   }
-  
+
   console.log(config.httpPort)
   if (config.httpPort > 0) {
     const httpServer = http.createServer(app)
