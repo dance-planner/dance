@@ -107,6 +107,7 @@ function startListening(app) {
     const credentials = { key: privateKey, cert: certificate }
     const httpsServer = https.createServer(credentials, app)
     httpsServer.listen(config.httpsPort)
+    console.log(`listening on : https://danceplanner.org`)
   }
 
   if (config.httpPort > 0) {
