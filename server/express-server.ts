@@ -14,8 +14,10 @@ const configFileId = path.join(path.resolve(''), './../topsecret/.env.json')
 console.log(`working with config path: ${configFileId}`)
 const groupsFileId = path.join(path.resolve(''), './../groups/telegram.json')
 console.log(`working with groupsPath path: ${groupsFileId}`)
+const eventsFilePath = path.join(path.resolve(''), './../events/events.json')
+console.log(`working with eventsFilePath path: ${eventsFilePath}`)
 const eventsFileId = path.join(path.resolve(''), './../events/events.json')
-console.log(`working with eventsPath path: ${eventsFileId}`)
+console.log(`working with eventsFileId path: ${eventsFileId}`)
 export const config = fs.readJSON(configFileId)
 
 executeMasterplan()
@@ -66,13 +68,12 @@ function useStaticAssets(app): string {
 
 function defineRoutes(app, html) {
 
-  let pathToEvents = path.join(path.resolve(''), './events')
   app.get('/', (req, res) => {
     res.send(html)
   })
 
   app.get('/images/getEventImage/name/:name', (req: any, res: any) => {
-    const imageFileId = `${pathToEvents}/${req.params.name}`
+    const imageFileId = `${eventsFilePath}/${req.params.name}`
     console.log(`using imageFileId: ${imageFileId}`)
     res.sendFile(imageFileId);
   });
