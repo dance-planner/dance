@@ -10,9 +10,11 @@ const https = require('https')
 const cors = require('cors')
 const shell = require('shelljs');
 
-const configPath = path.join(path.resolve(''), './../topsecret/.env.json')
-console.log(`working with config path: ${configPath}`)
-export const config = fs.readJSON(configPath)
+const configFileId = path.join(path.resolve(''), './../topsecret/.env.json')
+console.log(`working with config path: ${configFileId}`)
+const groupsFileId = path.join(path.resolve(''), './../groups/telegram.json')
+console.log(`working with groupsPath path: ${groupsFileId}`)
+export const config = fs.readJSON(groupsFileId)
 
 executeMasterplan()
   .then((result: any) => {
@@ -29,8 +31,6 @@ async function executeMasterplan() {
   const mainStaticAssetsPath = useStaticAssets(app)
   const html = await readPageToMainMemory(mainStaticAssetsPath)
   defineRoutes(app, html)
-  // ensureRedirectingFromUnsafeHostToSaveHost()
-
   startListening(app)
 
 }
@@ -83,7 +83,6 @@ function defineRoutes(app, html) {
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
     console.log(req.headers)
-    // const cities = CityService.getCitiesByPopulation(Number(req.params.minNumberOfInhabitants))
     res.send(cities);
   });
 
@@ -96,7 +95,7 @@ function defineRoutes(app, html) {
   });
 
   app.get('/community/getTelegramGroups/key/:key', async (req: any, res: any) => {
-    res.send(fs.readJSON(`${pathToEvents}/../groups/telegram.json`));
+    res.send(fs.readJSON(groupsFileId))
   });
 }
 
@@ -116,22 +115,3 @@ function startListening(app) {
     console.log(`listening on : http://localhost:${config.httpPort}`)
   }
 }
-
-// // tslint:disable-next-line: only-arrow-functions
-// function ensureRedirectingFromUnsafeHostToSaveHost() {
-//   const unsafePort = 80
-//   const httpForwarderAPPListeningOnUnsafePort = express()
-
-//   let forwarded = false
-//   httpForwarderAPPListeningOnUnsafePort.get('*', (req, res) => {
-//     if (!forwarded) {
-//       forwarded = true
-//       setTimeout(() => {
-//         forwarded = false
-//       }, 100)
-//       res.send(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='https://dance-planner.org'" /></head><body><p>Redirecting to https: <a href="https://dance-planner.org">https://dance-planner.org/</a></p></body></html>`)
-//     }
-//   })
-
-//   httpForwarderAPPListeningOnUnsafePort.listen(unsafePort)
-// }
