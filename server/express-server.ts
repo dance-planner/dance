@@ -10,7 +10,9 @@ const https = require('https')
 const cors = require('cors')
 const shell = require('shelljs');
 
-export const config = fs.readJSON(path.join(path.resolve(''), './../topsecret/.env.json'))
+const configPath = path.join(path.resolve(''), './../topsecret/.env.json')
+console.log(`working with config path: ${configPath}`)
+export const config = fs.readJSON(configPath)
 
 executeMasterplan()
   .then((result: any) => {
