@@ -27,7 +27,7 @@ async function executeMasterplan() {
   const mainStaticAssetsPath = useStaticAssets(app)
   const html = await readPageToMainMemory(mainStaticAssetsPath)
   defineRoutes(app, html)
-  ensureRedirectingFromUnsafeHostToSaveHost()
+  // ensureRedirectingFromUnsafeHostToSaveHost()
 
   startListening(app)
 
@@ -113,21 +113,21 @@ function startListening(app) {
   }
 }
 
-// tslint:disable-next-line: only-arrow-functions
-function ensureRedirectingFromUnsafeHostToSaveHost() {
-  const unsafePort = 80
-  const httpForwarderAPPListeningOnUnsafePort = express()
+// // tslint:disable-next-line: only-arrow-functions
+// function ensureRedirectingFromUnsafeHostToSaveHost() {
+//   const unsafePort = 80
+//   const httpForwarderAPPListeningOnUnsafePort = express()
 
-  let forwarded = false
-  httpForwarderAPPListeningOnUnsafePort.get('*', (req, res) => {
-    if (!forwarded) {
-      forwarded = true
-      setTimeout(() => {
-        forwarded = false
-      }, 100)
-      res.send(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='https://dance-planner.org'" /></head><body><p>Redirecting to https: <a href="https://dance-planner.org">https://dance-planner.org/</a></p></body></html>`)
-    }
-  })
+//   let forwarded = false
+//   httpForwarderAPPListeningOnUnsafePort.get('*', (req, res) => {
+//     if (!forwarded) {
+//       forwarded = true
+//       setTimeout(() => {
+//         forwarded = false
+//       }, 100)
+//       res.send(`<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='https://dance-planner.org'" /></head><body><p>Redirecting to https: <a href="https://dance-planner.org">https://dance-planner.org/</a></p></body></html>`)
+//     }
+//   })
 
-  httpForwarderAPPListeningOnUnsafePort.listen(unsafePort)
-}
+//   httpForwarderAPPListeningOnUnsafePort.listen(unsafePort)
+// }
