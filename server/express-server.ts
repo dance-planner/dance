@@ -13,6 +13,11 @@ const http = require('http')
 const https = require('https')
 const cors = require('cors')
 const shell = require('shelljs');
+const dancePlannersHomeLocation = {
+  name: 'Heidelberg',
+  lat: 49.40768,
+  lon: 8.69079,
+}
 
 const configFileId = path.join(path.resolve(''), './../topsecret/.env.json')
 const groupsFileId = path.join(path.resolve(''), './../groups/telegram.json')
@@ -86,24 +91,28 @@ function defineRoutes(app, html) {
   });
 
   app.get('/location/getIPLocation/key/:key', async (req: any, res: any) => {
-    const ipAdressOfClient = requestIp.getClientIp(req)
-    console.log('\nipAdressOfClient:')
-    console.log(ipAdressOfClient)
+    const magic = requestIp.getClientIp(req)
+    let ipAdressOfClient
+    if (magic.includes('ffff:')) {
+      ipAdressOfClient = magic.split('ffff:')[1]
+      console.log('\nipAdressOfClient:')
+      console.log(ipAdressOfClient)
 
-    const result = (await (axios as any).get(`https://freegeoip.app/json/${ipAdressOfClient}`)).data
-    if (result === undefined || result.city === undefined || ipAdressOfClient.includes(':')){
-      res.send({
-        name: 'Heidelberg',
-        lat: 49.40768,
-        lon: 8.69079,
-      });
+      const result = (await (axios as any).get(`https://freegeoip.app/json/${ipAdressOfClient}`)).data
+
+      if (result === undefined || result.city === undefined || ipAdressOfClient.includes(':')) {
+        res.send(dancePlannersHomeLocation);
+      } else {
+        res.send({
+          name: result.city,
+          lat: result.latitude,
+          lon: result.longitude,
+        });
+
+      }
     } else {
-      res.send({
-        name: result.city,
-        lat: result.latitude,
-        lon: result.longitude,
-      });
-
+      console.log('I could not determine ip adress of request')
+      res.send(dancePlannersHomeLocation);
     }
   });
 
