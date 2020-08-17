@@ -5,7 +5,7 @@ import { Request } from "https://deno.land/x/request@1.1.0/request.ts"
 
 export class DancesProvider {
 
-    private static readonly url = "https://raw.githubusercontent.com/dance-planner/dance/master/events/events-created-via-bot.json"
+    private static readonly url = "https://raw.githubusercontent.com/dance-planner/dance/master/events/events.json"
 
     public static getAllDances(): any[] {
         return allDances

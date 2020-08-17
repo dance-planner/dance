@@ -11,18 +11,15 @@ const cors = require('cors')
 const shell = require('shelljs');
 
 const configFileId = path.join(path.resolve(''), './../topsecret/.env.json')
-console.log(`working with config path: ${configFileId}`)
 const groupsFileId = path.join(path.resolve(''), './../groups/telegram.json')
-console.log(`working with groupsPath path: ${groupsFileId}`)
 const eventsFilePath = path.join(path.resolve(''), './../events')
-console.log(`working with eventsFilePath path: ${eventsFilePath}`)
 const eventsFileId = path.join(path.resolve(''), './../events/events.json')
-console.log(`working with eventsFileId path: ${eventsFileId}`)
+
 export const config = fs.readJSON(configFileId)
 
 executeMasterplan()
   .then((result: any) => {
-    console.log('hä')
+    console.log('masterplan works')
   })
   .catch((error) => console.log(error.message))
 
@@ -73,9 +70,7 @@ function defineRoutes(app, html) {
   })
 
   app.get('/images/getEventImage/name/:name', (req: any, res: any) => {
-    const imageFileId = `${eventsFilePath}/${req.params.name}`
-    console.log(`using imageFileId: ${imageFileId}`)
-    res.sendFile(imageFileId);
+    res.sendFile(`${eventsFilePath}/${req.params.name}`);
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {
@@ -83,7 +78,6 @@ function defineRoutes(app, html) {
   });
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
-    console.log(req.headers)
     res.send(cities);
   });
 
@@ -110,7 +104,6 @@ function startListening(app) {
     console.log(`listening on : https://danceplanner.org`)
   }
 
-  console.log(config.httpPort)
   if (config.httpPort > 0) {
     const httpServer = http.createServer(app)
     httpServer.listen(config.httpPort)
