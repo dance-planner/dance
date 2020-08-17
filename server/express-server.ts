@@ -4,6 +4,10 @@ import * as fs from 'fs-sync'
 import * as path from 'path'
 import * as express from 'express'
 import * as compression from 'compression'
+import * as axios from 'axios'
+const requestIp = require('request-ip')
+// const axios = require('axios')
+
 
 const http = require('http')
 const https = require('https')
@@ -82,11 +86,25 @@ function defineRoutes(app, html) {
   });
 
   app.get('/location/getIPLocation/key/:key', async (req: any, res: any) => {
-    res.send({
-      name: 'Heidelberg',
-      lat: 49.40768,
-      lon: 8.69079,
-    });
+    const ipAdressOfClient = requestIp.getClientIp(req)
+    console.log('\nipAdressOfClient:')
+    console.log(ipAdressOfClient)
+
+    const result = (await (axios as any).get(`https://freegeoip.app/json/${ipAdressOfClient}`)).data
+    if (result === undefined || result.city === undefined || ipAdressOfClient.includes(':')){
+      res.send({
+        name: 'Heidelberg',
+        lat: 49.40768,
+        lon: 8.69079,
+      });
+    } else {
+      res.send({
+        name: result.city,
+        lat: result.latitude,
+        lon: result.longitude,
+      });
+
+    }
   });
 
   app.get('/community/getTelegramGroups/key/:key', async (req: any, res: any) => {
