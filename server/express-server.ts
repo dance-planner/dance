@@ -24,7 +24,9 @@ const groupsFileId = path.join(path.resolve(''), './../groups/telegram.json')
 const eventsFilePath = path.join(path.resolve(''), './../events')
 const eventsFileId = path.join(path.resolve(''), './../events/events.json')
 
-export const config = fs.readJSON(configFileId)
+const config = fs.readJSON(configFileId)
+
+let events = sortByDate(fs.readJSON(eventsFileId))
 
 executeMasterplan()
   .then((result: any) => {
@@ -38,28 +40,37 @@ async function executeMasterplan() {
   app.use(cors())
   app.use(compression())
   const mainStaticAssetsPath = useStaticAssets(app)
-  const html = await readPageToMainMemory(mainStaticAssetsPath)
+  const html = await fs.read(`${mainStaticAssetsPath}/i-want-compression-via-route.html`)
   defineRoutes(app, html)
   startListening(app)
-
 }
 
-
-
-async function readPageToMainMemory(pathToStaticAssets: string): Promise<string> {
-  return fs.read(`${pathToStaticAssets}/i-want-compression-via-route.html`)
-}
 
 function regularlyGetTheLatestFancyShit() {
   setInterval(async () => {
     const commandToBeExecuted = `./../topsecret/pull.sh`
     try {
       shell.exec(commandToBeExecuted)
+      events = sortByDate(fs.readJSON(eventsFileId))
     } catch (error) {
       console.log(error.message)
     }
 
   }, 2 * 60 * 1000)
+}
+
+function sortByDate(events: any[]): any[] {
+  return events.sort((c1, c2) => {
+    if (c1.startDate > c2.startDate) {
+      return 1
+    }
+
+    if (c1.startDate < c2.startDate) {
+      return -1
+    }
+
+    return 0
+  })
 }
 
 function useStaticAssets(app): string {
@@ -83,7 +94,7 @@ function defineRoutes(app, html) {
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {
-    res.send(fs.readJSON(eventsFileId))
+    res.send(events)
   });
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
