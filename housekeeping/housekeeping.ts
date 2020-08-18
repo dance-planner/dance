@@ -1,19 +1,39 @@
 import { Persistence } from "https://deno.land/x/persistence@1.1.0/persistence.ts"
 import * as log from "https://deno.land/std/log/mod.ts";
 import { Utilities } from "../utilities.ts";
-
+import { CityLocationService } from "https://deno.land/x/location@1.1.1/citylocationservice.ts"
 
 export class Housekeeping {
 
+    public static async ensureLatLonCorrect(events: any[]): Promise<any[]> {
+
+        for (const event of events){
+            if (event.lat === 0){
+                log.error(`latitude seems wrong`)
+                const cityLocation = await CityLocationService.getCityLocation(event.countryCode, event.city)
+                log.warning(cityLocation)
+                event.lat = cityLocation.latitude
+                event.lon = cityLocation.longitude
+            }
+        }
+
+        return events
+    }
     public static async correctEventLists() {
 
         const fileIdEvents = `${Deno.cwd()}/events/events.json`
+        const fileIdTelegramEvents = `${Deno.cwd()}/events/telegram-events.json`
         const fileIdArchivedEvents = `${Deno.cwd()}/events/events-archive.json`
         const fileIdReportedEvents = `${Deno.cwd()}/events/events-block-list.json`
         const fileIdReports = `${Deno.cwd()}/events/reports.json`
 
-        const events = JSON.parse(await Persistence.readFromLocalFile(fileIdEvents))
+        const telegramEvents = JSON.parse(await Persistence.readFromLocalFile(fileIdTelegramEvents))
+        
+        let events = JSON.parse(await Persistence.readFromLocalFile(fileIdEvents))
         log.info(`number of events before: ${events.length}`)
+
+        events = Housekeeping.addTelegramEvents(events, telegramEvents)
+        events = await Housekeeping.ensureLatLonCorrect(events)
 
         let yesterday = new Date();
         yesterday.setDate(new Date().getDate() - 1);
@@ -70,6 +90,24 @@ export class Housekeeping {
         }
 
         await Persistence.saveToLocalFile(fileIdTelegramGroups, JSON.stringify(correctedGroups))
+    }
+
+    private static addTelegramEvents(events: any[], telegramEvents: any[]){
+        log.info(`checking ${telegramEvents.length} telegram events`)
+        log.info(`checking ${events.length} events`)
+        
+        let enhancedEventList = events
+        
+        for (const telegramEvent of telegramEvents) {
+            const existingEntry = events.filter((e: any) => e.id === telegramEvent.id)[0]
+            if (existingEntry === undefined){
+                enhancedEventList.push(telegramEvent)
+            }
+        }
+        
+        log.info(`returning ${events.length} events after having added telegram events`)
+        
+        return enhancedEventList
     }
 }
 
