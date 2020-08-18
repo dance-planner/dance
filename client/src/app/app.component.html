@@ -46,7 +46,8 @@
           No events found in this range. <p></p>
           <img src="../assets/gifs/sad.gif" alt="" style="max-width: 90%;">
           <p></p>
-          You can encourage dance teachers and hosts to publish their events here.
+          You can encourage dance teachers and hosts to publish their events
+          <a href="https://t.me/danceplanner_bot" target="_blank">here</a>.
         </div>
       </span>
 
@@ -62,7 +63,7 @@
     <div class="cardsDiv" *ngIf="md.cards.length>0 && view==='find'">
       <!-- <div *cdkVirtualFor="let card of md.cards"> -->
       <div *ngFor="let card of md.cards.slice(0, 7)">
-        <app-card [card]="card" [jwt]="jwt" (reportEvent)="onReportEvent($event)"></app-card>
+        <app-card [card]="card" [jwt]="jwt"></app-card>
       </div>
 
 

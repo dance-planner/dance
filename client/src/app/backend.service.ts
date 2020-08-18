@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { forkJoin } from 'rxjs'
 // tslint:disable-next-line: ordered-imports
-import { IDanceGroup, ILinkDancesDatesLocation, ICityGroup } from './shared-interfaces-and-constants'
+import { ILinkDancesDatesLocation, ICityGroup } from './shared-interfaces-and-constants'
 
 @Injectable({
   providedIn: 'root',
@@ -32,19 +32,6 @@ export class BackendService {
 
     return this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)
   }
-
-  public postDanceGroup(danceGroup: IDanceGroup, token: string, dpAccessToken: string, fblogin: string) {
-    return this.post(`${BackendService.backendURL}/postDanceGroup`, danceGroup, token, dpAccessToken, fblogin)
-  }
-
-  // public reportEvent(report: IReport, token: string): any {
-  //   return this.post(serviceEndpoints.reportEvent, { report }, token)
-  // }
-
-  // public getEvents(token: string) {
-  //   alert(token)
-  //   return this.get(serviceEndpoints.events, token)
-  // }
 
   public getCities(token: string) {
     return this.get(`${BackendService.backendURL}/cities/getCitiesWithMin/minNumberOfInhabitants/90000/key/123`, token)

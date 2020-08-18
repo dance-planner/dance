@@ -150,17 +150,6 @@ export class AppComponent implements OnInit {
     // this.useAsApp(11)
   }
 
-  public onReportEvent(target: string) {
-
-    if (this.dpAccessToken === undefined) {
-      if (confirm('To report this event you need to login via Facebook. Is this fine for you?')) {
-        location.assign(`${BackendService.backendURL}/authentication/facebook/login?action=report-${target}`)
-      }
-    } else {
-      location.assign(`${BackendService.backendURL}?actionID=report-${target}`)
-    }
-  }
-
   public onClickMenuEntry(target: string) {
 
     if (target === 'find') {
