@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core'
-import { IEvent, IDanceGroup, EGroupType } from '../shared-interfaces-and-constants'
+import { IEvent, IDanceGroup } from '../shared-interfaces-and-constants'
 import { BackendService } from '../backend.service'
-import { AppComponent } from '../app.component'
-import { ModuleService } from '../module.service'
 
 @Component({
   selector: 'app-further-options',
@@ -50,19 +48,6 @@ export class FurtherOptionsComponent implements OnInit {
   public onDanceStyleSelected(danceStyle: any) {
     this.selectedDanceStyle = danceStyle
   }
-
-  // public onCitySelected(item: string) {
-  //   const countryCode = item.split('flags/')[1].split('.svg')[0]
-  //   for (const countryWithCities of AppComponent.countriesAndCities) {
-  //     if (countryWithCities.countryCode.toLowerCase() === countryCode) {
-  //       for (const city of countryWithCities) {
-  //         if (item.split(ModuleService.delimiter)[0] === city.name) {
-  //           this.selectedCity = city.name
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   public clickInsights() {
     this.showInsights = !this.showInsights
