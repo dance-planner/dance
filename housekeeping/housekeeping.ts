@@ -20,6 +20,7 @@ export class Housekeeping {
 
         events = Housekeeping.addTelegramEvents(events, telegramEvents)
         
+        await Housekeeping.correctTelegramGroups()
         // events = await Housekeeping.ensureLatLonCorrect(events)
 
         let yesterday = new Date();
