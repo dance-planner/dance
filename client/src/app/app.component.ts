@@ -273,7 +273,8 @@ export class AppComponent implements OnInit {
 
   private filterEvents(city: any, dance: string, range: number) {
     this.events = []
-    this.allEvents.map((event: IEvent) => {
+    for (const event of this.allEvents) {
+
       const distance = this.geoService.getDistance(city.lat, city.lon, event.lat, event.lon)
       if (distance < range && (dance === '' || dance === 'All Dance Styles' || event.dances.toLowerCase().indexOf(dance.toLowerCase()) !== -1) && ((this.referenceMoment.isBefore(moment(event.startDate))))) {
         this.events.push(event)
@@ -288,7 +289,7 @@ export class AppComponent implements OnInit {
       if (this.events.length > 27) {
         return
       }
-    })
+    }
   }
 
   private titleIncludesDanceStuff(title) {

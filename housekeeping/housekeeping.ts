@@ -5,20 +5,6 @@ import { CityLocationService } from "https://deno.land/x/location@1.1.1/cityloca
 
 export class Housekeeping {
 
-    public static async ensureLatLonCorrect(events: any[]): Promise<any[]> {
-
-        for (const event of events){
-            if (event.lat === 0){
-                log.error(`latitude seems wrong`)
-                const cityLocation = await CityLocationService.getCityLocation(event.countryCode, event.city)
-                log.warning(cityLocation)
-                event.lat = cityLocation.latitude
-                event.lon = cityLocation.longitude
-            }
-        }
-
-        return events
-    }
     public static async correctEventLists() {
 
         const fileIdEvents = `${Deno.cwd()}/events/events.json`
@@ -33,7 +19,8 @@ export class Housekeeping {
         log.info(`number of events before: ${events.length}`)
 
         events = Housekeeping.addTelegramEvents(events, telegramEvents)
-        events = await Housekeeping.ensureLatLonCorrect(events)
+        
+        // events = await Housekeeping.ensureLatLonCorrect(events)
 
         let yesterday = new Date();
         yesterday.setDate(new Date().getDate() - 1);
@@ -86,6 +73,7 @@ export class Housekeeping {
         let correctedGroups: any = []
         for (const group of telegramGroups) {
             // space for potential corrections
+            group.dances = ''
             correctedGroups.push(group)
         }
 
@@ -109,5 +97,22 @@ export class Housekeeping {
         
         return enhancedEventList
     }
+
+
+    // public static async ensureLatLonCorrect(events: any[]): Promise<any[]> {
+
+    //     for (const event of events){
+    //         if (event.lat === 0){
+    //             log.error(`latitude seems wrong`)
+    //             const cityLocation = await CityLocationService.getCityLocation(event.countryCode, event.city)
+    //             log.warning(cityLocation)
+    //             event.lat = cityLocation.latitude
+    //             event.lon = cityLocation.longitude
+    //         }
+    //     }
+
+    //     return events
+    // }
+
 }
 

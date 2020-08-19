@@ -27,6 +27,7 @@ const eventsFileId = path.join(path.resolve(''), './../events/events.json')
 const config = fs.readJSON(configFileId)
 
 let events = sortByDate(fs.readJSON(eventsFileId))
+let telegramGroups = fs.readJSON(groupsFileId)
 
 executeMasterplan()
   .then((result: any) => {
@@ -52,6 +53,7 @@ function regularlyGetTheLatestFancyShit() {
     try {
       shell.exec(commandToBeExecuted)
       events = sortByDate(fs.readJSON(eventsFileId))
+      telegramGroups = fs.readJSON(groupsFileId)
     } catch (error) {
       console.log(error.message)
     }
@@ -128,7 +130,8 @@ function defineRoutes(app, html) {
   });
 
   app.get('/community/getTelegramGroups/key/:key', async (req: any, res: any) => {
-    res.send(fs.readJSON(groupsFileId))
+    const telegramGroupsWithInvitationLink = telegramGroups.filter((g: any) => g.telegramInvitationLink !== '')
+    res.send(telegramGroupsWithInvitationLink)
   });
 }
 
