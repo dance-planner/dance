@@ -134,7 +134,7 @@ function defineRoutes(app, html) {
     res.send(telegramGroupsWithInvitationLink)
   });
 
-  app.get('/getTelegramInvitationLink/groupId/:groupId/key/:key', async (req: any, res: any) => {
+  app.get('/community/getTelegramInvitationLink/groupId/:groupId/key/:key', async (req: any, res: any) => {
     const entry = telegramGroups.filter((g: any) => g.dpId === req.params.groupId)[0]
     if (entry === undefined) {
       const errorMessage = `I could not find an entry for dpId: ${req.params.groupId}`
