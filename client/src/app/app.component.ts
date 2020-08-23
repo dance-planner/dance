@@ -79,8 +79,8 @@ export class AppComponent implements OnInit {
           } else if (result.params.group !== undefined) {
 
             this.backendService.getGroupLink(result.params.group)
-              .subscribe((tId: any) => {
-                location.assign(`https://t.me/joinchat/${tId}`)
+              .subscribe((theGroup: any) => {
+                location.assign(`https://t.me/joinchat/${theGroup.link}`)
               })
           }
         }

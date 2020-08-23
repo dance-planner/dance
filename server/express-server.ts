@@ -141,7 +141,7 @@ function defineRoutes(app, html) {
       console.log(errorMessage)
       throw new Error(errorMessage)
     } else {
-      res.send(entry.telegramInvitationLink)
+      res.send({link: entry.telegramInvitationLink})
     }
   });
 }
