@@ -80,6 +80,7 @@ export const allDances = [
     'Semba',
     'Son',
     'Shim Sham',
+    'Show Dance',
     'Shuffle',
     'Square',
     'Streetdance',
