@@ -70,30 +70,21 @@ export class AppComponent implements OnInit {
     BackendService.backendURL = 'https://danceplanner.org'
     // BackendService.backendURL = 'http://localhost:3001'
     // }
-    // this.route
-    //   .queryParamMap
-    //   .subscribe((result: any) => {
-    //     if (result.params !== undefined) {
-    //       this.eventId = result.params.id
-    //       if (result.params.actionID === 'create' && result.params.dpAccessToken !== undefined) {
-    //         this.view = 'create'
-    //         this.dpAccessToken = result.params.dpAccessToken
-    //         history.replaceState(null, null, ' ')
-    //       } else if (result.params.actionID === 'addGroup' && result.params.dpAccessToken !== undefined) {
-    //         this.view = 'findDancePartners'
-    //         this.dpAccessToken = result.params.dpAccessToken
-    //         history.replaceState(null, null, ' ')
-    //       } else if (result.params.actionID !== undefined && result.params.actionID.includes('report') && result.params.dpAccessToken !== undefined) {
-    //         const eventToBeReported = result.params.actionID.split('report-')[1]
-    //         console.log(`reporting event: ${eventToBeReported}`)
-    //         this.backendService.report(eventToBeReported, this.jwt, result.params.dpAccessToken, result.params.fblogin)
-    //           .subscribe(() => {
-    //             location.assign(BackendService.backendURL)
-    //           })
-    //         history.replaceState(null, null, ' ')
-    //       }
-    //     }
-    //   })
+    this.route
+      .queryParamMap
+      .subscribe((result: any) => {
+        if (result.params !== undefined) {
+          if (result.params.id !== undefined) {
+            this.eventId = result.params.id
+          } else if (result.params.group !== undefined) {
+
+            this.backendService.getGroupLink(result.params.group)
+              .subscribe((tId: any) => {
+                location.assign(`https://t.me/joinchat/${tId}`)
+              })
+          }
+        }
+      })
 
     setTimeout(() => {
       this.backendService.getCities(this.jwt)

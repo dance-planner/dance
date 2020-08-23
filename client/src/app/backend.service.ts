@@ -37,6 +37,10 @@ export class BackendService {
     return this.get(`${BackendService.backendURL}/cities/getCitiesWithMin/minNumberOfInhabitants/90000/key/123`, token)
   }
 
+  public getGroupLink(groupId: string) {
+    return this.get(`${BackendService.backendURL}/community/getTelegramInvitationLink/groupId/groupId/key/123`, 'token')
+  }
+
   public getLandingPageData(token: string): any {
     const events = this.get(`${BackendService.backendURL}/events/getAllEvents/key/123`, token)
     const ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocation/key/123`, token)

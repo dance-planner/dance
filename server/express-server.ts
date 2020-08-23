@@ -133,6 +133,17 @@ function defineRoutes(app, html) {
     const telegramGroupsWithInvitationLink = telegramGroups.filter((g: any) => g.telegramInvitationLink !== '')
     res.send(telegramGroupsWithInvitationLink)
   });
+
+  app.get('/getTelegramInvitationLink/groupId/:groupId/key/:key', async (req: any, res: any) => {
+    const entry = telegramGroups.filter((g: any) => g.dpId === req.params.groupId)[0]
+    if (entry === undefined) {
+      const errorMessage = `I could not find an entry for dpId: ${req.params.groupId}`
+      console.log(errorMessage)
+      throw new Error(errorMessage)
+    } else {
+      res.send(entry.telegramInvitationLink)
+    }
+  });
 }
 
 function startListening(app) {
