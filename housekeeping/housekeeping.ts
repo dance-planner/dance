@@ -1,7 +1,7 @@
 import { Persistence } from "https://deno.land/x/persistence@1.1.0/persistence.ts"
 import * as log from "https://deno.land/std/log/mod.ts";
 import { Utilities } from "../utilities.ts";
-import { CityLocationService } from "https://deno.land/x/location@1.1.1/citylocationservice.ts"
+// import { CityLocationService } from "https://deno.land/x/location@1.1.1/citylocationservice.ts"
 
 export class Housekeeping {
 
@@ -21,6 +21,7 @@ export class Housekeeping {
         events = Housekeeping.addTelegramEvents(events, telegramEvents)
         
         await Housekeeping.correctTelegramGroups()
+
         // events = await Housekeeping.ensureLatLonCorrect(events)
 
         let yesterday = new Date();
@@ -36,7 +37,7 @@ export class Housekeeping {
 
         let alreadyThere: string[] = []
         for (const event of events) {
-            let avoidingDuplicateFor = `${event.title}-${event.startDate}-${event.city}-${event.coutryCode}-${event.dances}`
+            let avoidingDuplicateFor = `${event.title}-${event.startDate}-${event.city}-${event.countryCode}-${event.dances}`
             if (alreadyThere.includes(avoidingDuplicateFor)) {
                 log.warning(`this could have been a duplicate entry: ${avoidingDuplicateFor}`)
             } else {
@@ -49,6 +50,7 @@ export class Housekeeping {
                     log.info(`number of reported events after: ${reportedEvents.length}`)
                 } else if (validDates.includes(event.startDate)) {
                     // space for potential corrections
+                    
                     correctedEvents.push(event)
                 } else {
                     const archivedEvents = JSON.parse(await Persistence.readFromLocalFile(fileIdArchivedEvents))
@@ -74,7 +76,7 @@ export class Housekeeping {
         let correctedGroups: any = []
         for (const group of telegramGroups) {
             // space for potential corrections
-            group.dances = ''
+
             correctedGroups.push(group)
         }
 
