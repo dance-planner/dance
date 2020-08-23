@@ -10,10 +10,8 @@ import { BackendService } from '../backend.service'
 export class FurtherOptionsComponent implements OnInit {
 
   @Input() public allEvents: IEvent[]
-  @Input() public jwt = ''
   @Input() public danceStyles
   @Input() public cities
-  @Input() public fblogin: string
   @Input() public dpAccessToken: string
 
   public groupLink = ''
@@ -33,7 +31,7 @@ export class FurtherOptionsComponent implements OnInit {
   public constructor(private readonly backendService: BackendService) { }
 
   public ngOnInit() {
-    this.backendService.getDanceGroups(this.jwt)
+    this.backendService.getDanceGroups('')
       .subscribe((result: IDanceGroup[]) => {
         this.danceGroups = result
         this.readyForDisplay = true

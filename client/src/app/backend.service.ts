@@ -18,16 +18,6 @@ export class BackendService {
 
   public constructor(private readonly http: HttpClient) { }
 
-  public report(link: string, token: string, dpAccessToken: string, fblogin: string) {
-    alert('Reported Successfully. Thank You for keeping the Dance Planner clean.')
-
-    return this.post(`${BackendService.dataURL}/reportEvent`, { link }, token, dpAccessToken, fblogin)
-  }
-
-  public postLink(linkDancesDatesLocation: ILinkDancesDatesLocation, token: string, dpAccessToken: string, fblogin: string) {
-    return this.post(`${BackendService.dataURL}/postLink`, { linkDancesDatesLocation }, token, dpAccessToken, fblogin)
-  }
-
   public getDanceGroups(token: string) {
 
     return this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)
@@ -62,19 +52,19 @@ export class BackendService {
 
   }
 
-  private post(url: string, body: any, token: string, dpAccessToken: string, fblogin: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'jwt': token,
-        'fblogin': fblogin,
-        'dpAccessToken': dpAccessToken,
-      }),
-    }
+  // private post(url: string, body: any, token: string, dpAccessToken: string, fblogin: string) {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       'jwt': token,
+  //       'fblogin': fblogin,
+  //       'dpAccessToken': dpAccessToken,
+  //     }),
+  //   }
 
-    console.log(JSON.stringify(body))
+  //   console.log(JSON.stringify(body))
 
-    return this.http.post<any>(url, JSON.stringify(body), httpOptions)
-  }
+  //   return this.http.post<any>(url, JSON.stringify(body), httpOptions)
+  // }
 
 }
