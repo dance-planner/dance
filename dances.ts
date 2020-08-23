@@ -60,6 +60,7 @@ export const allDances = [
     'Lambada',
     'Lindy Hop',
     'Linedance',
+    'Line Dance',
     'Mambo',
     'Merengue',
     'No Dance Provided',
