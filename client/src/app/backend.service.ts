@@ -38,7 +38,7 @@ export class BackendService {
   }
 
   public getGroupLink(groupId: string) {
-    return this.get(`${BackendService.backendURL}/community/getTelegramInvitationLink/groupId/groupId/key/123`, 'token')
+    return this.get(`${BackendService.backendURL}/community/getTelegramInvitationLink/groupId/${groupId}/key/123`, 'token')
   }
 
   public getLandingPageData(token: string): any {
