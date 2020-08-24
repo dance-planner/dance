@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
-import { IEvent, IDanceGroup } from '../shared-interfaces-and-constants'
+import { IEvent } from '../shared-interfaces-and-constants'
 import { BackendService } from '../backend.service'
 
 @Component({
@@ -23,8 +23,8 @@ export class FurtherOptionsComponent implements OnInit {
   public showFacebookGroups = false
   public showTelegramGroups = false
   public readyForDisplay = false
-  public danceGroups: IDanceGroup[]
-  public filteredDanceGroups: IDanceGroup[]
+  public danceGroups: any[]
+  public filteredDanceGroups: any[]
   public sortingDirectionDown = false
   public cityGroups: any[] = []
 
@@ -32,15 +32,15 @@ export class FurtherOptionsComponent implements OnInit {
 
   public ngOnInit() {
     this.backendService.getDanceGroups('')
-      .subscribe((result: IDanceGroup[]) => {
+      .subscribe((result: any[]) => {
         this.danceGroups = result
         this.readyForDisplay = true
-      })
 
-    for (const cityGroup of BackendService.cityGroups) {
-      cityGroup.completeLink = `https://t.me/joinchat/${cityGroup.telegramInvitationLink}`
-      this.cityGroups.push(cityGroup)
-    }
+        for (const cityGroup of this.danceGroups) {
+          cityGroup.completeLink = `https://t.me/joinchat/${cityGroup.telegramInvitationLink}`
+          this.cityGroups.push(cityGroup)
+        }
+      })
   }
 
   public onDanceStyleSelected(danceStyle: any) {

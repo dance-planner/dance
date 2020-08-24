@@ -78,19 +78,6 @@ export class CardComponent {
     return link
   }
 
-  public getLinkToPartners() {
-    const cityGroupForEvent = BackendService.cityGroups.filter((e: ICityGroup) => e.countryCode.toLowerCase() === this.card.countryCode.toLowerCase() && e.cityName.toLowerCase() === this.card.city.toLowerCase())[0]
-    if (cityGroupForEvent === undefined || cityGroupForEvent.telegramInvitationLink === '') {
-      console.log(`no telegram group found for ${this.card.countryCode}, ${this.card.city}`)
-
-      return 'https://perfect-matches.org'
-    }
-
-    const link = `https://t.me/joinchat/${cityGroupForEvent.telegramInvitationLink}`
-
-    return link
-  }
-
   public copyText(eventID: string) {
     const val = document.getElementById(eventID).innerHTML.trim()
     const selBox = document.createElement('textarea')

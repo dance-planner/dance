@@ -19,6 +19,7 @@ export interface IEvent {
   startDate: string
   startTime: string
   link: string
+  chatLink: string
   lat: number
   lon: number
   // id: string
@@ -53,15 +54,15 @@ export interface IReport {
   reportedBecause
 }
 
-export interface IDanceGroup {
-  city: string,
-  groupType: EGroupType,
-  dance: string
-  id: string
-}
+// export interface IDanceGroup {
+//   city: string,
+//   groupType: EGroupType,
+//   dance: string
+//   id: string
+// }
 
-export enum EGroupType {
-  'Telegram' = 'Telegram',
-  'Facebook' = 'Facebook',
-  'WhatsApp' = 'WhatsApp',
-}
+// export enum EGroupType {
+//   'Telegram' = 'Telegram',
+//   'Facebook' = 'Facebook',
+//   'WhatsApp' = 'WhatsApp',
+// }

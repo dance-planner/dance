@@ -14,7 +14,6 @@ export class BackendService {
   public static responseList: any[] = []
   public static dataURL: string
   public static backendURL: string
-  public static cityGroups: ICityGroup[]
 
   public constructor(private readonly http: HttpClient) { }
 
@@ -35,9 +34,9 @@ export class BackendService {
   public getLandingPageData(token: string): any {
     const events = this.get(`${BackendService.backendURL}/events/getAllEvents/key/123`, token)
     const ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocation/key/123`, token)
-    const cityGroups = this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)
+    // const cityGroups = this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)
 
-    return forkJoin([events, ipLocation, cityGroups])
+    return forkJoin([events, ipLocation])
 
   }
 

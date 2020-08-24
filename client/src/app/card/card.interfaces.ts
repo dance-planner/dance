@@ -9,6 +9,7 @@ export interface ICardData {
   city: string
   linkToThisItem: string
   linkToFurtherInfo: string
+  chatLink: string
   imageURL: string
   distance: number
 }

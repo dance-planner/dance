@@ -194,13 +194,10 @@ export class AppComponent implements OnInit {
         }
 
         this.city = result[1]
-        BackendService.cityGroups = result[2]
         this.allEvents = (this.eventId === undefined) ?
           result[0] :
           this.handleSpecificEventRequest(result[0])
 
-        // alert(JSON.stringify(this.allEvents[0]))
-        // alert(JSON.stringify(BackendService.cityGroups[0]))
         this.filterEvents(this.city, this.dance, this.initialRange)
 
         if (this.events.length < 4) {

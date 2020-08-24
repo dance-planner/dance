@@ -5,6 +5,16 @@ import { Utilities } from "../utilities.ts";
 
 export class Housekeeping {
 
+    private static fileIdTelegramGroups = `${Deno.cwd()}/groups/telegram.json`
+
+    public static async enrichChatLink(events: any[]) {
+        const telegramGroups = JSON.parse(await Persistence.readFromLocalFile(Housekeeping.fileIdTelegramGroups))
+        for (const e of events) {
+            if (e.chatLink === undefined || e.chatLink === '') {
+                e.chatLink = `https://t.me/joinchat/${Utilities.getClosestEntry(telegramGroups, e.lat, e.lon).telegramInvitationLink}`
+            }
+        }
+    }
     public static async correctEventLists() {
 
         const fileIdEvents = `${Deno.cwd()}/events/events.json`
@@ -12,13 +22,14 @@ export class Housekeeping {
         const fileIdArchivedEvents = `${Deno.cwd()}/events/events-archive.json`
         const fileIdReportedEvents = `${Deno.cwd()}/events/events-block-list.json`
         const fileIdReports = `${Deno.cwd()}/events/reports.json`
-
+        
         const telegramEvents = JSON.parse(await Persistence.readFromLocalFile(fileIdTelegramEvents))
         
         let events = JSON.parse(await Persistence.readFromLocalFile(fileIdEvents))
         log.info(`number of events before: ${events.length}`)
-
+        
         events = Housekeeping.addTelegramEvents(events, telegramEvents)
+        Housekeeping.enrichChatLink(events)
         
         await Housekeeping.correctTelegramGroups()
 
@@ -69,8 +80,7 @@ export class Housekeeping {
 
     public static async  correctTelegramGroups() {
 
-        const fileIdTelegramGroups = `${Deno.cwd()}/groups/telegram.json`
-        const telegramGroups = JSON.parse(await Persistence.readFromLocalFile(fileIdTelegramGroups))
+        const telegramGroups = JSON.parse(await Persistence.readFromLocalFile(Housekeeping.fileIdTelegramGroups))
         console.log(telegramGroups.length)
 
         let correctedGroups: any = []
@@ -80,7 +90,7 @@ export class Housekeeping {
             correctedGroups.push(group)
         }
 
-        await Persistence.saveToLocalFile(fileIdTelegramGroups, JSON.stringify(correctedGroups))
+        await Persistence.saveToLocalFile(Housekeeping.fileIdTelegramGroups, JSON.stringify(correctedGroups))
     }
 
     private static addTelegramEvents(events: any[], telegramEvents: any[]){
