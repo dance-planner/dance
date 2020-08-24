@@ -18,6 +18,7 @@ export class BackendService {
 
   public constructor(private readonly http: HttpClient) { }
 
+  // http://localhost:3001/community/getTelegramGroups/key/123
   public getDanceGroups(token: string) {
 
     return this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)

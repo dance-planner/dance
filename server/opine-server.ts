@@ -7,8 +7,6 @@ import { Persistence } from "https://deno.land/x/persistence/persistence.ts"
 import { CityService } from 'https://deno.land/x/cities/cityservice.ts'
 import { simpleCors } from "https://deno.land/x/simplecors/simple-cors.ts";
 
-
-
 // Masterplan
 regularlyGetTheLatestFancyShit()
 const app = opine();

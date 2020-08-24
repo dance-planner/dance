@@ -5,6 +5,7 @@ import * as path from 'path'
 import * as express from 'express'
 import * as compression from 'compression'
 import * as axios from 'axios'
+import { DistanceCalculator } from './distance-calculator'
 const requestIp = require('request-ip')
 // const axios = require('axios')
 
@@ -13,6 +14,7 @@ const http = require('http')
 const https = require('https')
 const cors = require('cors')
 const shell = require('shelljs');
+
 const dancePlannersHomeLocation = {
   name: 'Heidelberg',
   lat: 49.40768,
@@ -28,6 +30,7 @@ const config = fs.readJSON(configFileId)
 
 let events = sortByDate(fs.readJSON(eventsFileId))
 let telegramGroups = fs.readJSON(groupsFileId)
+let requestIPLocations: any[] = []
 
 executeMasterplan()
   .then((result: any) => {
@@ -57,7 +60,7 @@ function regularlyGetTheLatestFancyShit() {
     } catch (error) {
       console.log(error.message)
     }
-
+    requestIPLocations = []
   }, 2 * 60 * 1000)
 }
 
@@ -68,6 +71,20 @@ function sortByDate(events: any[]): any[] {
     }
 
     if (c1.startDate < c2.startDate) {
+      return -1
+    }
+
+    return 0
+  })
+}
+
+function sortByDistance(groups: any[]): any[] {
+  return groups.sort((c1, c2) => {
+    if (c1.distance > c2.distance) {
+      return 1
+    }
+
+    if (c1.distance < c2.distance) {
       return -1
     }
 
@@ -106,23 +123,47 @@ function defineRoutes(app, html) {
   app.get('/location/getIPLocation/key/:key', async (req: any, res: any) => {
     const magic = requestIp.getClientIp(req)
     let ipAdressOfClient
+
     if (magic.includes('ffff:')) {
       ipAdressOfClient = magic.split('ffff:')[1]
       console.log('\nipAdressOfClient:')
       console.log(ipAdressOfClient)
 
-      const result = (await (axios as any).get(`https://freegeoip.app/json/${ipAdressOfClient}`)).data
+      let location
 
-      if (result === undefined || result.city === undefined || ipAdressOfClient.includes(':')) {
-        res.send(dancePlannersHomeLocation);
+      const existingEntry = requestIPLocations.filter((e: any) => e.ipAdressOfClient === ipAdressOfClient)[0]
+      if (existingEntry === undefined) {
+
+        const result = (await (axios as any).get(`https://freegeoip.app/json/${ipAdressOfClient}`)).data
+
+        if (result === undefined || result.city === undefined || ipAdressOfClient.includes(':')) {
+          res.send(dancePlannersHomeLocation);
+        } else {
+          location = {
+            name: result.city,
+            lat: result.latitude,
+            lon: result.longitude,
+          }
+
+          const requestIPLocation = {
+            ipAdressOfClient,
+            name: result.city,
+            lat: result.latitude,
+            lon: result.longitude,
+          }
+
+          requestIPLocations.push(requestIPLocation)
+        }
+
       } else {
-        res.send({
-          name: result.city,
-          lat: result.latitude,
-          lon: result.longitude,
-        });
-
+        location = {
+          name: existingEntry.name,
+          lat: existingEntry.latitude,
+          lon: existingEntry.longitude,
+        }
       }
+      res.send(location);
+
     } else {
       console.log('I could not determine ip adress of request')
       res.send(dancePlannersHomeLocation);
@@ -130,8 +171,21 @@ function defineRoutes(app, html) {
   });
 
   app.get('/community/getTelegramGroups/key/:key', async (req: any, res: any) => {
-    const telegramGroupsWithInvitationLink = telegramGroups.filter((g: any) => g.telegramInvitationLink !== '')
-    res.send(telegramGroupsWithInvitationLink)
+    let telegramGroupsWithInvitationLink = telegramGroups.filter((g: any) => g.telegramInvitationLink !== '')
+    const ipAdressOfClient = getIPAddressOfClient(req)
+    let existingEntry = requestIPLocations.filter((e: any) => e.ipAdressOfClient === ipAdressOfClient)[0]
+    if (existingEntry === undefined) {
+      res.send(telegramGroupsWithInvitationLink)
+    } else {
+
+      telegramGroupsWithInvitationLink = enrichDistance(telegramGroupsWithInvitationLink, existingEntry.lat, existingEntry.lon)
+      
+      telegramGroupsWithInvitationLink = sortByDistance(telegramGroupsWithInvitationLink)
+
+      const sortedTelegramGroups = telegramGroupsWithInvitationLink
+      res.send(sortedTelegramGroups)
+    }
+
   });
 
   app.get('/community/getTelegramInvitationLink/groupId/:groupId/key/:key', async (req: any, res: any) => {
@@ -141,9 +195,36 @@ function defineRoutes(app, html) {
       console.log(errorMessage)
       throw new Error(errorMessage)
     } else {
-      res.send({link: entry.telegramInvitationLink})
+      res.send({ link: entry.telegramInvitationLink })
     }
   });
+}
+
+function enrichDistance(telegramGroups: any[], latUser: number, lonUser: number): any[] {
+
+  for (const g of telegramGroups) {
+    const city = cities.filter((c: any) => c.country === g.countryCode && c.name === g.cityName)[0]
+
+    if (city === undefined){
+      g.distance === 10000
+    } else {
+      g.distance = DistanceCalculator.getDistanceInKilometers(latUser, lonUser, city.lat, city.lon)
+    }
+  }
+
+  return telegramGroups
+}
+
+function getIPAddressOfClient(req: any): string {
+  const magic = requestIp.getClientIp(req)
+  let ipAdressOfClient
+
+  if (magic.includes('ffff:')) {
+    ipAdressOfClient = magic.split('ffff:')[1]
+    return ipAdressOfClient
+  } else {
+    return '95.216.151.143'
+  }
 }
 
 function startListening(app) {
