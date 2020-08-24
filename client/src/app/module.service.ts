@@ -84,7 +84,7 @@ export class ModuleService {
     }
   }
 
-  public async prepareCardsFromEvents(events: IEvent[], pointOfInterest: any, jwt: string): Promise<void> {
+  public async prepareCardsFromEvents(events: IEvent[], pointOfInterest: any): Promise<void> {
     const cards: ICardData[] = []
     let counter = 0
     // alert(JSON.stringify(events[0]))

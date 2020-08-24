@@ -31,7 +31,7 @@ export class FurtherOptionsComponent implements OnInit {
   public constructor(private readonly backendService: BackendService) { }
 
   public ngOnInit() {
-    this.backendService.getDanceGroups('')
+    this.backendService.getDanceGroups()
       .subscribe((result: any[]) => {
         this.danceGroups = result
         this.readyForDisplay = true

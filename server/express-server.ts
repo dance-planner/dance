@@ -51,6 +51,7 @@ async function executeMasterplan() {
 
 
 function regularlyGetTheLatestFancyShit() {
+  let magicCounter = 0
   setInterval(async () => {
     const commandToBeExecuted = `./../topsecret/pull.sh`
     try {
@@ -60,7 +61,10 @@ function regularlyGetTheLatestFancyShit() {
     } catch (error) {
       console.log(error.message)
     }
-    requestIPLocations = []
+    if (magicCounter === 2000) {
+      requestIPLocations = []
+      magicCounter = 0
+    }
   }, 2 * 60 * 1000)
 }
 
@@ -158,8 +162,8 @@ function defineRoutes(app, html) {
       } else {
         location = {
           name: existingEntry.name,
-          lat: existingEntry.latitude,
-          lon: existingEntry.longitude,
+          lat: existingEntry.lat,
+          lon: existingEntry.lon,
         }
       }
       res.send(location);
@@ -179,7 +183,7 @@ function defineRoutes(app, html) {
     } else {
 
       telegramGroupsWithInvitationLink = enrichDistance(telegramGroupsWithInvitationLink, existingEntry.lat, existingEntry.lon)
-      
+
       telegramGroupsWithInvitationLink = sortByDistance(telegramGroupsWithInvitationLink)
 
       const sortedTelegramGroups = telegramGroupsWithInvitationLink
@@ -205,7 +209,7 @@ function enrichDistance(telegramGroups: any[], latUser: number, lonUser: number)
   for (const g of telegramGroups) {
     const city = cities.filter((c: any) => c.country === g.countryCode && c.name === g.cityName)[0]
 
-    if (city === undefined){
+    if (city === undefined) {
       g.distance === 10000
     } else {
       g.distance = DistanceCalculator.getDistanceInKilometers(latUser, lonUser, city.lat, city.lon)

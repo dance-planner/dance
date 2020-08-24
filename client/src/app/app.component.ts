@@ -46,9 +46,8 @@ export class AppComponent implements OnInit {
     'Salsa',
     'Merengue',
   ]
-  public loaded: boolean
+  public loaded = false
   public thirtysecondsover = false
-  public jwt: string
   // private geoData
   // private ip = '0'
 
@@ -66,74 +65,70 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.jwt = document.getElementById('jwt').innerHTML.trim()
-    BackendService.backendURL = 'https://danceplanner.org'
-    // BackendService.backendURL = 'http://localhost:3001'
-    // }
-    this.route
-      .queryParamMap
-      .subscribe((result: any) => {
-        if (result.params !== undefined) {
-          if (result.params.id !== undefined) {
-            this.eventId = result.params.id
-          } else if (result.params.group !== undefined) {
+    if (this.allEvents === undefined || this.allEvents === null || this.allEvents.length === 0) {
 
-            this.backendService.getGroupLink(result.params.group)
-              .subscribe((theGroup: any) => {
-                location.assign(`https://t.me/joinchat/${theGroup.link}`)
-              })
+      BackendService.backendURL = 'https://danceplanner.org'
+      // BackendService.backendURL = 'http://localhost:3001'
+      this.route
+        .queryParamMap
+        .subscribe((result: any) => {
+          if (result.params !== undefined) {
+            if (result.params.id !== undefined) {
+              this.eventId = result.params.id
+            } else if (result.params.group !== undefined) {
+
+              this.backendService.getGroupLink(result.params.group)
+                .subscribe((theGroup: any) => {
+                  location.assign(`https://t.me/joinchat/${theGroup.link}`)
+                })
+            }
           }
-        }
+        })
+
+      setTimeout(() => {
+        this.backendService.getCities()
+          .subscribe((result: any) => {
+            AppComponent.countriesAndCities = result
+            this.moduleService.prepareCityTypeAhead(AppComponent.countriesAndCities)
+          })
+      },         2700)
+
+
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault()
+        AppComponent.deferredPrompt = event
       })
 
-    setTimeout(() => {
-      this.backendService.getCities(this.jwt)
-        .subscribe((result: any) => {
-          AppComponent.countriesAndCities = result
-          this.moduleService.prepareCityTypeAhead(AppComponent.countriesAndCities)
-        })
-    },         2700)
+      this.getLandingPageData()
 
-    // this.useAsApp(24);
-
-    window.addEventListener('beforeinstallprompt', (event) => {
-      event.preventDefault()
-      AppComponent.deferredPrompt = event
-    })
-
-    this.getLandingPageData(this.jwt)
+    }
   }
-
   public clickFurtherEvents() {
     window.scrollTo(0, 0)
   }
+
   public async onDanceStyleSelected(item: string) {
     this.dance = item
     this.filterEvents(this.city, this.dance, this.currentRange)
-    await this.moduleService.prepareCardsFromEvents(this.events, this.poi, this.jwt)
+    await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
     this.md = this.moduleService.getModuleData()
-    // this.useAsApp(11)
   }
 
   public async onCitySelected(item: string) {
-    const countryCode = item.split('flags/')[1].split('.svg')[0]
-    // if (countryWithCities.countryCode.toLowerCase() === countryCode) {
     for (const city of AppComponent.countriesAndCities) {
       if (item.split(ModuleService.delimiter)[0] === city.name) {
         this.city = city
         this.filterEvents(this.city, this.dance, this.currentRange)
-        await this.moduleService.prepareCardsFromEvents(this.events, this.poi, this.jwt)
+        await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
         this.md = this.moduleService.getModuleData()
         this.md.selectedCity = city.name
       }
     }
-    // this.useAsApp(11)
   }
-
   public async handleRangeSetting($event) {
     this.currentRange = $event
     this.filterEvents(this.city, this.dance, this.currentRange)
-    await this.moduleService.prepareCardsFromEvents(this.events, this.poi, this.jwt)
+    await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
     this.md = this.moduleService.getModuleData()
     this.md.selectedCity = this.city.name
     // this.useAsApp(11)
@@ -176,17 +171,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private validateToken(token: string) {
-    if (token === undefined) {
-      alert('Invalid Token.')
-    } else {
-      // console.log(`token: ${token}`)
-    }
-  }
-
-  private getLandingPageData(jwt: string) {
-    this.validateToken(jwt)
-    this.backendService.getLandingPageData(jwt)
+  private getLandingPageData() {
+    this.backendService.getLandingPageData()
       .subscribe(async (result: any) => {
         this.poi = {
           lat: result[1].lat,
@@ -205,25 +191,13 @@ export class AppComponent implements OnInit {
           this.filterEvents(this.city, this.dance, this.initialRange)
         }
 
-        await this.moduleService.prepareCardsFromEvents(this.events, this.poi, this.jwt)
+        await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
         this.md = this.moduleService.getModuleData()
         this.currentRange = this.initialRange
         this.loaded = true
-        // setTimeout(() => {
-        //   setTimeout(() => {
-        //     this.loaded = true
-        //   },         3000)
-        //   this.thirtysecondsover = true
-        // },         30000)
       },         (error) => {
         console.log(error)
       })
-
-    // setTimeout(() => {
-    //   if (!this.loaded) {
-    //     alert('There is very much traffic at the moment. This is just a Hobby Project and I did not expect such a strong demand for this service.')
-    //   }
-    // },         11000)
   }
 
   private handleSpecificEventRequest(allEvents): IEvent[] {
@@ -258,6 +232,7 @@ export class AppComponent implements OnInit {
   }
 
   private filterEvents(city: any, dance: string, range: number) {
+    // console.log(`filtering ${this.allEvents.length} events by ${dance} and ${range} and ${JSON.stringify(city)}`)
     this.events = []
     for (const event of this.allEvents) {
 
@@ -267,14 +242,14 @@ export class AppComponent implements OnInit {
       }
       if (dance === '----------------------------------------' && event.dances === '' && !this.titleIncludesDanceStuff(event.title)) {
         this.events.push(event)
-        if (this.events.length > 20) {
-          return
-        }
+        // if (this.events.length > 20) {
+        //   return
+        // }
       }
 
-      if (this.events.length > 27) {
-        return
-      }
+      // if (this.events.length > 27) {
+      //   return
+      // }
     }
   }
 

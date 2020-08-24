@@ -18,29 +18,28 @@ export class BackendService {
   public constructor(private readonly http: HttpClient) { }
 
   // http://localhost:3001/community/getTelegramGroups/key/123
-  public getDanceGroups(token: string) {
+  public getDanceGroups() {
 
-    return this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)
+    return this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`)
   }
 
-  public getCities(token: string) {
-    return this.get(`${BackendService.backendURL}/cities/getCitiesWithMin/minNumberOfInhabitants/90000/key/123`, token)
+  public getCities() {
+    return this.get(`${BackendService.backendURL}/cities/getCitiesWithMin/minNumberOfInhabitants/90000/key/123`)
   }
 
   public getGroupLink(groupId: string) {
-    return this.get(`${BackendService.backendURL}/community/getTelegramInvitationLink/groupId/${groupId}/key/123`, 'token')
+    return this.get(`${BackendService.backendURL}/community/getTelegramInvitationLink/groupId/${groupId}/key/123`)
   }
 
-  public getLandingPageData(token: string): any {
-    const events = this.get(`${BackendService.backendURL}/events/getAllEvents/key/123`, token)
-    const ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocation/key/123`, token)
-    // const cityGroups = this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`, token)
+  public getLandingPageData(): any {
+    const events = this.get(`${BackendService.backendURL}/events/getAllEvents/key/123`)
+    const ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocation/key/123`)
 
     return forkJoin([events, ipLocation])
 
   }
 
-  private get(url: any, token: string): any {
+  private get(url: any): any {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,7 +48,6 @@ export class BackendService {
     console.log(`calling to get ${url}`)
 
     return this.http.get<any>(url, options)
-
   }
 
   // private post(url: string, body: any, token: string, dpAccessToken: string, fblogin: string) {
