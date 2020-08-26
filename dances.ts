@@ -89,7 +89,7 @@ export const allDances = [
     'Swing',
     'Table Dance',
     'Tango',
-    'Tap',
+    'Tap Dance',
     'Techno',
     'Timba',
     'Trance',
