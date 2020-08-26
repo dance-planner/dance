@@ -72,7 +72,7 @@ export class Housekeeping {
     }
 
     private static async archiveImagesWithPastDate() {
-        const validDates = Utilities.getValidDates()
+        const validDates = Housekeeping.getValidDates()
         for (const entry of walkSync(`${Deno.cwd()}/events`)) {
             if (entry.path.includes("dance/events/dancing-")) {
                 const dateFromImageName = entry.path.split('-on-')[1].substr(0, 10)
