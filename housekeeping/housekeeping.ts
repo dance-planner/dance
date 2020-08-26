@@ -28,7 +28,8 @@ export class Housekeeping {
         events = Housekeeping.addTelegramEvents(events, telegramEvents)
         events = await Housekeeping.enrichChatLink(events, telegramGroups)
 
-        await Housekeeping.archiveImages()
+        await Housekeeping.archiveInvalidImages()
+        await Housekeeping.archiveImagesWithPastDate()
 
         const validDates = Housekeeping.getValidDates()
 
@@ -70,7 +71,20 @@ export class Housekeeping {
         await Persistence.saveToLocalFile(Housekeeping.fileIdEvents, JSON.stringify(correctedEvents))
     }
 
-    private static async archiveImages() {
+    private static async archiveImagesWithPastDate() {
+        const validDates = Utilities.getValidDates()
+        for (const entry of walkSync(`${Deno.cwd()}/events`)) {
+            if (entry.path.includes("dance/events/dancing-")) {
+                const dateFromImageName = entry.path.split('-on-')[1].substr(0, 10)
+                if (dateFromImageName.length === 10 && dateFromImageName.substr(0, 4) === (new Date().getFullYear().toString()) && !validDates.includes(dateFromImageName)) {
+                    log.info(dateFromImageName)
+                    await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/')[1]}`); 
+                }
+            }
+        }
+    }
+
+    private static async archiveInvalidImages() {
         for (const entry of walkSync(`${Deno.cwd()}/events`)) {
             if (entry.path.includes(`dance/events/dancing-"`)) {
                 if (entry.path.includes("undefined")) {

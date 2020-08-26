@@ -1,0 +1,1 @@
+deno run --allow-read --allow-write --unstable housekeeping/one-time-corrections/archive-images-with-past-date.ts
