@@ -73,9 +73,11 @@ export class CardComponent {
   }
 
   public getLinkToTutorials() {
-    const link = `https://www.youtube.com/results?search_query=${this.card.dance}+dance+tutorial`
 
-    return link
+    return (this.card.dance.includes('Salsa')) ?
+      'https://dance-planner.org/?group=teo' :
+      `https://www.youtube.com/results?search_query=${this.card.dance}+dance+tutorial`
+
   }
 
   public copyText(eventID: string) {
