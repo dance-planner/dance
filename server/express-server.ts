@@ -207,12 +207,17 @@ function defineRoutes(app, html) {
 function enrichDistance(telegramGroups: any[], latUser: number, lonUser: number): any[] {
 
   for (const g of telegramGroups) {
-    const city = cities.filter((c: any) => c.country === g.countryCode && c.name === g.cityName)[0]
-
-    if (city === undefined) {
-      g.distance === 10000
+    if (g.countryCode === '' || g.cityName === '') {
+      g.distance = 1000000
     } else {
-      g.distance = DistanceCalculator.getDistanceInKilometers(latUser, lonUser, city.lat, city.lon)
+
+      const city = cities.filter((c: any) => c.country === g.countryCode && c.name === g.cityName)[0]
+
+      if (city === undefined) {
+        g.distance === 10000
+      } else {
+        g.distance = DistanceCalculator.getDistanceInKilometers(latUser, lonUser, city.lat, city.lon)
+      }
     }
   }
 
