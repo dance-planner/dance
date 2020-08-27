@@ -76,11 +76,16 @@ export class AppComponent implements OnInit {
             if (result.params.id !== undefined) {
               this.eventId = result.params.id
             } else if (result.params.group !== undefined) {
+              if (result.params.group === 'findDancePartners') {
 
-              this.backendService.getGroupLink(result.params.group)
-                .subscribe((theGroup: any) => {
-                  location.assign(`https://t.me/joinchat/${theGroup.link}`)
-                })
+                this.view = 'findDancePartners'
+
+              } else {
+                this.backendService.getGroupLink(result.params.group)
+                  .subscribe((theGroup: any) => {
+                    location.assign(`https://t.me/joinchat/${theGroup.link}`)
+                  })
+              }
             }
           }
         })
@@ -92,7 +97,6 @@ export class AppComponent implements OnInit {
             this.moduleService.prepareCityTypeAhead(AppComponent.countriesAndCities)
           })
       },         2700)
-
 
       window.addEventListener('beforeinstallprompt', (event) => {
         event.preventDefault()
