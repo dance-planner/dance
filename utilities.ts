@@ -10,34 +10,39 @@ export class Utilities {
 
         let itemsWithDistance = Utilities.enrichDistance(items, lat, lon)
 
-        let sortedItemsWithDistance = Utilities.sortByDistance(itemsWithDistance)        
+        let sortedItemsWithDistance = Utilities.sortByDistance(itemsWithDistance)
 
         return sortedItemsWithDistance[0]
     }
 
     public static sortByDistance(groups: any[]): any[] {
-      return groups.sort((c1, c2) => {
-        if (c1.distance > c2.distance) {
-          return 1
-        }
-    
-        if (c1.distance < c2.distance) {
-          return -1
-        }
-    
-        return 0
-      })
+        return groups.sort((c1, c2) => {
+            if (c1.distance > c2.distance) {
+                return 1
+            }
+
+            if (c1.distance < c2.distance) {
+                return -1
+            }
+
+            return 0
+        })
     }
 
     public static enrichDistance(items: any[], latUser: number, lonUser: number): any[] {
 
         for (const e of items) {
-            const city = CityService.getCityInfo(e.countryCode, e.cityName)
-
-            if (city === undefined) {
-                e.distance === 10000
+            if (e.countryCode === '' || e.cityName === '') {
+                e.distance = 1000000
             } else {
-                e.distance = DistanceCalculator.getDistanceInKilometers(latUser, lonUser, city.lat, city.lon)
+
+                const city = CityService.getCityInfo(e.countryCode, e.cityName)
+
+                if (city === undefined) {
+                    e.distance === 10000
+                } else {
+                    e.distance = DistanceCalculator.getDistanceInKilometers(latUser, lonUser, city.lat, city.lon)
+                }
             }
         }
 

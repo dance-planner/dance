@@ -27,10 +27,9 @@ async function deleteImagesWithoutEvent() {
                     legitimateEvents.push(legitimateEvent)
                 }
             }
-            log.info(legitimateEvents.length)
-
         }
     }
+    log.info(legitimateEvents.length)
 
     await Persistence.saveToLocalFile(`${Deno.cwd()}/events/events.json`, JSON.stringify(legitimateEvents))
 }
