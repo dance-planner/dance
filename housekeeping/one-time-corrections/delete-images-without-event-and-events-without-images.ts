@@ -16,7 +16,8 @@ async function deleteImagesWithoutEvent() {
 
             const correspondingEvent = allEvents.filter((e: any) => e.id === eventIdFromImage)[0]
             if (correspondingEvent === undefined) {
-                log.info(eventIdFromImage)
+                log.error(imageName)
+                log.error(eventIdFromImage)
                 await Deno.remove(entry.path)
             } else {
                 const legitimateEvent = allEvents.filter((e:any) => e.id === eventIdFromImage)[0]
@@ -26,7 +27,7 @@ async function deleteImagesWithoutEvent() {
                     legitimateEvents.push(legitimateEvent)
                 }
             }
-            log.warning(legitimateEvents.length)
+            log.info(legitimateEvents.length)
 
         }
     }
