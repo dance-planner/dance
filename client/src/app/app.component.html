@@ -54,8 +54,14 @@
       <section id="contact" *ngIf="view==='contact'">
         <app-contact></app-contact>
       </section>
-      <section id="contact" *ngIf="view==='findDancePartners'">
-        <app-further-options [allEvents]=allEvents></app-further-options>
+      <section id="findDancePartners" *ngIf="view==='findDancePartners'">
+        <app-further-options [allEvents]=allEvents [interest]="'findDancePartners'"></app-further-options>
+      </section>
+      <section id="findDancePartners" *ngIf="view==='findTutorials'">
+        <app-further-options [allEvents]=allEvents [interest]="'findTutorials'"></app-further-options>
+      </section>
+      <section id="findDancePartners" *ngIf="view==='findOutfits'">
+        <app-further-options [allEvents]=allEvents [interest]="'findOutfits'"></app-further-options>
       </section>
 
     </div>

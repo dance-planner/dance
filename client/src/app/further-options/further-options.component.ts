@@ -10,15 +10,14 @@ import { BackendService } from '../backend.service'
 export class FurtherOptionsComponent implements OnInit {
 
   @Input() public allEvents: IEvent[]
-  @Input() public danceStyles
-  @Input() public cities
-  @Input() public dpAccessToken: string
+  @Input() public interest = ''
 
   public groupLink = ''
   public addingGroupLink = false
   public selectedDanceStyle = ''
   public selectedCity = ''
   public searchTerm = ''
+  public title = 'Dance Partners'
   public showInsights = false
   public showFacebookGroups = false
   public showTelegramGroups = false
@@ -31,6 +30,13 @@ export class FurtherOptionsComponent implements OnInit {
   public constructor(private readonly backendService: BackendService) { }
 
   public ngOnInit() {
+
+    if (this.interest === 'findTutorials') {
+      this.title = 'Tutorials'
+    } else if (this.interest === 'findOutfits') {
+      this.title = 'Outfit Sharing Groups'
+    }
+
     this.backendService.getDanceGroups()
       .subscribe((result: any[]) => {
         this.danceGroups = result
@@ -38,7 +44,13 @@ export class FurtherOptionsComponent implements OnInit {
 
         for (const cityGroup of this.danceGroups) {
           cityGroup.completeLink = `https://t.me/joinchat/${cityGroup.telegramInvitationLink}`
-          this.cityGroups.push(cityGroup)
+          if (this.interest === 'findTutorials') {
+            if (cityGroup.cityName === '') {
+              this.cityGroups.push(cityGroup)
+            }
+          } else {
+            this.cityGroups.push(cityGroup)
+          }
         }
       })
   }

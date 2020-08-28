@@ -28,6 +28,17 @@ export class NavBarProvider {
         text: 'Find Dance Partners',
         href: 'findDancePartners',
       },
+                    {
+        isActive: false,
+        text: 'Find Tutorials',
+        href: 'findTutorials',
+      },
+                    {
+        isActive: false,
+        text: 'Find Outfits',
+        href: 'findOutfits',
+      },
+
       //               {
       //   isActive: false,
       //   text: 'Tutorials',

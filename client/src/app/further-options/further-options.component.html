@@ -1,30 +1,30 @@
 <div *ngIf="readyForDisplay">
 
   <h2 class="myRed">
-    Dance Partners
+    {{title}}
   </h2>
   <p><br></p>
 
+  <p></p>
+  <div class="myBlue biggerFont">
+    This feature is pretty new. Please invite your friends to the Telegram Groups below.
     <p></p>
-    <div class="myBlue biggerFont">
-      This feature is pretty new in some cities. Please invite your friends to the Telegram Groups below. <p><br></p>
-      You can add <a target="_blank" href="https://t.me/danceplanner_bot">The Dance Planner</a> to your Telegram Group. If your Telegram group contains a city name like e.g. Heidelberg, the Dance Planner will automatically send you infos about new events.
+    <!-- The Dance Planner Chatbot will automatically send a message to this group as soon as a new event was created in the Dance Planner. -->
+  </div>
+  <p><br></p>
 
-      <!-- The Dance Planner Chatbot will automatically send a message to this group as soon as a new event was created in the Dance Planner. -->
-    </div>
-    <p><br></p>
+  <div *ngFor="let cityGroup of cityGroups">
+    <p></p>
+    <a target="_blank" href="{{cityGroup.completeLink}}">
+      <button id="showTelegramGroups" class="myBlue" style="width: 100%;">
+        {{cityGroup.groupName}}
+      </button>
+    </a>
 
-    <div *ngFor="let cityGroup of cityGroups">
-      <p></p>
-      <a target="_blank" href="{{cityGroup.completeLink}}">
-        <button id="showTelegramGroups" class="myBlue" style="width: 100%;">
-          {{cityGroup.groupName}}
-        </button>
-      </a>
-
-    </div>
+  </div>
 
   <p><br></p>
+
 
 
   <p><br></p>
@@ -64,6 +64,11 @@
     </a>
 
     <p><br></p>
+    You can add <a target="_blank" href="https://t.me/danceplanner_bot">The Dance Planner</a> to your Telegram Group.
+    If your Telegram group contains a city name like e.g. Heidelberg, the Dance Planner will automatically send you
+    infos about new events.
+    <p></p>
+
     <p><br></p>
     <h2 class="myRed">
       Insights
