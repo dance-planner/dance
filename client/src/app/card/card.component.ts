@@ -74,10 +74,14 @@ export class CardComponent {
 
   public getLinkToTutorials() {
 
-    return (this.card.dance.includes('Salsa')) ?
-      'https://dance-planner.org/?group=teo' :
-      `https://www.youtube.com/results?search_query=${this.card.dance}+dance+tutorial`
+    if (this.card.dance.includes('Salsa')) {
+      return 'https://dance-planner.org/?group=teo'
+    }
+    if (this.card.dance.includes('Bachata')) {
+      return 'https://dance-planner.org/?group=bachata'
+    }
 
+    return `https://www.youtube.com/results?search_query=${this.card.dance}+dance+tutorial`
   }
 
   public copyText(eventID: string) {
