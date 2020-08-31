@@ -1,5 +1,5 @@
 
-import { Persistence } from "https://deno.land/x/persistence@v1.2.0/persistence.ts"
+import { Persistence } from "https://deno.land/x/persistence@v1.3.0/persistence.ts"
 import { Logger }  from 'https://deno.land/x/log@v0.6.1/mod.ts'
 
 const pathToConfig = await Persistence.readFromLocalFile(`${Deno.cwd()}/topsecret/.env.json`)
