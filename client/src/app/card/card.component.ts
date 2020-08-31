@@ -85,7 +85,7 @@ export class CardComponent {
   }
 
   public copyText(eventID: string) {
-    const val = document.getElementById(eventID).innerHTML.trim()
+    const val = `${document.URL.split('?')[0]}?id=${eventID}`
     const selBox = document.createElement('textarea')
     selBox.style.position = 'fixed'
     selBox.style.left = '0'

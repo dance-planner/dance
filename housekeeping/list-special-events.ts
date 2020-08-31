@@ -1,4 +1,4 @@
-import * as log from "https://deno.land/std/log/mod.ts";
+import { logger } from './../config.ts'
 import { Persistence } from "https://deno.land/x/persistence/persistence.ts"
 
 
@@ -8,7 +8,7 @@ async function listSpecialEvents() {
 
     for (const event of allEvents){
         if (event.dances.includes('Bachata')){
-            log.warning(`"${event.id}",`)
+            logger.warning(`"${event.id}",`)
         }
     }
 }

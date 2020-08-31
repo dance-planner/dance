@@ -1,5 +1,5 @@
 import { Persistence } from "https://deno.land/x/persistence@1.1.0/persistence.ts"
-import * as log from "https://deno.land/std/log/mod.ts";
+import { logger } from './../config.ts'
 import { Utilities } from "../utilities.ts";
 import { walk, walkSync } from "https://deno.land/std/fs/mod.ts";
 import { move } from "https://deno.land/std/fs/mod.ts";
@@ -22,7 +22,7 @@ export class Housekeeping {
         let events = JSON.parse(await Persistence.readFromLocalFile(Housekeeping.fileIdEvents))
         const telegramGroups = JSON.parse(await Persistence.readFromLocalFile(Housekeeping.fileIdTelegramGroups))
 
-        log.info(`number of events before: ${events.length}`)
+        logger.info(`number of events before: ${events.length}`)
 
 
         events = Housekeeping.addTelegramEvents(events, telegramEvents)
@@ -36,38 +36,38 @@ export class Housekeeping {
         let correctedEvents: any = []
 
         const reports = JSON.parse(await Persistence.readFromLocalFile(Housekeeping.fileIdReports))
-        log.warning(`number of unique reports: ${reports.length}`)
+        logger.warning(`number of unique reports: ${reports.length}`)
 
         let alreadyThere: string[] = []
 
         for (const event of events) {
             let avoidingDuplicateFor = `${event.title}-${event.startDate}-${event.city}-${event.countryCode}-${event.dances}`
             if (alreadyThere.includes(avoidingDuplicateFor)) {
-                log.warning(`this could have been a duplicate entry: ${avoidingDuplicateFor}`)
+                logger.warning(`this could have been a duplicate entry: ${avoidingDuplicateFor}`)
             } else {
                 alreadyThere.push(avoidingDuplicateFor)
                 if (reports.includes(event.id)) {
                     let reportedEvents = JSON.parse(await Persistence.readFromLocalFile(Housekeeping.fileIdReportedEvents))
-                    log.warning(`number of reportedEvents before: ${reportedEvents.length}`)
+                    logger.warning(`number of reportedEvents before: ${reportedEvents.length}`)
                     reportedEvents.push(event)
                     await Persistence.saveToLocalFile(Housekeeping.fileIdReportedEvents, JSON.stringify(reportedEvents))
-                    log.info(`number of reported events after: ${reportedEvents.length}`)
+                    logger.info(`number of reported events after: ${reportedEvents.length}`)
                 } else if (validDates.includes(event.startDate)) {
                     // space for potential corrections
 
                     correctedEvents.push(event)
                 } else {
                     const archivedEvents = JSON.parse(await Persistence.readFromLocalFile(Housekeeping.fileIdArchivedEvents))
-                    log.info(`number of archived events before: ${archivedEvents.length}`)
+                    logger.info(`number of archived events before: ${archivedEvents.length}`)
                     archivedEvents.push(event)
-                    log.warning(`archiving event with startDate: ${event.startDate}`)
+                    logger.warning(`archiving event with startDate: ${event.startDate}`)
                     await Persistence.saveToLocalFile(Housekeeping.fileIdArchivedEvents, JSON.stringify(archivedEvents))
-                    log.info(`number of archived events after: ${archivedEvents.length}`)
+                    logger.info(`number of archived events after: ${archivedEvents.length}`)
                 }
             }
         }
 
-        log.info(`number of events after: ${correctedEvents.length}`)
+        logger.info(`number of events after: ${correctedEvents.length}`)
         await Persistence.saveToLocalFile(Housekeeping.fileIdEvents, JSON.stringify(correctedEvents))
     }
 
@@ -77,7 +77,7 @@ export class Housekeeping {
             if (entry.path.includes("dance/events/dancing-")) {
                 const dateFromImageName = entry.path.split('-on-')[1].substr(0, 10)
                 if (dateFromImageName.length === 10 && dateFromImageName.substr(0, 4) === (new Date().getFullYear().toString()) && !validDates.includes(dateFromImageName)) {
-                    log.info(dateFromImageName)
+                    logger.info(dateFromImageName)
                     await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/')[1]}`); 
                 }
             }
@@ -88,7 +88,7 @@ export class Housekeeping {
         for (const entry of walkSync(`${Deno.cwd()}/events`)) {
             if (entry.path.includes(`dance/events/dancing-"`)) {
                 if (entry.path.includes("undefined")) {
-                    log.warning(`${entry.path} shall be archived`);
+                    logger.warning(`${entry.path} shall be archived`);
                     // console.log(`"${entry.path.substr(entry.path.length - 17, 13)}",`)
 
                     await Housekeeping.archiveImage(entry.path)
@@ -114,8 +114,8 @@ export class Housekeeping {
     }
 
     private static addTelegramEvents(events: any[], telegramEvents: any[]) {
-        log.info(`checking ${telegramEvents.length} telegram events`)
-        log.info(`checking ${events.length} events`)
+        logger.info(`checking ${telegramEvents.length} telegram events`)
+        logger.info(`checking ${events.length} events`)
 
         let enhancedEventList = events
 
@@ -126,7 +126,7 @@ export class Housekeeping {
             }
         }
 
-        log.info(`returning ${events.length} events after having added telegram events`)
+        logger.info(`returning ${events.length} events after having added telegram events`)
 
         return enhancedEventList
     }
@@ -160,9 +160,9 @@ export class Housekeeping {
 
     //     for (const event of events){
     //         if (event.lat === 0){
-    //             log.error(`latitude seems wrong`)
+    //             logger.error(`latitude seems wrong`)
     //             const cityLocation = await CityLocationService.getCityLocation(event.countryCode, event.city)
-    //             log.warning(cityLocation)
+    //             logger.warning(cityLocation)
     //             event.lat = cityLocation.latitude
     //             event.lon = cityLocation.longitude
     //         }

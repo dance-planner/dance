@@ -2,3 +2,5 @@ topsecret
 dist
 node_modules
 docs
+warnings-errors.txt
+logs.txt

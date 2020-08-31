@@ -1,4 +1,4 @@
-import * as log from "https://deno.land/std/log/mod.ts";
+import { logger } from './../../config.ts'
 import { Persistence } from "https://deno.land/x/persistence/persistence.ts"
 
 
@@ -11,14 +11,14 @@ async function deleteDuplicatesWithSameExternalLink() {
     const legitimateEvents = []
     for (const event of allEvents){
         if (alreadyThereExternalLinks.includes(event.link)){
-            log.error(`Why is there the following duplicate: ${JSON.stringify(event)}?`)
+            logger.error(`Why is there the following duplicate: ${JSON.stringify(event)}?`)
         } else {
             legitimateEvents.push(event)
             alreadyThereExternalLinks.push(event.link)
         }
     }
 
-    log.info(legitimateEvents.length)
+    logger.info(legitimateEvents.length)
     
     await Persistence.saveToLocalFile(`${Deno.cwd()}/events/events.json`, JSON.stringify(legitimateEvents))
 }

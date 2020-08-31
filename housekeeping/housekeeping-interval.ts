@@ -1,10 +1,10 @@
 import {hourly} from 'https://deno.land/x/deno_cron/cron.ts';
-import * as log from "https://deno.land/std/log/mod.ts";
+import { logger } from './../config.ts'
 import { Housekeeping } from './housekeeping.ts';
 
 await Housekeeping.correctEventLists()
 
 hourly(async () => {
-    log.warning('housekeeping :)')
+    logger.warning('housekeeping :)')
     await Housekeeping.correctEventLists()
 });

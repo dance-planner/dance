@@ -1,6 +1,6 @@
 import { opine, serveStatic } from "https://deno.land/x/opine@0.20.2/mod.ts";
 import { httpPort, httpsPort, pathToCert, pathToCertKey } from './../topsecret/.env.ts'
-import * as log from "https://deno.land/std/log/mod.ts";
+import { logger } from './../config.ts'
 import { CommandLineProcessor } from "https://deno.land/x/commandline_processor/commandline-processor.ts"
 import { green } from 'https://deno.land/std@0.53.0/fmt/colors.ts'
 import { Persistence } from "https://deno.land/x/persistence/persistence.ts"
@@ -41,7 +41,7 @@ function startListening() {
 
 function defineMiddleWare(app: any) {
   const myFancyMiddleware = function (req: any, res: any, next: any) {
-    log.info(req.url)
+    logger.info(req.url)
     next();
   };
 
@@ -64,7 +64,7 @@ function defineRoutes(app: any, html: string) {
   });
 
   app.get('/cities/getCitiesWithMin/minNumberOfInhabitants/:minNumberOfInhabitants/key/:key', async (req: any, res: any) => {
-    log.warning(req.headers)
+    logger.warning(req.headers)
     const cities = CityService.getCitiesByPopulation(Number(req.params.minNumberOfInhabitants))
     res.send(cities);
   });
@@ -116,9 +116,9 @@ function regularlyGetTheLatestFancyShit() {
     const commandToBeExecuted = `./topsecret/pull.sh`
     // const commandToBeExecuted = `ls`
     try {
-      log.error(await CommandLineProcessor.process(commandToBeExecuted))
+      logger.error(await CommandLineProcessor.process(commandToBeExecuted))
     } catch (error) {
-      log.error(`hmm - ${error.message}`)
+      logger.error(`hmm - ${error.message}`)
     }
 
   }, 2 * 60 * 1000)

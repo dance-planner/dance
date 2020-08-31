@@ -1,5 +1,4 @@
 import { serialize } from "https://raw.githubusercontent.com/olaven/serialize-xml/v0.3.2/mod.ts"
-import * as log from "https://deno.land/std/log/mod.ts";
 import { CityService } from "https://deno.land/x/cities/cityservice.ts"
 import { DistanceCalculator } from "https://deno.land/x/distancecalculator@1.0.0/distance-calculator.ts";
 

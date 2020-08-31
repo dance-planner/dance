@@ -1,4 +1,4 @@
-import * as log from "https://deno.land/std/log/mod.ts";
+import { logger } from './../../config.ts'
 import { Persistence } from "https://deno.land/x/persistence/persistence.ts"
 import { walkSync } from "https://deno.land/std/fs/mod.ts";
 
@@ -16,8 +16,8 @@ async function deleteImagesWithoutEvent() {
 
             const correspondingEvent = allEvents.filter((e: any) => e.id === eventIdFromImage)[0]
             if (correspondingEvent === undefined) {
-                log.error(imageName)
-                log.error(eventIdFromImage)
+                logger.error(imageName)
+                logger.error(eventIdFromImage)
                 await Deno.remove(entry.path)
             } else {
                 const legitimateEvent = allEvents.filter((e:any) => e.id === eventIdFromImage)[0]
@@ -29,7 +29,7 @@ async function deleteImagesWithoutEvent() {
             }
         }
     }
-    log.info(legitimateEvents.length)
+    logger.info(legitimateEvents.length)
 
     await Persistence.saveToLocalFile(`${Deno.cwd()}/events/events.json`, JSON.stringify(legitimateEvents))
 }
