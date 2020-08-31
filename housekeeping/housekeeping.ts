@@ -1,4 +1,4 @@
-import { Persistence } from "https://deno.land/x/persistence@1.3.0/persistence.ts"
+import { Persistence } from "https://deno.land/x/persistence@v1.3.0/persistence.ts"
 import { logger } from './../config.ts'
 import { Utilities } from "../utilities.ts";
 import { walk, walkSync } from "https://deno.land/std/fs/mod.ts";
