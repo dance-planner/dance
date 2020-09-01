@@ -74,11 +74,11 @@ export class Housekeeping {
     private static async archiveImagesWithPastDate() {
         const validDates = Housekeeping.getValidDates()
         for (const entry of walkSync(`${Deno.cwd()}/events`)) {
-            if (entry.path.includes("dance/events/dancing-")) {
+            if (entry.path.includes("dance/events/images/dancing-")) {
                 const dateFromImageName = entry.path.split('-on-')[1].substr(0, 10)
                 if (dateFromImageName.length === 10 && dateFromImageName.substr(0, 4) === (new Date().getFullYear().toString()) && !validDates.includes(dateFromImageName)) {
                     logger.info(dateFromImageName)
-                    await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/')[1]}`); 
+                    await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/images/')[1]}`); 
                 }
             }
         }
@@ -86,7 +86,7 @@ export class Housekeeping {
 
     private static async archiveInvalidImages() {
         for (const entry of walkSync(`${Deno.cwd()}/events`)) {
-            if (entry.path.includes(`dance/events/dancing-"`)) {
+            if (entry.path.includes(`dance/events/images/dancing-"`)) {
                 if (entry.path.includes("undefined")) {
                     logger.warning(`${entry.path} shall be archived`);
                     // console.log(`"${entry.path.substr(entry.path.length - 17, 13)}",`)
@@ -98,7 +98,7 @@ export class Housekeeping {
     }
 
     private static async archiveImage(imageId: string) {
-        await move(imageId, `${Deno.cwd()}/events/archived-images/${imageId.split('dance/events/')[1]}`);
+        await move(imageId, `${Deno.cwd()}/events/archived-images/${imageId.split('dance/events/images/')[1]}`);
     }
 
 

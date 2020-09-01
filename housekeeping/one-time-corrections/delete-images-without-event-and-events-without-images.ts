@@ -10,8 +10,8 @@ async function deleteImagesWithoutEvent() {
     const legitimateEvents: any[] = []
 
     for (const entry of walkSync(`${Deno.cwd()}/events`)) {
-        if (entry.path.includes("dance/events/dancing-")) {
-            const imageName = entry.path.split('dance/events/')[1]
+        if (entry.path.includes("dance/events/images/dancing-")) {
+            const imageName = entry.path.split('dance/events/images/')[1]
             const eventIdFromImage = imageName.substr(imageName.length - 17, 13)
 
             const correspondingEvent = allEvents.filter((e: any) => e.id === eventIdFromImage)[0]

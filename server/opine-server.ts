@@ -56,7 +56,7 @@ function defineRoutes(app: any, html: string) {
   });
 
   app.get('/images/getEventImage/name/:name', (req: any, res: any) => {
-    res.sendFile(`${Deno.cwd()}/events/${req.params.name}`);
+    res.sendFile(`${Deno.cwd()}/events/images/${req.params.name}`);
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {

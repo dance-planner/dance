@@ -6,11 +6,11 @@ import { Utilities } from "../../utilities.ts";
 async function archiveImagesWithPastDate() {
     const validDates = getValidDates()
     for (const entry of walkSync(`${Deno.cwd()}/events`)) {
-        if (entry.path.includes("dance/events/dancing-")) {
+        if (entry.path.includes("dance/events/images/dancing-")) {
             const dateFromImageName = entry.path.split('-on-')[1].substr(0, 10)
             if (dateFromImageName.length === 10 && dateFromImageName.substr(0, 4) === (new Date().getFullYear().toString()) && !validDates.includes(dateFromImageName)) {
                 logger.info(dateFromImageName)
-                await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/')[1]}`); 
+                await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/images/')[1]}`); 
             }
         }
     }

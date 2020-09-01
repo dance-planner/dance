@@ -6,7 +6,7 @@ import { walkSync } from "https://deno.land/std/fs/mod.ts";
 async function deleteDuplicateImages() {
     let alreadyThereReps: any[] = []
     for (const entry of walkSync(`${Deno.cwd()}/events`)) {
-        if (entry.path.includes("dance/events/dancing-")) {
+        if (entry.path.includes("dance/events/images/dancing-")) {
             const shortId = entry.path.substr(0, entry.path.length - 17)
             const stat = await Deno.stat(entry.path)
             const rep = {
