@@ -26,10 +26,9 @@ export class Housekeeping {
 
 
         events = Housekeeping.addTelegramEvents(events, telegramEvents)
-        events = await Housekeeping.enrichChatLink(events, telegramGroups)
+        // events = await Housekeeping.enrichChatLink(events, telegramGroups)
 
-        await Housekeeping.archiveInvalidImages()
-        await Housekeeping.archiveImagesWithPastDate()
+        // await Housekeeping.archiveImagesWithPastDate()
 
         const validDates = Housekeeping.getValidDates()
 
@@ -71,47 +70,34 @@ export class Housekeeping {
         await Persistence.saveToLocalFile(Housekeeping.fileIdEvents, JSON.stringify(correctedEvents))
     }
 
-    private static async archiveImagesWithPastDate() {
-        const validDates = Housekeeping.getValidDates()
-        for (const entry of walkSync(`${Deno.cwd()}/events`)) {
-            if (entry.path.includes("dance/events/images/dancing-")) {
-                const dateFromImageName = entry.path.split('-on-')[1].substr(0, 10)
-                if (dateFromImageName.length === 10 && dateFromImageName.substr(0, 4) === (new Date().getFullYear().toString()) && !validDates.includes(dateFromImageName)) {
-                    logger.info(dateFromImageName)
-                    await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/images/')[1]}`); 
-                }
-            }
-        }
-    }
+    // private static async archiveImagesWithPastDate() {
+    //     const validDates = Housekeeping.getValidDates()
+    //     for (const entry of walkSync(`${Deno.cwd()}/events`)) {
+    //         if (entry.path.includes("dance/events/images/dancing-")) {
+    //             const dateFromImageName = entry.path.split('-on-')[1].substr(0, 10)
+    //             if (dateFromImageName.length === 10 && dateFromImageName.substr(0, 4) === (new Date().getFullYear().toString()) && !validDates.includes(dateFromImageName)) {
+    //                 logger.info(dateFromImageName)
+    //                 await move(entry.path, `${Deno.cwd()}/events/archived-images/${entry.path.split('dance/events/images/')[1]}`); 
+    //             }
+    //         }
+    //     }
+    // }
 
-    private static async archiveInvalidImages() {
-        for (const entry of walkSync(`${Deno.cwd()}/events`)) {
-            if (entry.path.includes(`dance/events/images/dancing-"`)) {
-                if (entry.path.includes("undefined")) {
-                    logger.warning(`${entry.path} shall be archived`);
-                    // console.log(`"${entry.path.substr(entry.path.length - 17, 13)}",`)
-
-                    await Housekeeping.archiveImage(entry.path)
-                }
-            }
-        }
-    }
-
-    private static async archiveImage(imageId: string) {
-        await move(imageId, `${Deno.cwd()}/events/archived-images/${imageId.split('dance/events/images/')[1]}`);
-    }
+    // private static async archiveImage(imageId: string) {
+    //     await move(imageId, `${Deno.cwd()}/events/archived-images/${imageId.split('dance/events/images/')[1]}`);
+    // }
 
 
 
-    private static async enrichChatLink(events: any[], telegramGroups: any[]): Promise<any[]> {
-        for (const e of events) {
-            if (e.chatLink === undefined || e.chatLink === '') {
-                e.chatLink = `https://t.me/joinchat/${Utilities.getClosestEntry(telegramGroups, e.lat, e.lon).telegramInvitationLink}`
-            }
-        }
+    // private static async enrichChatLink(events: any[], telegramGroups: any[]): Promise<any[]> {
+    //     for (const e of events) {
+    //         if (e.chatLink === undefined || e.chatLink === '') {
+    //             e.chatLink = `https://t.me/joinchat/${Utilities.getClosestEntry(telegramGroups, e.lat, e.lon).telegramInvitationLink}`
+    //         }
+    //     }
 
-        return events
-    }
+    //     return events
+    // }
 
     private static addTelegramEvents(events: any[], telegramEvents: any[]) {
         logger.info(`checking ${telegramEvents.length} telegram events`)

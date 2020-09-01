@@ -119,7 +119,7 @@ export class ModuleService {
         city: event.city,
         linkToThisItem: (window.location.toString().indexOf('?id=') === -1) ? `${window.location}?id=${event.id}` : window.location.toString(),
         linkToFurtherInfo: event.link,
-        chatLink: event.chatLink,
+        chatLink: `https://dance-planner.org?group=${event.chatLink}`,
         imageURL,
         distance: this.geoService.getDistance(event.lat, event.lon, pointOfInterest.lat, pointOfInterest.lon),
       }
