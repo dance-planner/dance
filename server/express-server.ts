@@ -55,8 +55,10 @@ function regularlyGetTheLatestFancyShit() {
   setInterval(async () => {
     const commandToBeExecuted = `./../topsecret/pull.sh`
     try {
-      shell.exec(commandToBeExecuted)
+      await shell.exec(commandToBeExecuted)
+      console.log(`pulled successfully - events before: ${events.length}`)
       events = sortByDate(fs.readJSON(eventsFileId))
+      console.log(`events after: ${events.length}`)
       telegramGroups = fs.readJSON(groupsFileId)
     } catch (error) {
       console.log(error.message)
