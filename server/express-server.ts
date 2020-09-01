@@ -113,7 +113,7 @@ function defineRoutes(app, html) {
   })
 
   app.get('/images/getEventImage/name/:name', (req: any, res: any) => {
-    res.sendFile(`${eventsFilePath}/${req.params.name}`);
+    res.sendFile(`${eventsFilePath}/images/${req.params.name}`);
   });
 
   app.get('/events/getAllEvents/key/:key', async (req: any, res: any) => {

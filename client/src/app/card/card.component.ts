@@ -18,8 +18,6 @@ export class CardComponent {
 
   @Output() public reportEvent = new EventEmitter<string>()
   public detailLevel = 1
-  // public showDetails = false
-  // public showMoreDetails = false
   public shareMode = false
   public reportingMode = false
   public reportedBecause = ''
@@ -39,7 +37,6 @@ export class CardComponent {
     setTimeout(() => {
       if (!CardComponent.userKnowsHeCanClickAnEventImage) {
         CardComponent.userKnowsHeCanClickAnEventImage = true
-        // alert('You can check details of an event by tipping on it.')
       }
     },         20000)
 
@@ -59,7 +56,6 @@ export class CardComponent {
     if (this.detailLevel === 3) {
       this.detailLevel = 0
     }
-    // this.showMoreDetails = !this.showMoreDetails
   }
 
   public findADriver() {

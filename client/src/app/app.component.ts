@@ -60,7 +60,6 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
   public onScroll(e) {
-    // console.log(this.scrollPosition)
     this.scrollPosition = window.pageYOffset
   }
 

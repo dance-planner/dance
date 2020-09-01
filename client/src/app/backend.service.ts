@@ -2,8 +2,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { forkJoin } from 'rxjs'
-// tslint:disable-next-line: ordered-imports
-import { ILinkDancesDatesLocation, ICityGroup } from './shared-interfaces-and-constants'
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +15,6 @@ export class BackendService {
 
   public constructor(private readonly http: HttpClient) { }
 
-  // http://localhost:3001/community/getTelegramGroups/key/123
   public getDanceGroups() {
 
     return this.get(`${BackendService.backendURL}/community/getTelegramGroups/key/123`)

@@ -106,7 +106,7 @@ export class ModuleService {
       const formattedDances = event.dances.replace(/, /g, '-')
       const imageName = `dancing-${formattedDances}-in-${event.city}-${event.countryCode}-on-${event.startDate}-${event.id}.jpg`
       // const imageURL = `https://github.com/dance-planner/dance/blob/master/events/${imageName}?raw=true`
-      const imageURL = `https://danceplanner.org/images/getEventImage/name/${imageName}`
+      const imageURL = `${BackendService.backendURL}/images/getEventImage/name/${imageName}`
 
       const card: ICardData = {
         eventID: event.id,
