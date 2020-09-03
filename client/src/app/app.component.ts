@@ -90,10 +90,10 @@ export class AppComponent implements OnInit {
               this.getLandingPageData(result.params.play)
 
               this.view = 'find'
-            } else {
-              this.getLandingPageData()
-              this.view = 'find'
             }
+          } else {
+            this.getLandingPageData()
+            this.view = 'find'
           }
         })
 
@@ -226,24 +226,24 @@ export class AppComponent implements OnInit {
 
           setTimeout(() => {
             window.scrollTo(0, Number(player[6]))
-          },         1700)
+          }, 1700)
 
           setTimeout(() => {
             window.scrollTo(0, Number(player[7]))
-          },         2800)
+          }, 2800)
           setTimeout(() => {
             const scrollInterval = setInterval(() => {
               this.scrollPosition += 1000
               window.scrollTo(0, this.scrollPosition)
-            },                                 20)
+            }, 20)
 
             setTimeout(() => {
               window.scrollTo(0, 0)
               clearInterval(scrollInterval)
               location.assign('https://dance-planner.org')
 
-            },         300)
-          },         4000)
+            }, 300)
+          }, 4000)
 
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
           this.md = this.moduleService.getModuleData()
@@ -255,7 +255,7 @@ export class AppComponent implements OnInit {
             if (this.currentRange === Number(player[3])) {
               clearInterval(interval)
             }
-          },                           20)
+          }, 20)
 
         }
         this.loaded = true
