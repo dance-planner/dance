@@ -16,8 +16,7 @@ import { environment } from '../environments/environment'
 import { RouterModule } from '@angular/router'
 import { NavbarComponent } from './navbar/navbar.component'
 import { FurtherOptionsComponent } from './further-options/further-options.component'
-import { RangeComponent } from './range/range.component';
-import { PlayComponent } from './play/play.component'
+import { RangeComponent } from './range/range.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import { PlayComponent } from './play/play.component'
     NavbarComponent,
     FurtherOptionsComponent,
     RangeComponent,
-    PlayComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
