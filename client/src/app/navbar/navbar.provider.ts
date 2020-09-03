@@ -7,7 +7,7 @@ export class NavBarProvider {
 
     return {
       logoURL: '../assets/logo.png',
-      appTitle: (domain === 'localhost:4200') ? 'dancep-lanner.org' : domain,
+      appTitle: (domain === 'localhost:4200') ? 'dance-planner.org' : domain,
       menuEntries: [{
         isActive: true,
         text: 'Find Events',

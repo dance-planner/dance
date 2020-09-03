@@ -73,7 +73,6 @@ export class AppComponent implements OnInit {
         .subscribe((result: any) => {
           this.magic += 1
           if (this.magic === 2) {
-            alert(result.params.play)
             if (result.params.id !== undefined) {
               this.eventId = result.params.id
               this.view = 'find'
@@ -184,32 +183,81 @@ export class AppComponent implements OnInit {
   private getLandingPageData(play?: string) {
     this.backendService.getLandingPageData(play)
       .subscribe(async (result: any) => {
-        this.poi = {
-          lat: result[1].lat,
-          lon: result[1].lon,
-        }
+        if (play === undefined) {
+          this.poi = {
+            lat: result[1].lat,
+            lon: result[1].lon,
+          }
 
-        this.city = result[1]
-        this.allEvents = (this.eventId === undefined) ?
-          result[0] :
-          this.handleSpecificEventRequest(result[0])
+          this.city = result[1]
+          this.allEvents = (this.eventId === undefined) ?
+            result[0] :
+            this.handleSpecificEventRequest(result[0])
 
-        this.filterEvents(this.city, this.dance, this.initialRange)
-
-        if (this.events.length < 4) {
-          this.initialRange = 40
           this.filterEvents(this.city, this.dance, this.initialRange)
-        }
 
-        await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
-        this.md = this.moduleService.getModuleData()
-        if (play !== undefined) {
+          if (this.events.length < 4) {
+            this.initialRange = 40
+            this.filterEvents(this.city, this.dance, this.initialRange)
+          }
+
+          await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
+          this.md = this.moduleService.getModuleData()
+          this.currentRange = this.initialRange
+        } else {
           const player = play.split('-')
+
+          this.poi = {
+            lat: result[1].lat,
+            lon: result[1].lon,
+          }
+
+          this.city = result[1]
+          this.allEvents = (this.eventId === undefined) ?
+            result[0] :
+            this.handleSpecificEventRequest(result[0])
+
+          this.filterEvents(this.city, this.dance, Number(player[3]))
+
+          let index = this.events.indexOf(this.events.filter((e) => e.id === player[5])[0])
+          this.events.unshift(this.events[index])
+          index = this.events.indexOf(this.events.filter((e) => e.id === player[4])[0])
+          this.events.unshift(this.events[index])
+
+          setTimeout(() => {
+            window.scrollTo(0, Number(player[6]))
+          },         1700)
+
+          setTimeout(() => {
+            window.scrollTo(0, Number(player[7]))
+          },         2800)
+          setTimeout(() => {
+            const scrollInterval = setInterval(() => {
+              this.scrollPosition += 1000
+              window.scrollTo(0, this.scrollPosition)
+            },                                 20)
+
+            setTimeout(() => {
+              window.scrollTo(0, 0)
+              clearInterval(scrollInterval)
+              location.assign('https://dance-planner.org')
+
+            },         300)
+          },         4000)
+
+          await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
+          this.md = this.moduleService.getModuleData()
+          this.currentRange = this.initialRange
           this.md.selectedDanceStyle = player[0]
           this.md.selectedCity = player[1]
-          this.city.name = player[1]
+          const interval = setInterval(() => {
+            this.currentRange += 1
+            if (this.currentRange === Number(player[3])) {
+              clearInterval(interval)
+            }
+          },                           20)
+
         }
-        this.currentRange = this.initialRange
         this.loaded = true
       },         (error) => {
         console.log(error)
