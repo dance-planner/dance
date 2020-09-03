@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   public title = 'Dance Planner'
   public allEvents: IEvent[] = []
   public events: IEvent[] = []
-  public view = 'find'
+  public view = ''
   public city: any
   public dance = ''
   public md: IModuleData
@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
   public maximumRange = 100
   public dpAccessToken
   public currentRange = initialRange
-
   public dances: string[] = [
     'Bachata',
     'Salsa',
@@ -48,6 +47,7 @@ export class AppComponent implements OnInit {
   ]
   public loaded = false
   public thirtysecondsover = false
+  private magic = 0
   // private geoData
   // private ip = '0'
 
@@ -66,25 +66,34 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
     if (this.allEvents === undefined || this.allEvents === null || this.allEvents.length === 0) {
 
-      BackendService.backendURL = 'https://danceplanner.org'
-      // BackendService.backendURL = 'http://localhost:3001'
+      // BackendService.backendURL = 'https://danceplanner.org'
+      BackendService.backendURL = 'http://localhost:3001'
       this.route
         .queryParamMap
         .subscribe((result: any) => {
-          if (result.params !== undefined) {
+          this.magic += 1
+          if (this.magic === 2) {
+            alert(result.params.play)
             if (result.params.id !== undefined) {
               this.eventId = result.params.id
+              this.view = 'find'
+              this.getLandingPageData()
             } else if (result.params.group !== undefined) {
               if (result.params.group === 'findDancePartners') {
-
                 this.view = 'findDancePartners'
-
               } else {
                 this.backendService.getGroupLink(result.params.group)
                   .subscribe((theGroup: any) => {
                     location.assign(`https://t.me/joinchat/${theGroup.link}`)
                   })
               }
+            } else if (result.params.play !== undefined) {
+              this.getLandingPageData(result.params.play)
+
+              this.view = 'find'
+            } else {
+              this.getLandingPageData()
+              this.view = 'find'
             }
           }
         })
@@ -101,8 +110,6 @@ export class AppComponent implements OnInit {
         event.preventDefault()
         AppComponent.deferredPrompt = event
       })
-
-      this.getLandingPageData()
 
     }
   }
@@ -174,8 +181,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private getLandingPageData() {
-    this.backendService.getLandingPageData()
+  private getLandingPageData(play?: string) {
+    this.backendService.getLandingPageData(play)
       .subscribe(async (result: any) => {
         this.poi = {
           lat: result[1].lat,
@@ -196,6 +203,12 @@ export class AppComponent implements OnInit {
 
         await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
         this.md = this.moduleService.getModuleData()
+        if (play !== undefined) {
+          const player = play.split('-')
+          this.md.selectedDanceStyle = player[0]
+          this.md.selectedCity = player[1]
+          this.city.name = player[1]
+        }
         this.currentRange = this.initialRange
         this.loaded = true
       },         (error) => {
@@ -209,7 +222,7 @@ export class AppComponent implements OnInit {
       (event: IEvent) => event.id === (this.eventId as unknown),
     )[0]
     if (theSpecificEvent === undefined) {
-      alert('I could not find the specific event. Perhaps it was in the past.')
+      alert('This event was in the past. I only show current or future events in the Dance Planner.')
       location.assign('https://dance-planner.org')
     } else {
       const distance = this.geoService.getDistance(theSpecificEvent.lat, theSpecificEvent.lon, this.city.lat, this.city.lon)

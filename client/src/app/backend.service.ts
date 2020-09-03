@@ -28,9 +28,15 @@ export class BackendService {
     return this.get(`${BackendService.backendURL}/community/getTelegramInvitationLink/groupId/${groupId}/key/123`)
   }
 
-  public getLandingPageData(): any {
+  public getLandingPageData(play?: string): any {
     const events = this.get(`${BackendService.backendURL}/events/getAllEvents/key/123`)
-    const ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocation/key/123`)
+    let ipLocation
+    if (play === undefined) {
+      ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocation/key/123`)
+    } else {
+      const player = play.split('-')
+      ipLocation = this.get(`${BackendService.backendURL}/location/getIPLocationByCity/countryCode/${player[2]}/cityName/${player[1]}/key/123`)
+    }
 
     return forkJoin([events, ipLocation])
 

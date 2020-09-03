@@ -126,6 +126,17 @@ function defineRoutes(app, html) {
     res.send(cities);
   });
 
+  app.get('/location/getIPLocationByCity/countryCode/:countryCode/cityName/:cityName/key/:key', async (req: any, res: any) => {
+
+    const city = cities.filter((c: any) => c.country === req.params.countryCode && c.name === req.params.cityName)[0]
+    console.log(JSON.stringify(city))
+    res.send ({
+      name: city.name,
+      lat: city.lat,
+      lon: city.lon,
+    })
+  })
+
   app.get('/location/getIPLocation/key/:key', async (req: any, res: any) => {
     const magic = requestIp.getClientIp(req)
     let ipAdressOfClient
