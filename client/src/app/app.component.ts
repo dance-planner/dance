@@ -66,8 +66,8 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
     if (this.allEvents === undefined || this.allEvents === null || this.allEvents.length === 0) {
 
-      // BackendService.backendURL = 'https://danceplanner.org'
-      BackendService.backendURL = 'http://localhost:3001'
+      BackendService.backendURL = 'https://danceplanner.org'
+      // BackendService.backendURL = 'http://localhost:3001'
       this.route
         .queryParamMap
         .subscribe((result: any) => {
