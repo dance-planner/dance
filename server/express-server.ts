@@ -153,7 +153,7 @@ function defineRoutes(app, html) {
 
         const result = (await (axios as any).get(`https://freegeoip.app/json/${ipAdressOfClient}`)).data
 
-        if (result === undefined || result.city === undefined || ipAdressOfClient.includes(':')) {
+        if (result === undefined || result.city === undefined || result.city === '' || ipAdressOfClient.includes(':')) {
           res.send(dancePlannersHomeLocation);
         } else {
           location = {

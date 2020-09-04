@@ -1,0 +1,11 @@
+<div class="typeaheadDiv">
+  <app-typeahead id="cities" [placeHolder]="'Choose Location'" [items]="formattedCities" [selectedItem]="city.name"
+                 [useCustomTemplate]="'true'" (itemSelected)="onCitySelected($event)" [domain]="'dances'">
+  </app-typeahead>
+</div>
+
+<a href="{{getLink(city.name, city.country)}}" target="_blank">
+  <button id="showTelegramGroups" class="myBlue" style="width: 100%;">
+    Search Dance Schools
+  </button>
+</a>

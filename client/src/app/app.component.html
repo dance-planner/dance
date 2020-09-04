@@ -57,10 +57,13 @@
       <section id="findDancePartners" *ngIf="view==='findDancePartners'">
         <app-further-options [allEvents]=allEvents [interest]="'findDancePartners'"></app-further-options>
       </section>
-      <section id="findDancePartners" *ngIf="view==='findTutorials'">
+      <section id="findTutorials" *ngIf="view==='findTutorials'">
         <app-further-options [allEvents]=allEvents [interest]="'findTutorials'"></app-further-options>
       </section>
-      <section id="findDancePartners" *ngIf="view==='findOutfits'">
+      <section id="findSchools" *ngIf="view==='findSchools'">
+        <app-schools [city]="this.city" [formattedCities]="md.formattedCities"></app-schools>
+      </section>
+      <section id="findOutfits" *ngIf="view==='findOutfits'">
         <app-further-options [allEvents]=allEvents [interest]="'findOutfits'"></app-further-options>
       </section>
 

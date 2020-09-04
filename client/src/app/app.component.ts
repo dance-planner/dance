@@ -31,7 +31,6 @@ export class AppComponent implements OnInit {
   public placeHolder = 'Start Typing ...'
   public poi: any = {}
   public selectedItem = 'Bachata'
-  public inputStyle = {}
   public readyForPrompt = false
   public alreadyPromotedTheApp = false
   public restToBeLoaded = true
