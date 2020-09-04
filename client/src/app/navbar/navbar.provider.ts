@@ -35,7 +35,7 @@ export class NavBarProvider {
       },
                     {
         isActive: false,
-        text: 'Exchange Outfits',
+        text: 'Outfits',
         href: 'findOutfits',
       },
 
