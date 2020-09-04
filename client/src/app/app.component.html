@@ -7,7 +7,7 @@
         <div class="intro">
           <img src="../assets/logo.png" alt="" class="introImage">
         </div>
-          <!-- <img src="../assets/logo-for-tab.png" alt="" class="introImage"> -->
+        <!-- <img src="../assets/logo-for-tab.png" alt="" class="introImage"> -->
       </div>
     </div>
     <p><br></p>
@@ -60,11 +60,14 @@
       <section id="findTutorials" *ngIf="view==='findTutorials'">
         <app-further-options [allEvents]=allEvents [interest]="'findTutorials'"></app-further-options>
       </section>
-      <section id="findSchools" *ngIf="view==='findSchools'">
-        <app-schools [city]="this.city" [formattedCities]="md.formattedCities"></app-schools>
+      <section id="bedAndBreakfast" *ngIf="view==='bedAndBreakfast'">
+        <app-further-options [allEvents]=allEvents [interest]="'bedAndBreakfast'"></app-further-options>
       </section>
       <section id="findOutfits" *ngIf="view==='findOutfits'">
         <app-further-options [allEvents]=allEvents [interest]="'findOutfits'"></app-further-options>
+      </section>
+      <section id="findSchools" *ngIf="view==='findSchools'">
+        <app-schools [city]="this.city" [formattedCities]="md.formattedCities"></app-schools>
       </section>
 
     </div>

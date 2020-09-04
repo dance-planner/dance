@@ -35,6 +35,8 @@ export class FurtherOptionsComponent implements OnInit {
       this.title = 'Tutorials'
     } else if (this.interest === 'findOutfits') {
       this.title = 'Outfit Sharing Groups'
+    } else if (this.interest === 'bedAndBreakfast') {
+      this.title = 'Couch Surfing Groups'
     }
 
     this.backendService.getDanceGroups()
