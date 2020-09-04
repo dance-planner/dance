@@ -223,27 +223,40 @@ export class AppComponent implements OnInit {
           this.events.unshift(this.events[index])
           index = this.events.indexOf(this.events.filter((e) => e.id === player[4])[0])
           this.events.unshift(this.events[index])
+          let pos = 0
 
           setTimeout(() => {
-            window.scrollTo(0, Number(player[6]))
-          },         1700)
+            const fSI = setInterval(() => {
+              if (pos < Number(player[6])) {
+                pos += 10
+                window.scrollTo(0, pos)
+              } else {
+                clearInterval(fSI)
+              }
+            },                      10)
+          },         Number(player[8]))
 
           setTimeout(() => {
-            window.scrollTo(0, Number(player[7]))
-          },         2800)
+            const fSI = setInterval(() => {
+              if (pos < Number(player[7])) {
+                pos += 10
+                window.scrollTo(0, pos)
+              } else {
+                clearInterval(fSI)
+              }
+            },                      10)
+          },         Number(player[9]))
           setTimeout(() => {
             const scrollInterval = setInterval(() => {
               this.scrollPosition += 1000
               window.scrollTo(0, this.scrollPosition)
-            }, 20)
+            },                                 20)
 
             setTimeout(() => {
               window.scrollTo(0, 0)
               clearInterval(scrollInterval)
-              location.assign('https://dance-planner.org')
-
-            }, 300)
-          },         4000)
+            },         300)
+          },         6000)
 
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
           this.md = this.moduleService.getModuleData()
