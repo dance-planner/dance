@@ -25,23 +25,29 @@ export class NavBarProvider {
       },
                     {
         isActive: false,
-        text: 'Find Partners',
+        text: 'Dance Partners',
         href: 'findDancePartners',
       },
                     {
         isActive: false,
-        text: 'Find Tutorials',
+        text: 'Tutorials',
         href: 'findTutorials',
       },
                     {
         isActive: false,
-        text: 'Find Schools',
-        href: 'findSchools',
+        text: 'Exchange Outfits',
+        href: 'findOutfits',
+      },
+
+                    {
+        isActive: false,
+        text: 'Bed & Breakfast',
+        href: 'bedAndBreakfast',
       },
                     {
         isActive: false,
-        text: 'Find Outfits',
-        href: 'findOutfits',
+        text: 'Dance Schools',
+        href: 'findSchools',
       },
 
       //               {
