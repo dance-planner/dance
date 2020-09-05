@@ -130,7 +130,7 @@ function defineRoutes(app, html) {
 
     const city = cities.filter((c: any) => c.country === req.params.countryCode && c.name === req.params.cityName)[0]
     console.log(JSON.stringify(city))
-    res.send ({
+    res.send({
       name: city.name,
       lat: city.lat,
       lon: city.lon,
@@ -154,7 +154,7 @@ function defineRoutes(app, html) {
         const result = (await (axios as any).get(`https://freegeoip.app/json/${ipAdressOfClient}`)).data
 
         if (result === undefined || result.city === undefined || result.city === '' || ipAdressOfClient.includes(':')) {
-          res.send(dancePlannersHomeLocation);
+          location = dancePlannersHomeLocation
         } else {
           location = {
             name: result.city,
@@ -179,6 +179,7 @@ function defineRoutes(app, html) {
           lon: existingEntry.lon,
         }
       }
+      
       res.send(location);
 
     } else {
