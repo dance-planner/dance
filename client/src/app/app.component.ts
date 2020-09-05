@@ -222,52 +222,77 @@ export class AppComponent implements OnInit {
           this.events.unshift(this.events[index])
           index = this.events.indexOf(this.events.filter((e) => e.id === player[4])[0])
           this.events.unshift(this.events[index])
-          let pos = 0
 
           setTimeout(() => {
-            const fSI = setInterval(() => {
-              if (pos < Number(player[6])) {
-                pos += 10
-                window.scrollTo(0, pos)
-              } else {
-                clearInterval(fSI)
-              }
-            },                      10)
-          },         Number(player[8]))
 
-          setTimeout(() => {
-            const fSI = setInterval(() => {
-              if (pos < Number(player[7])) {
-                pos += 10
-                window.scrollTo(0, pos)
-              } else {
-                clearInterval(fSI)
+            let counterD = 0
+            this.md.selectedDanceStyle = ''
+            const enterDanceI = setInterval(() => {
+              counterD += 1
+              this.md.selectedDanceStyle = `${this.md.selectedDanceStyle}${player[0].substr(counterD - 1, 1)}`
+              if (counterD === player[0].length) {
+                clearInterval(enterDanceI)
               }
-            },                      10)
-          },         Number(player[9]))
-          setTimeout(() => {
-            const scrollInterval = setInterval(() => {
-              this.scrollPosition += 1000
-              window.scrollTo(0, this.scrollPosition)
-            },                                 20)
+            },                              100)
+
+            let counterL = 0
+            setTimeout(() => {
+              this.md.selectedCity = ''
+              const enterLocI = setInterval(() => {
+                counterL += 1
+                this.md.selectedCity = `${this.md.selectedCity}${player[1].substr(counterL - 1, 1)}`
+                if (counterL === player[1].length) {
+                  clearInterval(enterLocI)
+                }
+              },                            100)
+            },         600)
+
+            let pos = 0
+            setTimeout(() => {
+              const fSI = setInterval(() => {
+                if (pos < Number(player[6])) {
+                  pos += 10
+                  window.scrollTo(0, pos)
+                } else {
+                  clearInterval(fSI)
+                }
+              },                      10)
+            },         Number(player[8]))
 
             setTimeout(() => {
-              window.scrollTo(0, 0)
-              clearInterval(scrollInterval)
-            },         300)
-          },         6000)
+              const fSI = setInterval(() => {
+                if (pos < Number(player[7])) {
+                  pos += 10
+                  window.scrollTo(0, pos)
+                } else {
+                  clearInterval(fSI)
+                }
+              },                      10)
+            },         Number(player[9]))
+            setTimeout(() => {
+              const scrollInterval = setInterval(() => {
+                this.scrollPosition += 1000
+                window.scrollTo(0, this.scrollPosition)
+              },                                 20)
 
+              setTimeout(() => {
+                window.scrollTo(0, 0)
+                clearInterval(scrollInterval)
+              },         300)
+            },         6500)
+          },         200)
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
           this.md = this.moduleService.getModuleData()
           this.currentRange = this.initialRange
-          this.md.selectedDanceStyle = player[0]
-          this.md.selectedCity = player[1]
-          const interval = setInterval(() => {
-            this.currentRange += 1
-            if (this.currentRange === Number(player[3])) {
-              clearInterval(interval)
-            }
-          },                           20)
+          setTimeout(() => {
+
+            const interval = setInterval(() => {
+              this.currentRange += 1
+              if (this.currentRange === Number(player[3])) {
+                clearInterval(interval)
+              }
+            },                           20)
+          },         1800)
 
         }
         this.loaded = true
