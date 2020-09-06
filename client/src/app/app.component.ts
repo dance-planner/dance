@@ -189,7 +189,6 @@ export class AppComponent implements OnInit {
     this.backendService.getLandingPageData(play)
       .subscribe(async (result: any) => {
         if (play === undefined) {
-          alert('what')
           this.poi = {
             lat: result[1].lat,
             lon: result[1].lon,
