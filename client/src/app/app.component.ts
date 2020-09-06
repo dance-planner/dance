@@ -295,7 +295,7 @@ export class AppComponent implements OnInit {
 
               setTimeout(() => {
                 clearInterval(finalI)
-              },         3000)
+              },         4000)
             },         6000)
           },         200)
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
