@@ -74,9 +74,9 @@ export class AppComponent implements OnInit {
           if (this.magic === 2) {
             if (result.params.id !== undefined) {
               this.eventId = result.params.id
-              // this.view = 'find'
-              // this.getLandingPageData()
-            } else if (result.params.group !== undefined) {
+              this.getLandingPageData()
+              this.view = 'find'
+          } else if (result.params.group !== undefined) {
               if (result.params.group === 'findDancePartners') {
                 this.view = 'findDancePartners'
               } else {
