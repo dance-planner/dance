@@ -245,7 +245,7 @@ export class AppComponent implements OnInit {
                   clearInterval(enterLocI)
                 }
               },                            100)
-            },         600)
+            },         700)
 
             let pos = 0
             setTimeout(() => {
@@ -256,7 +256,7 @@ export class AppComponent implements OnInit {
                 } else {
                   clearInterval(fSI)
                 }
-              },                      10)
+              },                      5)
             },         Number(player[8]))
 
             setTimeout(() => {
@@ -267,7 +267,7 @@ export class AppComponent implements OnInit {
                 } else {
                   clearInterval(fSI)
                 }
-              },                      10)
+              },                      5)
             },         Number(player[9]))
             setTimeout(() => {
               const scrollInterval = setInterval(() => {
@@ -279,7 +279,7 @@ export class AppComponent implements OnInit {
                 window.scrollTo(0, 0)
                 clearInterval(scrollInterval)
               },         300)
-            },         6500)
+            },         6000)
           },         200)
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
           this.md = this.moduleService.getModuleData()
