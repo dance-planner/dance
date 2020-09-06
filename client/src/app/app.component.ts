@@ -222,6 +222,12 @@ export class AppComponent implements OnInit {
           this.events.unshift(this.events[index])
           index = this.events.indexOf(this.events.filter((e) => e.id === player[4])[0])
           this.events.unshift(this.events[index])
+          index = this.events.indexOf(this.events.filter((e) => e.id === player[10])[0])
+          this.events.unshift(this.events[index])
+          index = this.events.indexOf(this.events.filter((e) => e.id === player[11])[0])
+          this.events.unshift(this.events[index])
+          index = this.events.indexOf(this.events.filter((e) => e.id === player[12])[0])
+          this.events.unshift(this.events[index])
 
           setTimeout(() => {
 
@@ -270,22 +276,24 @@ export class AppComponent implements OnInit {
               },                      5)
             },         Number(player[9]))
             setTimeout(() => {
-              const scrollInterval = setInterval(() => {
-                this.scrollPosition += 1000
-                window.scrollTo(0, this.scrollPosition)
-              },                                 20)
+              // const scrollInterval = setInterval(() => {
+              //   this.scrollPosition += 1000
+              //   window.scrollTo(0, this.scrollPosition)
+              // },                                 20)
 
-              setTimeout(() => {
-                window.scrollTo(0, 0)
-                clearInterval(scrollInterval)
-              },         300)
+              let incr = 1
+              const finalI = setInterval(() => {
+                incr = incr * 1.04
+                pos += 10
+                window.scrollTo(0, pos + incr)
+              },                         5)
+
             },         6000)
           },         200)
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
           this.md = this.moduleService.getModuleData()
           this.currentRange = this.initialRange
           setTimeout(() => {
-
             const interval = setInterval(() => {
               this.currentRange += 1
               if (this.currentRange === Number(player[3])) {
