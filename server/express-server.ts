@@ -60,7 +60,7 @@ function regularlyGetTheLatestFancyShit() {
       events = sortByDate(fs.readJSON(eventsFileId))
       console.log(`events after: ${events.length}`)
       telegramGroups = fs.readJSON(groupsFileId)
-      await resizeImagesOnDemand()
+      // await resizeImagesOnDemand()
     } catch (error) {
       console.log(error.message)
     }
@@ -71,9 +71,9 @@ function regularlyGetTheLatestFancyShit() {
   }, 2 * 60 * 1000)
 }
 
-function resizeImagesOnDemand() {
+// function resizeImagesOnDemand() {
   
-}
+// }
 
 function sortByDate(events: any[]): any[] {
   return events.sort((c1, c2) => {
