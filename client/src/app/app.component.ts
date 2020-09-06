@@ -244,7 +244,7 @@ export class AppComponent implements OnInit {
               if (counterD === player[0].length) {
                 clearInterval(enterDanceI)
               }
-            }, 100)
+            },                              100)
 
             let counterL = 0
             setTimeout(() => {
@@ -255,8 +255,8 @@ export class AppComponent implements OnInit {
                 if (counterL === player[1].length) {
                   clearInterval(enterLocI)
                 }
-              }, 100)
-            }, 700)
+              },                            100)
+            },         700)
 
             let pos = 0
             setTimeout(() => {
@@ -267,8 +267,8 @@ export class AppComponent implements OnInit {
                 } else {
                   clearInterval(fSI)
                 }
-              }, 5)
-            }, Number(player[8]))
+              },                      5)
+            },         Number(player[8]))
 
             setTimeout(() => {
               const fSI = setInterval(() => {
@@ -278,8 +278,8 @@ export class AppComponent implements OnInit {
                 } else {
                   clearInterval(fSI)
                 }
-              }, 5)
-            }, Number(player[9]))
+              },                      5)
+            },         Number(player[9]))
             setTimeout(() => {
               // const scrollInterval = setInterval(() => {
               //   this.scrollPosition += 1000
@@ -291,9 +291,12 @@ export class AppComponent implements OnInit {
                 incr = incr * 1.04
                 pos += 10
                 window.scrollTo(0, pos + incr)
-              }, 5)
+              },                         5)
 
-            }, 6000)
+              setTimeout(() => {
+                clearInterval(finalI)
+              },         3000)
+            },         6000)
           },         200)
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
           this.md = this.moduleService.getModuleData()
@@ -304,7 +307,7 @@ export class AppComponent implements OnInit {
               if (this.currentRange === Number(player[3])) {
                 clearInterval(interval)
               }
-            }, 20)
+            },                           20)
           },         1800)
 
         }
