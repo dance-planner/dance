@@ -91,8 +91,13 @@ export class AppComponent implements OnInit {
               this.view = 'find'
             }
           } else {
-            this.getLandingPageData()
-            this.view = 'find'
+            setTimeout(() => {
+              if (this.magic === 1) {
+
+                this.getLandingPageData()
+                this.view = 'find'
+              }
+            },         100)
           }
         })
 
@@ -180,9 +185,11 @@ export class AppComponent implements OnInit {
   }
 
   private getLandingPageData(play?: string) {
+
     this.backendService.getLandingPageData(play)
       .subscribe(async (result: any) => {
         if (play === undefined) {
+          alert('what')
           this.poi = {
             lat: result[1].lat,
             lon: result[1].lon,
@@ -226,8 +233,6 @@ export class AppComponent implements OnInit {
           this.events.unshift(this.events[index])
           index = this.events.indexOf(this.events.filter((e) => e.id === player[11])[0])
           this.events.unshift(this.events[index])
-          index = this.events.indexOf(this.events.filter((e) => e.id === player[12])[0])
-          this.events.unshift(this.events[index])
 
           setTimeout(() => {
 
@@ -239,7 +244,7 @@ export class AppComponent implements OnInit {
               if (counterD === player[0].length) {
                 clearInterval(enterDanceI)
               }
-            },                              100)
+            }, 100)
 
             let counterL = 0
             setTimeout(() => {
@@ -250,8 +255,8 @@ export class AppComponent implements OnInit {
                 if (counterL === player[1].length) {
                   clearInterval(enterLocI)
                 }
-              },                            100)
-            },         700)
+              }, 100)
+            }, 700)
 
             let pos = 0
             setTimeout(() => {
@@ -262,8 +267,8 @@ export class AppComponent implements OnInit {
                 } else {
                   clearInterval(fSI)
                 }
-              },                      5)
-            },         Number(player[8]))
+              }, 5)
+            }, Number(player[8]))
 
             setTimeout(() => {
               const fSI = setInterval(() => {
@@ -273,8 +278,8 @@ export class AppComponent implements OnInit {
                 } else {
                   clearInterval(fSI)
                 }
-              },                      5)
-            },         Number(player[9]))
+              }, 5)
+            }, Number(player[9]))
             setTimeout(() => {
               // const scrollInterval = setInterval(() => {
               //   this.scrollPosition += 1000
@@ -286,9 +291,9 @@ export class AppComponent implements OnInit {
                 incr = incr * 1.04
                 pos += 10
                 window.scrollTo(0, pos + incr)
-              },                         5)
+              }, 5)
 
-            },         6000)
+            }, 6000)
           },         200)
           await this.moduleService.prepareCardsFromEvents(this.events, this.poi)
           this.md = this.moduleService.getModuleData()
@@ -299,7 +304,7 @@ export class AppComponent implements OnInit {
               if (this.currentRange === Number(player[3])) {
                 clearInterval(interval)
               }
-            },                           20)
+            }, 20)
           },         1800)
 
         }
