@@ -1,17 +1,19 @@
-import { opine, serveStatic } from "https://deno.land/x/opine@0.20.2/mod.ts";
+import { opine, serveStatic } from "https://deno.land/x/opine@1.4.0/mod.ts";
 import { httpPort, httpsPort, pathToCert, pathToCertKey } from './../topsecret/.env.ts'
 import { logger } from './../config.ts'
 import { CommandLineProcessor } from "https://deno.land/x/commandline_processor/commandline-processor.ts"
 import { green } from 'https://deno.land/std@0.53.0/fmt/colors.ts'
 import { Persistence } from "https://deno.land/x/persistence/persistence.ts"
 import { CityService } from 'https://deno.land/x/cities/cityservice.ts'
-import { simpleCors } from "https://deno.land/x/simplecors/simple-cors.ts";
+import { opineCors } from "https://deno.land/x/cors/mod.ts";
+
 
 // Masterplan
 regularlyGetTheLatestFancyShit()
 const app = opine();
-app.use(simpleCors)
+app.use(opineCors())
 const mainStaticAssetsPath = useStaticAssets(app)
+console.log(mainStaticAssetsPath)
 const html = await readPageToMainMemory(mainStaticAssetsPath)
 defineMiddleWare(app)
 defineRoutes(app, html)

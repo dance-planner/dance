@@ -1,1 +1,0 @@
-pm2 start  --interpreter="deno" --interpreter-args="run --allow-run --allow-net --allow-read" server/opine-server.ts

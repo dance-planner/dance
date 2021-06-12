@@ -201,7 +201,7 @@ export class AppComponent implements OnInit {
 
           this.filterEvents(this.city, this.dance, this.initialRange)
 
-          if (this.events.length < 4) {
+          if (this.events.length < 4 && this.eventId === undefined) {
             this.initialRange = 40
             this.filterEvents(this.city, this.dance, this.initialRange)
           }
