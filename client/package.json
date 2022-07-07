@@ -31,7 +31,7 @@
     "dance-planner-typeahead": "^1.0.0",
     "distance-calculator-lat-lon": "0.0.1",
     "gzipper": "^3.7.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng-cards": "0.0.2",
     "ng-range": "0.0.1",
     "ng-responsive-navbar": "^0.1.2",
